@@ -1,0 +1,22 @@
+.sg-sidebar-hamburger {
+    display: flex;
+    align-items: center;
+	padding: var(--sidebar-humburger-padding);
+    width: var(--sidebar-hamburger-button-width);
+    height: var(--sidebar-hamburger-button-height);
+    background-color: var(--sidebar-hamburger-background-color);
+}
+.sg-sidebar-humburger-button-line {
+    fill: var(--sidebar-hamburger-color);
+}
+.sg-sidebar-integrated-hamburger-button { 
+    display: none;
+}
+@media (min-width: 601px) {
+    .sg-sidebar-hamburger-button.sg-sidebar-hamburger-button-hide {
+        display: none;
+    }
+    .sg-sidebar-integrated-hamburger-button.sg-sidebar-integrated-hamburger-button-show {
+        display: block;
+    }
+}

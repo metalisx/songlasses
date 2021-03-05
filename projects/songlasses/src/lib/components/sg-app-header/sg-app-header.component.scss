@@ -1,0 +1,7 @@
+.sg-app-header {
+    background-color: var(--app-header-background-color);
+    color: var(--app-header-color);
+    display: flex;
+    align-items: center;
+    min-height: var(--app-header-min-height);
+}

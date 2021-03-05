@@ -1,0 +1,19 @@
+.sg-app {
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 250px auto;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas: 
+        "header header"
+        "sidebar content"
+        "footer footer"
+}
+.sg-app-header {
+    grid-area: header; 
+}
+.sg-app-content {
+    grid-area: content;
+}
+.sg-app-footer {
+    grid-area: footer;
+}
