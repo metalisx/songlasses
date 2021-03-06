@@ -1,13 +1,13 @@
 .sg-sidebar-hamburger {
     display: flex;
     align-items: center;
-	padding: var(--sidebar-humburger-padding);
-    width: var(--sidebar-hamburger-button-width);
-    height: var(--sidebar-hamburger-button-height);
-    background-color: var(--sidebar-hamburger-background-color);
+	padding: var(--sg-sidebar-humburger-padding);
+    width: var(--sg-sidebar-hamburger-button-width);
+    height: var(--sg-sidebar-hamburger-button-height);
+    background-color: var(--sg-sidebar-hamburger-background-color);
 }
 .sg-sidebar-humburger-button-line {
-    fill: var(--sidebar-hamburger-color);
+    fill: var(--sg-sidebar-hamburger-color);
 }
 .sg-sidebar-integrated-hamburger-button { 
     display: none;

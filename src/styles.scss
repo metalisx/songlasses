@@ -1,67 +1,67 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
     /* font */
-    --font-family: 'Roboto', sans-serif;
-    --font-family-bold: 'Open Sans', sans-serif;
-    --font-size: 0.875rem;
-    --font-weight: 400;
-    --font-weight-bold: 700;
+    --sg-font-family: 'Roboto', sans-serif;
+    --sg-font-family-bold: 'Open Sans', sans-serif;
+    --sg-font-size: 0.875rem;
+    --sg-font-weight: 400;
+    --sg-font-weight-bold: 700;
 
     /* colors */
-    --primary-color: #0289EE;// #f3f2f2;
-    --secondary-color: #0289EE; //#eceaea;
-    --tertiary-color: #EF9F43;
-    --quaternary-color: #EF9F43;
+    --sg-primary-color: #0289EE;// #f3f2f2;
+    --sg-secondary-color: #0289EE; //#eceaea;
+    --sg-tertiary-color: #EF9F43;
+    --sg-quaternary-color: #EF9F43;
 
-    --primary-on-color: #fff;
-    --secondary-on-color: #fff;
-    --tertiary-on-color: #fff;
-    --quaternary-on-color: #fff;
+    --sg-primary-on-color: #fff;
+    --sg-secondary-on-color: #fff;
+    --sg-tertiary-on-color: #fff;
+    --sg-quaternary-on-color: #fff;
 
-    --background-color: #fff;
-    --background-on-color: #000;
-    --background-on-color-hover: #eceaea;
+    --sg-background-color: #fff;
+    --sg-background-on-color: #000;
+    --sg-background-on-color-hover: #eceaea;
 
-    --divider-color: #eceaea;
+    --sg-divider-color: #eceaea;
 
-    --overlay-background-color: rgba(0, 0, 0, 0.5);
+    --sg-overlay-background-color: rgba(0, 0, 0, 0.5);
 
     /* link */
-    --a-color: var(--background-on-color);
-    --a-hover-color: var(--background-on-color);
-    --a-visited-color: var(--background-on-color);
-    --a-active-color: var(--background-color);
+    --sg-a-color: var(--sg-background-on-color);
+    --sg-a-hover-color: var(--sg-background-on-color);
+    --sg-a-visited-color: var(--sg-background-on-color);
+    --sg-a-active-color: var(--sg-background-color);
 
     /* app header */
-    --app-header-background-color: var(--primary-color);
-    --app-header-color: var(--primary-on-color);
-    --app-header-min-height: 65px;
+    --sg-app-header-background-color: var(--sg-primary-color);
+    --sg-app-header-color: var(--sg-primary-on-color);
+    --sg-app-header-min-height: 65px;
 
     /* app footer */
-    --app-footer-background-color: var(--primary-color);
-    --app-footer-color: var(--primary-on-color);
-    --app-footer-min-height: 40px;
+    --sg-app-footer-background-color: var(--sg-primary-color);
+    --sg-app-footer-color: var(--sg-primary-on-color);
+    --sg-app-footer-min-height: 40px;
 
     /* sidebar */
-    --sidebar-background-color: var(--background-color);
-    --sidebar-header-min-height: var(--app-header-min-height);
-    --sidebar-header-background-color: var(--primary-color);
-    --sidebar-overlay-background-color: var(--overlay-background-color);
-    --sidebar-menu-item-label-font-size: var(--font-size);
-    --sidebar-menu-item-label-font-weight: var(--font-weight-bold);
-    --sidebar-menu-item-hover-background-color: var(--background-on-color-hover);
-    --sidebar-menu-item-divider-color: var(--divider-color);
-    --sidebar-menu-item-a-color: var(--background-on-color);
-    --sidebar-menu-item-a-hover-color: var(--background-on-color);
-    --sidebar-menu-item-a-visited-color: var(--background-on-color);
-    --sidebar-menu-item-a-active-color: var(--background-on-color);
+    --sg-sidebar-background-color: var(--sg-background-color);
+    --sg-sidebar-header-min-height: var(--sg-app-header-min-height);
+    --sg-sidebar-header-background-color: var(--sg-primary-color);
+    --sg-sidebar-overlay-background-color: var(--sg-overlay-background-color);
+    --sg-sidebar-menu-item-label-font-size: var(--sg-font-size);
+    --sg-sidebar-menu-item-label-font-weight: var(--sg-font-weight-bold);
+    --sg-sidebar-menu-item-hover-background-color: var(--sg-background-on-color-hover);
+    --sg-sidebar-menu-item-divider-color: var(--sg-divider-color);
+    --sg-sidebar-menu-item-a-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-hover-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-visited-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-active-color: var(--sg-background-on-color);
 
     /* sidebar hamburger */
-    --sidebar-humburger-padding: 15px;
-    --sidebar-hamburger-button-width: 60px;
-    --sidebar-hamburger-button-height: 60px;
-    --sidebar-hamburger-background-color: var(--primary-color);
-    --sidebar-hamburger-color: var(--primary-on-color);
+    --sg-sidebar-humburger-padding: 15px;
+    --sg-sidebar-hamburger-button-width: 60px;
+    --sg-sidebar-hamburger-button-height: 60px;
+    --sg-sidebar-hamburger-background-color: var(--sg-primary-color);
+    --sg-sidebar-hamburger-color: var(--sg-primary-on-color);
 
 }
 * {
@@ -72,28 +72,28 @@ html, body {
     padding: 0;
 	width: 100%;
     height: 100%;
-    font-size: var(--font-size);
-    font-weight: var(--font-weight);
-    font-family: var(--font-family);
-    background-color: var(--background-color);
-    color: var(--background-on-color);
+    font-size: var(--sg-font-size);
+    font-weight: var(--sg-font-weight);
+    font-family: var(--sg-font-family);
+    background-color: var(--sg-background-color);
+    color: var(--sg-background-on-color);
 }
 h1, h2, h3, h4, h5, h6, strong, b {
-    font-family: var(--font-family-bold);
-    font-weight: var(--font-weight-bold);
+    font-family: var(--sg-font-family-bold);
+    font-weight: var(--sg-font-weight-bold);
 }
 a, a:hover, a:visited {
     text-decoration: none;
 }
 a {
-    color: var(--a-color);
+    color: var(--sg-a-color);
 }
 a:hover {
-    color: var(--a-hover-color);
+    color: var(--sg-a-hover-color);
 }
 a:visited {
-    color: var(--a-visited-color);
+    color: var(--sg-a-visited-color);
 }
 a:active {
-    color: var(--a-active-color);
+    color: var(--sg-a-active-color);
 }
