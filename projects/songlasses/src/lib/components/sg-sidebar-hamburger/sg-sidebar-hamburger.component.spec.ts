@@ -1,7 +1,7 @@
 import { ComponentFixture, getTestBed, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { Subject } from 'rxjs';
-import { Sidebar } from '../../models/sg-sidebar/sidebar.model';
+import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 import { SgSidebarService } from '../../services/sg-sidebar/sg-sidebar.service';
 
 import { SgSidebarHamburgerComponent } from './sg-sidebar-hamburger.component';
@@ -16,7 +16,7 @@ describe('SgSidebarHamburgerComponent', () => {
   let sidebarServiceMock: jasmine.SpyObj<SgSidebarService>;
   let getSidebarObservableSpy: jasmine.Spy;
 
-  let sidbarServiceSubject: Subject<Sidebar> = new Subject<Sidebar>();
+  let sidbarServiceSubject: Subject<SgSidebar> = new Subject<SgSidebar>();
 
   beforeEach(async () => {
     sidebarServiceMock = jasmine.createSpyObj('SidebarService', ['getSidebar', 'getSidebarObservable', 
@@ -35,7 +35,7 @@ describe('SgSidebarHamburgerComponent', () => {
     fixture = TestBed.createComponent(SgSidebarHamburgerComponent);
     component = fixture.componentInstance;
     sidebarService = TestBed.inject(SgSidebarService);
-    let sidebar: Sidebar = {
+    let sidebar: SgSidebar = {
       show: false,
       integrated: false,
       integratedShow: false,
@@ -54,7 +54,7 @@ describe('SgSidebarHamburgerComponent', () => {
   });
 
   it('#toggleSidebar() should show sidebar', () => {
-    let sidebar: Sidebar = {
+    let sidebar: SgSidebar = {
       show: false,
       integrated: false,
       integratedShow: false,
@@ -74,7 +74,7 @@ describe('SgSidebarHamburgerComponent', () => {
   });
 
   it('#toggleSidebar() should hide sidebar', () => {
-    let sidebar: Sidebar = {
+    let sidebar: SgSidebar = {
       show: true,
       integrated: false,
       integratedShow: false,
@@ -94,7 +94,7 @@ describe('SgSidebarHamburgerComponent', () => {
   });
 
   it('#toggleSidebarIntegrated() should show sidebar integrated', () => {
-    let sidebar: Sidebar = {
+    let sidebar: SgSidebar = {
       show: false,
       integrated: true,
       integratedShow: false,
@@ -113,7 +113,7 @@ describe('SgSidebarHamburgerComponent', () => {
   });
 
   it('#toggleSidebarIntegrated() should hide sidebar integrated', () => {
-    let sidebar: Sidebar = {
+    let sidebar: SgSidebar = {
       show: false,
       integrated: true,
       integratedShow: true,

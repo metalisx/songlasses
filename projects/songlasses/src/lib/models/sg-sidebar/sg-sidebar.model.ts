@@ -1,6 +1,6 @@
-import { MenuItem } from "./menu-item..model";
+import { SgMenuItem } from "./sg-menu-item.model";
 
-export interface Sidebar {
+export interface SgSidebar {
 
     // Toggle sidebar when display is in small screens mode, this is when the sidebar is out of the normal flow and is moved in from the left.
     show: boolean;
@@ -17,6 +17,6 @@ export interface Sidebar {
     // Only relevant if the property integrated is true.
     integratedHamburgerButtonShow: boolean;
 
-    menuItems: MenuItem[];
+    menuItems: SgMenuItem[];
 
 }

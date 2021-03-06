@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
-import { MenuItem } from '../../models/sg-sidebar/menu-item..model';
-import { Sidebar } from '../../models/sg-sidebar/sidebar.model';
+import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
+import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 import { SgSidebarService } from './sg-sidebar.service';
 
 describe('SgSidebarervice', () => {
@@ -26,7 +26,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#setSidebar should set sidebar and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = {
+        let sidebar: SgSidebar = {
             show: false,
             integrated: false,
             integratedShow: true,
@@ -42,7 +42,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#refreshSidebar should return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = service.getSidebar();
+        let sidebar: SgSidebar = service.getSidebar();
         service.getSidebarObservable().subscribe(value => {
             expect(value).toEqual(sidebar);
             done();
@@ -51,7 +51,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#show should set sidebar.show to true and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = {
+        let sidebar: SgSidebar = {
             show: false,
             integrated: false,
             integratedShow: false,
@@ -73,7 +73,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#hide should set sidebar.show to false and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = {
+        let sidebar: SgSidebar = {
             show: true,
             integrated: false,
             integratedShow: false,
@@ -95,7 +95,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#integratedShow should set sidebar.integratedShow to true and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = {
+        let sidebar: SgSidebar = {
             show: false,
             integrated: false,
             integratedShow: false,
@@ -117,7 +117,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#integratedHide should set sidebar.integratedShow to false and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: Sidebar = {
+        let sidebar: SgSidebar = {
             show: false,
             integrated: false,
             integratedShow: true,
@@ -139,7 +139,7 @@ describe('SgSidebarervice', () => {
     });
 
     it('#setMenuItems should set sidebar.menuItems and return sidebar from observable', (done: DoneFn) => {
-        let menuItems: MenuItem[] = [{
+        let menuItems: SgMenuItem[] = [{
             label: 'some label'
         }];
         service.getSidebarObservable().subscribe(value => {

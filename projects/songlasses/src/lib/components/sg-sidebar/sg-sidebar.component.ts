@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { Sidebar } from '../../models/sg-sidebar/sidebar.model';
+import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 import { SgSidebarService } from '../../services/sg-sidebar/sg-sidebar.service';
 
 @Component({
@@ -9,7 +9,7 @@ import { SgSidebarService } from '../../services/sg-sidebar/sg-sidebar.service';
 })
 export class SgSidebarComponent implements OnInit {
 
-  sidebar!: Sidebar;
+  sidebar!: SgSidebar;
 
   constructor(private sidebarService: SgSidebarService) { 
   }

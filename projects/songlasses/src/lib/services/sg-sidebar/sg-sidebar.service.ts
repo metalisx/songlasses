@@ -1,15 +1,15 @@
 import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { MenuItem } from '../../models/sg-sidebar/menu-item..model';
-import { Sidebar } from '../../models/sg-sidebar/sidebar.model';
+import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
+import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SgSidebarService {
 
-    private sidebar: Sidebar = {
+    private sidebar: SgSidebar = {
         show: false,
         integrated: true,
         integratedShow: true,
@@ -17,20 +17,20 @@ export class SgSidebarService {
         menuItems: []
     };
 
-    private subject = new Subject<Sidebar>();
+    private subject = new Subject<SgSidebar>();
 
     constructor() {
     }
 
-    getSidebarObservable(): Observable<Sidebar> {
+    getSidebarObservable(): Observable<SgSidebar> {
         return this.subject.asObservable();
     }
 
-    getSidebar(): Sidebar {
+    getSidebar(): SgSidebar {
         return this.sidebar;
     }
 
-    setSidebar(sidebar: Sidebar): void {
+    setSidebar(sidebar: SgSidebar): void {
         this.sidebar = sidebar;
         this.subject.next(this.sidebar);
     }
@@ -59,7 +59,7 @@ export class SgSidebarService {
         this.sendSidebar();
     }
 
-    setMenuItems(menuItems: MenuItem[]): void {
+    setMenuItems(menuItems: SgMenuItem[]): void {
         this.sidebar.menuItems = menuItems;
         this.sendSidebar();
     }

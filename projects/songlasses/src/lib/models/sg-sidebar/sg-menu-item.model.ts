@@ -4,15 +4,15 @@
  * - only one of href, routerlink or action should be set
  * - hrefTarget can only be set if the href is set
  */
-export class MenuItem {
+export class SgMenuItem {
 
     label?: string;
     icon?: string;
     routerLink?: any;
     href?: string;
     hrefTarget?: string;
-    action?: (event?: any, item?: MenuItem) => void; // Function with an optional event parameter which can be anything
-    items?: MenuItem[];
+    action?: (event?: any, item?: SgMenuItem) => void; // Function with an optional event parameter which can be anything
+    items?: SgMenuItem[];
     divider?: boolean;
     disabled?: boolean;
 
