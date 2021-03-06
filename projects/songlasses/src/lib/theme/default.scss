@@ -1,0 +1,98 @@
+:root {
+    /* font */
+    --sg-font-family: 'Roboto', sans-serif;
+    --sg-font-family-bold: 'Open Sans', sans-serif;
+    --sg-font-size: 0.875rem;
+    --sg-font-weight: 400;
+    --sg-font-weight-bold: 700;
+
+    /* colors */
+    --sg-primary-color: #0289EE;// #f3f2f2;
+    --sg-secondary-color: #0289EE; //#eceaea;
+    --sg-tertiary-color: #EF9F43;
+    --sg-quaternary-color: #EF9F43;
+
+    --sg-primary-on-color: #fff;
+    --sg-secondary-on-color: #fff;
+    --sg-tertiary-on-color: #fff;
+    --sg-quaternary-on-color: #fff;
+
+    --sg-background-color: #fff;
+    --sg-background-on-color: #000;
+    --sg-background-on-color-hover: #eceaea;
+
+    --sg-divider-color: #eceaea;
+
+    --sg-overlay-background-color: rgba(0, 0, 0, 0.5);
+
+    /* link */
+    --sg-a-color: var(--sg-background-on-color);
+    --sg-a-hover-color: var(--sg-background-on-color);
+    --sg-a-visited-color: var(--sg-background-on-color);
+    --sg-a-active-color: var(--sg-background-color);
+
+    /* app header */
+    --sg-app-header-background-color: var(--sg-primary-color);
+    --sg-app-header-color: var(--sg-primary-on-color);
+    --sg-app-header-min-height: 65px;
+
+    /* app footer */
+    --sg-app-footer-background-color: var(--sg-primary-color);
+    --sg-app-footer-color: var(--sg-primary-on-color);
+    --sg-app-footer-min-height: 40px;
+
+    /* sidebar */
+    --sg-sidebar-background-color: var(--sg-background-color);
+    --sg-sidebar-header-min-height: var(--sg-app-header-min-height);
+    --sg-sidebar-header-background-color: var(--sg-primary-color);
+    --sg-sidebar-overlay-background-color: var(--sg-overlay-background-color);
+    --sg-sidebar-menu-item-label-font-size: var(--sg-font-size);
+    --sg-sidebar-menu-item-label-font-weight: var(--sg-font-weight-bold);
+    --sg-sidebar-menu-item-hover-background-color: var(--sg-background-on-color-hover);
+    --sg-sidebar-menu-item-divider-color: var(--sg-divider-color);
+    --sg-sidebar-menu-item-a-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-hover-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-visited-color: var(--sg-background-on-color);
+    --sg-sidebar-menu-item-a-active-color: var(--sg-background-on-color);
+
+    /* sidebar hamburger */
+    --sg-sidebar-humburger-padding: 15px;
+    --sg-sidebar-hamburger-button-width: 60px;
+    --sg-sidebar-hamburger-button-height: 60px;
+    --sg-sidebar-hamburger-background-color: var(--sg-primary-color);
+    --sg-sidebar-hamburger-color: var(--sg-primary-on-color);
+
+}
+* {
+    box-sizing: border-box;
+}
+html, body {
+    margin: 0;
+    padding: 0;
+	width: 100%;
+    height: 100%;
+    font-size: var(--sg-font-size);
+    font-weight: var(--sg-font-weight);
+    font-family: var(--sg-font-family);
+    background-color: var(--sg-background-color);
+    color: var(--sg-background-on-color);
+}
+h1, h2, h3, h4, h5, h6, strong, b {
+    font-family: var(--sg-font-family-bold);
+    font-weight: var(--sg-font-weight-bold);
+}
+a, a:hover, a:visited {
+    text-decoration: none;
+}
+a {
+    color: var(--sg-a-color);
+}
+a:hover {
+    color: var(--sg-a-hover-color);
+}
+a:visited {
+    color: var(--sg-a-visited-color);
+}
+a:active {
+    color: var(--sg-a-active-color);
+}
