@@ -44,6 +44,21 @@ export class AppComponent {
         }
       },
       {
+        label: 'Menu item with submenu',
+        menuItems: [
+          {
+            label: 'Sub menu 1 menu item 1'
+          },
+          {
+            label: 'Sub menu 1 menu item 2 with submenu',
+            menuItems: [
+              {
+                label: 'Sub menu 2'
+              }            ]
+          }
+        ]
+      },
+      {
         label: 'Disabled menu item',
         disabled: true,
       }

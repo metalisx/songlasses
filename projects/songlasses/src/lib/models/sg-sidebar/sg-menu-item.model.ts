@@ -12,7 +12,7 @@ export class SgMenuItem {
     href?: string;
     hrefTarget?: string;
     action?: (event?: any, item?: SgMenuItem) => void; // Function with an optional event parameter which can be anything
-    items?: SgMenuItem[];
+    menuItems?: SgMenuItem[];
     divider?: boolean;
     disabled?: boolean;
 

@@ -78,6 +78,29 @@
     height: 1px;
     background-color: var(--sg-sidebar-menu-item-divider-color);
 }
+.sg-sidebar-menu-item-open-submenu-button svg {
+    margin-left: auto;
+    padding-left: 4px;
+    width: 1.2em;
+    height: 1.2em;
+}
+.sg-sidebar-menu-item-open-submenu-button path {
+    stroke: var(--sg-sidebar-menu-item-open-submenu-button-color);
+    fill: var(--sg-sidebar-menu-item-open-submenu-button-color);
+}
+.sg-sidebar-menu-item-close-submenu-button {
+    border-bottom: 1px solid var(--sg-sidebar-menu-item-close-submenu-button-color);
+}
+.sg-sidebar-menu-item-close-submenu-button svg {
+    margin: auto;
+    padding-right: 4px;
+    width: 1.5em;
+    height: 1.2em;    
+}
+.sg-sidebar-menu-item-close-submenu-button path {
+    stroke: var(--sg-sidebar-menu-item-close-submenu-button-color);
+    fill: var(--sg-sidebar-menu-item-close-submenu-button-color);
+}
 .sg-sidebar-overlay {
     display: none;
     z-index: 1000;
