@@ -9,9 +9,11 @@ Components
  
 ## 1 Build the component library
 
-Build the component library by running: ng build songlasses
+Build the component library by running: npm run build-lib
 
 The library is generated in the dist folder.
+
+This will run "ng build songlasses" and a custom script to copy the theme directory with scss files to the dist foloder.
 
 ## 2 Running the application
 
