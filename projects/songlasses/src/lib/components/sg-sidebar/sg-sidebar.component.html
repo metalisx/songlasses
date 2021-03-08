@@ -9,12 +9,13 @@
         <ul class="sg-sidebar-menu-items">
             <li *ngIf="contextMenuItems && contextMenuItems.length > 1" class="sg-sidebar-menu-item">
                 <a href="javascript:;" (click)="closeSubmenu($event);" class="sg-sidebar-menu-item-close-submenu-button">
+                    <div class="sg-sidebar-menu-item-label">{{contextMenuItems[contextMenuItems.length-1].parentMenuItem?.label}}</div>
                     <svg>
                         <path d="M 7 1 L 13 7 L 1 7 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
                     </svg>
                 </a>    
             </li>
-            <ng-container *ngFor="let menuItem of contextMenuItems[contextMenuItems.length - 1]">
+            <ng-container *ngFor="let menuItem of contextMenuItems[contextMenuItems.length - 1].menuItems">
                 <li class="sg-sidebar-menu-item" [ngClass]="menuItem.disabled ? 'sg-sidebar-menu-item-disabled' : ''">
                     <ng-container *ngIf="!menuItem.disabled">
                         <a *ngIf="menuItem.routerLink" routerLink="{{menuItem.routerLink}}" (click)="closeSidebar()">

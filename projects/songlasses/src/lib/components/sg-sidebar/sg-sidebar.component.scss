@@ -89,13 +89,14 @@
     fill: var(--sg-sidebar-menu-item-open-submenu-button-color);
 }
 .sg-sidebar-menu-item-close-submenu-button {
+    display: flex;
     border-bottom: 1px solid var(--sg-sidebar-menu-item-close-submenu-button-color);
 }
 .sg-sidebar-menu-item-close-submenu-button svg {
-    margin: auto;
-    padding-right: 4px;
+    align-self: center;
+    margin-left: auto;
     width: 1.5em;
-    height: 1.2em;    
+    height: 0.8em;    
 }
 .sg-sidebar-menu-item-close-submenu-button path {
     stroke: var(--sg-sidebar-menu-item-close-submenu-button-color);

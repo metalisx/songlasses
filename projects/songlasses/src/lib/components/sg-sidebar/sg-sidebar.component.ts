@@ -12,7 +12,7 @@ export class SgSidebarComponent implements OnInit {
 
   sidebar!: SgSidebar;
 
-  contextMenuItems: SgMenuItem[][] = [];
+  contextMenuItems: {parentMenuItem:SgMenuItem|null, menuItems:SgMenuItem[]}[] = [];
 
   constructor(private sidebarService: SgSidebarService) {
   }
@@ -21,7 +21,10 @@ export class SgSidebarComponent implements OnInit {
     this.sidebarService.getSidebarObservable().subscribe(sidebar => {
       this.sidebar = sidebar;
       if (sidebar.menuItems) {
-        this.contextMenuItems[0] = sidebar.menuItems;
+        this.contextMenuItems[0] = {
+          parentMenuItem: null,
+          menuItems: sidebar.menuItems
+        };
       }
     });
     this.sidebarService.refresh();
@@ -32,7 +35,7 @@ export class SgSidebarComponent implements OnInit {
   }
   
   openSubmenu(event: any, menuItem: SgMenuItem): void {
-    this.contextMenuItems[this.contextMenuItems.length] = menuItem.menuItems ? menuItem.menuItems : [];
+    this.contextMenuItems[this.contextMenuItems.length] = {parentMenuItem: menuItem, menuItems: menuItem.menuItems ? menuItem.menuItems : []};
   }
 
   closeSubmenu(event: any): void {
