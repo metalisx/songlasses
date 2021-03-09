@@ -8,11 +8,13 @@
     <div class="sg-sidebar-content">
         <ul class="sg-sidebar-menu-items">
             <li *ngIf="contextMenuItems && contextMenuItems.length > 1" class="sg-sidebar-menu-item">
-                <a href="javascript:;" (click)="closeSubmenu($event);" class="sg-sidebar-menu-item-close-submenu-button">
+                <a href="javascript:;" (click)="closeSubmenu($event);" class="sg-sidebar-menu-item-submenu-close">
                     <div class="sg-sidebar-menu-item-label">{{contextMenuItems[contextMenuItems.length-1].parentMenuItem?.label}}</div>
-                    <svg>
-                        <path d="M 7 1 L 13 7 L 1 7 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
-                    </svg>
+                    <div class="sg-sidebar-menu-item-submenu-close-button">
+                        <svg>
+                            <path d="M 7 1 L 13 7 L 1 7 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
+                        </svg>
+                    </div>
                 </a>    
             </li>
             <ng-container *ngFor="let menuItem of contextMenuItems[contextMenuItems.length - 1].menuItems">
@@ -34,12 +36,14 @@
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
                             <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
                         </a>
-                        <a *ngIf="menuItem.menuItems" href="javascript:;" (click)="openSubmenu($event, menuItem);" class="sg-sidebar-menu-item-open-submenu-button">
+                        <a *ngIf="menuItem.menuItems" href="javascript:;" (click)="openSubmenu($event, menuItem);">
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
                             <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
-                            <svg>
-                                <path d="M 0 1 L 7 7 L 0 13 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
-                            </svg>
+                            <div class="sg-sidebar-menu-item-submenu-open-button">
+                                <svg>
+                                    <path d="M 0 1 L 7 7 L 0 13 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
+                                </svg>
+                            </div>
                         </a>
                         <a *ngIf="!menuItem.href && !menuItem.routerLink && !menuItem.action && !menuItem.menuItems" href="javascript:;" (click)="closeSidebar();">
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>

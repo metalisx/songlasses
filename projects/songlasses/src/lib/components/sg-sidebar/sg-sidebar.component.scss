@@ -79,28 +79,30 @@
     height: 1px;
     background-color: var(--sg-sidebar-menu-item-divider-color);
 }
-.sg-sidebar-menu-item-open-submenu-button svg {
+.sg-sidebar-menu-item-submenu-close {
+    border-bottom: 1px solid var(--sg-sidebar-menu-item-close-submenu-button-color);
+}
+.sg-sidebar-menu-item-submenu-open-button, .sg-sidebar-menu-item-submenu-close-button {
+    display: flex;
     margin-left: auto;
-    padding-left: 4px;
+    padding-left: 8px;
+}
+.sg-sidebar-menu-item-submenu-open-button svg, .sg-sidebar-menu-item-submenu-close-button svg {
+    margin-left: auto;
+    align-self: center;
     width: 1.2em;
+}
+.sg-sidebar-menu-item-submenu-open-button svg {
     height: 1.2em;
 }
-.sg-sidebar-menu-item-open-submenu-button path {
+.sg-sidebar-menu-item-submenu-close-button svg {
+    height: 0.8em;    
+}
+.sg-sidebar-menu-item-submenu-open-button path {
     stroke: var(--sg-sidebar-menu-item-open-submenu-button-color);
     fill: var(--sg-sidebar-menu-item-open-submenu-button-color);
 }
-.sg-sidebar-menu-item-close-submenu-button {
-    display: flex;
-    border-bottom: 1px solid var(--sg-sidebar-menu-item-close-submenu-button-color);
-}
-.sg-sidebar-menu-item-close-submenu-button svg {
-    align-self: center;
-    padding-left: 4px;
-    margin-left: auto;
-    width: 1.5em;
-    height: 0.8em;    
-}
-.sg-sidebar-menu-item-close-submenu-button path {
+.sg-sidebar-menu-item-submenu-close-button path {
     stroke: var(--sg-sidebar-menu-item-close-submenu-button-color);
     fill: var(--sg-sidebar-menu-item-close-submenu-button-color);
 }
