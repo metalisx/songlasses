@@ -80,7 +80,7 @@
     background-color: var(--sg-sidebar-menu-item-divider-color);
 }
 .sg-sidebar-menu-item-submenu-close {
-    border-bottom: 1px solid var(--sg-sidebar-menu-item-close-submenu-button-color);
+    border-bottom: var(--sg-sidebar-menu-item-submenu-close);
 }
 .sg-sidebar-menu-item-submenu-open-button, .sg-sidebar-menu-item-submenu-close-button {
     display: flex;
@@ -99,12 +99,12 @@
     height: 0.8em;    
 }
 .sg-sidebar-menu-item-submenu-open-button path {
-    stroke: var(--sg-sidebar-menu-item-open-submenu-button-color);
-    fill: var(--sg-sidebar-menu-item-open-submenu-button-color);
+    stroke: var(--sg-sidebar-menu-item-submenu-open-button-color);
+    fill: var(--sg-sidebar-menu-item-submenu-open-button-color);
 }
 .sg-sidebar-menu-item-submenu-close-button path {
-    stroke: var(--sg-sidebar-menu-item-close-submenu-button-color);
-    fill: var(--sg-sidebar-menu-item-close-submenu-button-color);
+    stroke: var(--sg-sidebar-menu-item-submenu-close-button-color);
+    fill: var(--sg-sidebar-menu-item-submenu-close-button-color);
 }
 .sg-sidebar-overlay {
     display: none;
