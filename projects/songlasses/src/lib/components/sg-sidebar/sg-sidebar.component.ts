@@ -19,7 +19,6 @@ export class SgSidebarComponent implements OnInit {
 
   ngOnInit(): void {
     this.sidebarService.getSidebarObservable().subscribe(sidebar => {
-      console.log('x');
       this.sidebar = sidebar;
       if (sidebar.menuItems) {
         this.contextMenuItems = [];
