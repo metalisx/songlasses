@@ -1,19 +1,24 @@
 .sg-sidebar {
     display: flex;
+    opacity: 0;
     position: relative;
     background-color: var(--sg-sidebar-background-color);
     flex-direction: column;
     min-width: 100%;
     height: 100vh;
     left: -100%;
-    transition: left 0.5s;
+    transition: opacity 0s, left 0.5s;
     z-index: 1001;
     position: absolute;
     min-width: 270px;
     top: 0;
 }
 .sg-sidebar-show {
+    opacity: 1;
     left: 0;
+}
+.sg-sidebar-hide {
+    transition: opacity 0.5s, left 0.5s;
 }
 .sg-sidebar-header {
     display: flex;
@@ -90,13 +95,6 @@
 .sg-sidebar-menu-item-submenu-open-button svg, .sg-sidebar-menu-item-submenu-close-button svg {
     margin-left: auto;
     align-self: center;
-    width: 1.2em;
-}
-.sg-sidebar-menu-item-submenu-open-button svg {
-    height: 1.2em;
-}
-.sg-sidebar-menu-item-submenu-close-button svg {
-    height: 0.8em;    
 }
 .sg-sidebar-menu-item-submenu-open-button path {
     stroke: var(--sg-sidebar-menu-item-submenu-open-button-color);
@@ -131,6 +129,7 @@
         overflow: unset;
     }
     .sg-sidebar.sg-sidebar-integrated {
+        opacity: 1;
         left: unset;
         transition: unset;
         position: unset;
