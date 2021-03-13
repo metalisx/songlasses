@@ -76,6 +76,12 @@
     font-size: var(--sg-sidebar-menu-item-label-font-size);
     font-weight: var(--sg-sidebar-menu-item-label-font-weight);  
 }
+.sg-sidebar-menu-item-sub-header {
+    padding: 18px 16px;
+    font-size: var(--sg-sidebar-menu-item-sub-header-font-size);
+    font-weight: var(--sg-sidebar-menu-item-sub-header-font-weight);  
+    color: var(--sg-sidebar-menu-item-sub-header-color);
+}
 .sg-sidebar-menu-item-divider {
     height: 1px;
     margin: 8px 0;

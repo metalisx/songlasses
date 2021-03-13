@@ -15,10 +15,13 @@
                             <path d="M 7 1 L 13 7 L 1 7 z" fill="black" stroke="black" stroke-width="2" stroke-linejoin="round"/>
                         </svg>
                     </div>
-                </a>    
+                </a>
             </li>
             <ng-container *ngFor="let menuItem of contextMenuItems[contextMenuItems.length - 1].menuItems">
-                <li class="sg-sidebar-menu-item" [ngClass]="menuItem.disabled ? 'sg-sidebar-menu-item-disabled' : ''">
+                <li *ngIf="menuItem.subHeader" class="sg-sidebar-menu-item-sub-header">
+                    <div>{{menuItem.subHeader}}</div>
+                </li>
+                <li *ngIf="menuItem.label" class="sg-sidebar-menu-item" [ngClass]="menuItem.disabled ? 'sg-sidebar-menu-item-disabled' : ''">
                     <ng-container *ngIf="!menuItem.disabled">
                         <a *ngIf="menuItem.routerLink" routerLink="{{menuItem.routerLink}}" (click)="closeSidebar()">
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
@@ -32,7 +35,7 @@
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
                             <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
                         </a>
-                        <a *ngIf="menuItem.action" href="javascript:;" (click)="menuItem.action($event, menuItem); closeSidebar();">
+                        <a *ngIf="menuItem.action" href="javascript:;" (click)="menuItem.action($event, menuItem) ? closeSidebar() : null">
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
                             <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
                         </a>
@@ -45,7 +48,8 @@
                                 </svg>
                             </div>
                         </a>
-                        <a *ngIf="!menuItem.href && !menuItem.routerLink && !menuItem.action && !menuItem.menuItems" href="javascript:;" (click)="closeSidebar();">
+                        <a *ngIf="!menuItem.href && !menuItem.routerLink && !menuItem.action && !menuItem.menuItems" 
+                            href="javascript:;" (click)="closeSidebar();">
                             <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
                             <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
                         </a>
