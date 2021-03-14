@@ -6,6 +6,8 @@ This component library is in flux.
 
 Components
  * sidebar
+
+To see the demo open a browser and navigate to: https://metalisx.github.io/songlasses/.
  
 ## 1 Build the component library
 
