@@ -1,21 +1,21 @@
 <div class="sg-sidebar-hamburger">
     <svg *ngIf="!sidebar.integrated" class="sg-sidebar-hamburger-button" 
-            (click)="toggleSidebar()" viewBox="0 0 100 65">
-        <rect width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="25" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="50" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
+            (click)="toggleSidebar()" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
     </svg>
     <svg *ngIf="sidebar.integrated" class="sg-sidebar-hamburger-button sg-sidebar-hamburger-button-hide" 
-            (click)="toggleSidebar()" viewBox="0 0 100 65">
-        <rect width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="25" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="50" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
+            (click)="toggleSidebar()" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
     </svg>
     <svg *ngIf="sidebar.integrated" class="sg-sidebar-integrated-hamburger-button"
             [ngClass]="{'sg-sidebar-integrated-hamburger-button-show' : sidebar.integratedHamburgerButtonShow}"
-            (click)="toggleSidebarIntegrated()" viewBox="0 0 100 65">
-        <rect width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="25" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
-        <rect y="50" width="100" height="15" rx="8" class="sg-sidebar-humburger-button-line"></rect>
+            (click)="toggleSidebarIntegrated()" viewBox="0 0 24 24">
+        <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+        <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
     </svg>
 </div>
