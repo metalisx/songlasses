@@ -9,3 +9,5 @@ export * from './lib/components/sg-app-header/sg-app-header.component';
 export * from './lib/components/sg-sidebar/sg-sidebar.component';
 export * from './lib/components/sg-sidebar-hamburger/sg-sidebar-hamburger.component';
 export * from './lib/services/sg-sidebar/sg-sidebar.service';
+export * from './lib/models/sg-sidebar/sg-menu-item.model';
+export * from './lib/models/sg-sidebar/sg-sidebar.model';
