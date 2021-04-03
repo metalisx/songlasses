@@ -1,46 +1,46 @@
 :root {
     /* font */
-    --sg-font-family-regular: 'Roboto', sans-serif;
-    --sg-font-family-alternative: 'Open Sans', sans-serif;
+    --sg-font-family-primary: 'Roboto', sans-serif;
+    --sg-font-family-secundary: 'Open Sans', sans-serif;
     --sg-font-weight-normal: 400;
     --sg-font-weight-bold: 700;
 
-    --sg-body-font-family: var(--sg-font-family-regular);
+    --sg-body-font-family: var(--sg-font-family-primary);
     --sg-body-font-size: 1rem;
     --sg-body-line-height: 1.5em;
     --sg-body-font-weight: var(--sg-font-weight-normal);
 
-    --sg-h1-font-family: var(--sg-font-family-alternative);
+    --sg-h1-font-family: var(--sg-font-family-secundary);
     --sg-h1-font-size: 3rem;
     --sg-h1-line-height: 4.5em;
     --sg-h1-font-weight: var(--sg-font-weight-bold);
 
-    --sg-h2-font-family: var(--sg-font-family-alternative);
+    --sg-h2-font-family: var(--sg-font-family-secundary);
     --sg-h2-font-size: 2rem;
     --sg-h2-line-height: 3em;
     --sg-h2-font-weight: var(--sg-font-weight-bold);
 
-    --sg-h3-font-family: var(--sg-font-family-alternative);
+    --sg-h3-font-family: var(--sg-font-family-secundary);
     --sg-h3-font-size: 1.5rem;
     --sg-h3-line-height: 2.5em;
     --sg-h3-font-weight: var(--sg-font-weight-bold);
 
-    --sg-h4-font-family: var(--sg-font-family-alternative);
+    --sg-h4-font-family: var(--sg-font-family-secundary);
     --sg-h4-font-size: 1.25rem;
     --sg-h4-line-height: 2em;
     --sg-h4-font-weight: var(--sg-font-weight-bold);
 
-    --sg-h5-font-family: var(--sg-font-family-alternative);
+    --sg-h5-font-family: var(--sg-font-family-secundary);
     --sg-h5-font-size: 1rem;
     --sg-h5-line-height: 1.5em;
     --sg-h5-font-weight: var(--sg-font-weight-bold);
 
-    --sg-h6-font-family: var(--sg-font-family-alternative);
+    --sg-h6-font-family: var(--sg-font-family-secundary);
     --sg-h6-font-size: 0.75rem;
     --sg-h6-line-height: 1.5em;
     --sg-h6-font-weight: var(--sg-font-weight-bold);
 
-    --sg-sub-header-font-family: var(--sg-font-family-alternative);
+    --sg-sub-header-font-family: var(--sg-font-family-secundary);
     --sg-sub-header-font-size: 1rem;
     --sg-sub-header-line-height: 1.5em;
     --sg-sub-header-font-weight: var(--sg-font-weight-bold);
@@ -115,6 +115,7 @@
     --sg-svg-icon-width: 1rem;
     --sg-svg-icon-height: 1rem;
 }
+/* Global CSS */
 * {
     box-sizing: border-box;
 }
