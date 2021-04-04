@@ -92,17 +92,12 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  initSidebar(): void {
-    if (!this.savedSidebarMenuItems) {
-      this.savedSidebarMenuItems = this.sgSidebarService.getSidebar().menuItems;
-    }
-    this.sgSidebarService.setMenuItems(this.sidebarMenuItems);
+  pushSidebar(): void {
+    this.sgSidebarService.pushMenuItems(this.sidebarMenuItems);
   }
   
-  restoreSidebar(): void {
-    if (this.savedSidebarMenuItems) {
-      this.sgSidebarService.setMenuItems(this.savedSidebarMenuItems);
-    }
+  popSidebar(): void {
+    this.sgSidebarService.popMenuItems();
   }
 
 }

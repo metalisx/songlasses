@@ -20,11 +20,11 @@ export class SgSidebarComponent implements OnInit {
   ngOnInit(): void {
     this.sidebarService.getSidebarObservable().subscribe(sidebar => {
       this.sidebar = sidebar;
-      if (sidebar.menuItems) {
+      if (sidebar.menuItemsStack && sidebar.menuItemsStack.length > 0) {
         this.contextMenuItems = [];
         this.contextMenuItems[0] = {
           parentMenuItem: null,
-          menuItems: sidebar.menuItems
+          menuItems: sidebar.menuItemsStack[sidebar.menuItemsStack.length - 1]
         };
       }
     });

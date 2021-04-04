@@ -21,7 +21,7 @@ describe('SgSidebarervice', () => {
             integrated: true,
             integratedShow: true,
             integratedHamburgerButtonShow: true,
-            menuItems: []
+            menuItemsStack: [[]]
         });
     });
 
@@ -31,7 +31,7 @@ describe('SgSidebarervice', () => {
             integrated: false,
             integratedShow: true,
             integratedHamburgerButtonShow: true,
-            menuItems: []
+            menuItemsStack: [[]]
         };
         service.getSidebarObservable().subscribe(value => {
             expect(value).toEqual(sidebar);
@@ -56,7 +56,7 @@ describe('SgSidebarervice', () => {
             integrated: false,
             integratedShow: false,
             integratedHamburgerButtonShow: false,
-            menuItems: []
+            menuItemsStack: [[]]
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
@@ -78,7 +78,7 @@ describe('SgSidebarervice', () => {
             integrated: false,
             integratedShow: false,
             integratedHamburgerButtonShow: false,
-            menuItems: []
+            menuItemsStack: [[]]
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
@@ -100,7 +100,7 @@ describe('SgSidebarervice', () => {
             integrated: false,
             integratedShow: false,
             integratedHamburgerButtonShow: false,
-            menuItems: []
+            menuItemsStack: [[]]
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
@@ -122,7 +122,7 @@ describe('SgSidebarervice', () => {
             integrated: false,
             integratedShow: true,
             integratedHamburgerButtonShow: false,
-            menuItems: []
+            menuItemsStack: [[]]
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
@@ -138,12 +138,34 @@ describe('SgSidebarervice', () => {
         service.integratedHide();
     });
 
-    it('#setMenuItems should set sidebar.menuItems and return sidebar from observable', (done: DoneFn) => {
+    it('#pushMenuItems should push menuItems to sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
         let menuItems: SgMenuItem[] = [{
             label: 'some label'
         }];
         service.getSidebarObservable().subscribe(value => {
-            expect(value.menuItems).toEqual(menuItems);
+            expect(value.menuItemsStack[1]).toEqual(menuItems);
+            done();
+        });
+        service.pushMenuItems(menuItems);
+    });
+
+    it('#popMenuItems should pop the last menuItems from the sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+        let menuItems: SgMenuItem[] = [{
+            label: 'some label'
+        }];
+        service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack.length).toEqual(0);
+            done();
+        });
+        service.popMenuItems();
+    });
+
+    it('#setMenuItems should set menuItems to last item in sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+        let menuItems: SgMenuItem[] = [{
+            label: 'some label'
+        }];
+        service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack[0]).toEqual(menuItems);
             done();
         });
         service.setMenuItems(menuItems);

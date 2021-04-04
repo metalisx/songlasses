@@ -40,7 +40,7 @@ describe('SgSidebarHamburgerComponent', () => {
       integrated: false,
       integratedShow: false,
       integratedHamburgerButtonShow: false,
-      menuItems: []
+      menuItemsStack: [[]]
     }
     component.sidebar = sidebar;
     fixture.detectChanges();
@@ -59,7 +59,7 @@ describe('SgSidebarHamburgerComponent', () => {
       integrated: false,
       integratedShow: false,
       integratedHamburgerButtonShow: false,
-      menuItems: []
+      menuItemsStack: [[]]
     }
     component.sidebar = sidebar;
     component.toggleSidebar();
@@ -79,7 +79,7 @@ describe('SgSidebarHamburgerComponent', () => {
       integrated: false,
       integratedShow: false,
       integratedHamburgerButtonShow: false,
-      menuItems: []
+      menuItemsStack: [[]]
     }
     component.sidebar = sidebar;
     component.toggleSidebar();
@@ -99,7 +99,7 @@ describe('SgSidebarHamburgerComponent', () => {
       integrated: true,
       integratedShow: false,
       integratedHamburgerButtonShow: false,
-      menuItems: []
+      menuItemsStack: [[]]
     }
     component.sidebar = sidebar;
     component.toggleSidebarIntegrated();
@@ -118,7 +118,7 @@ describe('SgSidebarHamburgerComponent', () => {
       integrated: true,
       integratedShow: true,
       integratedHamburgerButtonShow: false,
-      menuItems: []
+      menuItemsStack: [[]]
     }
     component.sidebar = sidebar;
     component.toggleSidebarIntegrated();
