@@ -29,8 +29,8 @@ export class SidebarComponent implements OnInit {
       hrefTarget: '_blank'
     },
     {
-      label: 'Routerlink',
-      routerLink: ['/']
+      label: 'Routerlink to Home',
+      routerLink: ['home']
     },
     {
       divider: true
@@ -84,7 +84,7 @@ export class SidebarComponent implements OnInit {
       disabled: true,
     }
   ];
-  private savedSidebarMenuItems: SgMenuItem[] = [];
+  private savedSidebarMenuItems?: SgMenuItem[];
 
   constructor(private sgSidebarService: SgSidebarService) { 
   }
@@ -93,12 +93,16 @@ export class SidebarComponent implements OnInit {
   }
 
   initSidebar(): void {
-    this.savedSidebarMenuItems = this.sgSidebarService.getSidebar().menuItems;
+    if (!this.savedSidebarMenuItems) {
+      this.savedSidebarMenuItems = this.sgSidebarService.getSidebar().menuItems;
+    }
     this.sgSidebarService.setMenuItems(this.sidebarMenuItems);
   }
   
   restoreSidebar(): void {
-    this.sgSidebarService.setMenuItems(this.savedSidebarMenuItems);
+    if (this.savedSidebarMenuItems) {
+      this.sgSidebarService.setMenuItems(this.savedSidebarMenuItems);
+    }
   }
 
 }
