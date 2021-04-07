@@ -18,6 +18,10 @@ export class AppComponent {
       divider: true
     },
     {
+      label: 'Select',
+      routerLink: ['select']
+    },
+    {
       label: 'Sidebar',
       routerLink: ['sidebar']
     }
