@@ -93,11 +93,17 @@ export class SidebarComponent implements OnInit {
   }
 
   pushSidebar(): void {
-    this.sgSidebarService.pushMenuItems(this.sidebarMenuItems);
+    if (this.sgSidebarService.getSidebar().menuItemsStack.length === 0 ||
+        this.sgSidebarService.getSidebar().menuItemsStack[this.sgSidebarService.getSidebar().menuItemsStack.length - 1] !== this.sidebarMenuItems) {
+      this.sgSidebarService.pushMenuItems(this.sidebarMenuItems);
+    }
   }
   
   popSidebar(): void {
-    this.sgSidebarService.popMenuItems();
+    if (this.sgSidebarService.getSidebar().menuItemsStack.length !== 0 &&
+        this.sgSidebarService.getSidebar().menuItemsStack[this.sgSidebarService.getSidebar().menuItemsStack.length - 1] === this.sidebarMenuItems) {
+      this.sgSidebarService.popMenuItems();
+    }
   }
 
 }
