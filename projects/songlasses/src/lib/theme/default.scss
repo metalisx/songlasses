@@ -36,7 +36,7 @@
     --sg-h5-font-weight: var(--sg-font-weight-bold);
 
     --sg-h6-font-family: var(--sg-font-family-secundary);
-    --sg-h6-font-size: 0.75rem;
+    --sg-h6-font-size: 0.875rem;
     --sg-h6-line-height: 1.5em;
     --sg-h6-font-weight: var(--sg-font-weight-bold);
 
@@ -44,6 +44,16 @@
     --sg-sub-header-font-size: 1rem;
     --sg-sub-header-line-height: 1.5em;
     --sg-sub-header-font-weight: var(--sg-font-weight-bold);
+
+    --sg-label-font-family: var(--sg-font-family-secundary);
+    --sg-label-font-size: 1rem;
+    --sg-label-line-height: 1.5em;
+    --sg-label-font-weight: var(--sg-font-weight-bold);
+
+    --sg-button-font-family: var(--sg-font-family-secundary);
+    --sg-button-font-size: 1rem;
+    --sg-button-line-height: 1.5em;
+    --sg-button-font-weight: var(--sg-font-weight-bold);
 
     /* colors */
     --sg-primary-color: #0289EE;// #f2f2f2;
