@@ -183,6 +183,18 @@ h6 {
     line-height: var(--sg-sub-header-line-height);
     font-weight: var(--sg-sub-header-font-weight);
 }
+.label {
+    font-family: var(--sg-label-font-family);
+    font-size: var(--sg-label-font-size);
+    line-height: var(--sg-label-line-height);
+    font-weight: var(--sg-label-font-weight);
+}
+.button {
+    font-family: var(--sg-button-font-family);
+    font-size: var(--sg-button-font-size);
+    line-height: var(--sg-button-line-height);
+    font-weight: var(--sg-button-font-weight);
+}
 strong, b {
     font-weight: var(--sg-headings-font-weight);
 }
