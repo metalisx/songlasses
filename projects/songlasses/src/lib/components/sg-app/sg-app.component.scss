@@ -1,12 +1,12 @@
 .sg-app {
     min-height: 100%;
     display: grid;
-    grid-template-columns: 250px auto;
+    grid-template-columns: auto;
     grid-template-rows: auto 1fr auto;
     grid-template-areas: 
-        "header header"
-        "sidebar content"
-        "footer footer"
+        "header"
+        "content"
+        "footer"
 }
 .sg-app-header {
     grid-area: header; 
@@ -16,4 +16,13 @@
 }
 .sg-app-footer {
     grid-area: footer;
+}
+@media (min-width: 601px) {
+    .sg-app {
+        grid-template-columns: 250px auto;
+        grid-template-areas: 
+            "header header"
+            "sidebar content"
+            "footer footer"
+    }
 }
