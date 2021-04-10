@@ -9,6 +9,7 @@ import { SgSidebarService } from 'songlasses';
 })
 export class SidebarComponent implements OnInit {
 
+  private popSidebarFn = this.popSidebarAction.bind(this);
   private sidebarMenuItems: SgMenuItem[] = [
     {
       label: 'Label only'
@@ -50,6 +51,10 @@ export class SidebarComponent implements OnInit {
         }
         return false;
       }
+    },
+    {
+      label: 'Pop sidebar',
+      action: this.popSidebarFn
     },
     {
       divider: true
@@ -104,6 +109,11 @@ export class SidebarComponent implements OnInit {
         this.sgSidebarService.getSidebar().menuItemsStack[this.sgSidebarService.getSidebar().menuItemsStack.length - 1] === this.sidebarMenuItems) {
       this.sgSidebarService.popMenuItems();
     }
+  }
+
+  private popSidebarAction(event: any, menuItem: any) {
+    this.popSidebar();
+    return false;
   }
 
 }
