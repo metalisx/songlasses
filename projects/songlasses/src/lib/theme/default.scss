@@ -40,11 +40,6 @@
     --sg-h6-line-height: 1.5em;
     --sg-h6-font-weight: var(--sg-font-weight-bold);
 
-    --sg-sub-header-font-family: var(--sg-font-family-secundary);
-    --sg-sub-header-font-size: 1rem;
-    --sg-sub-header-line-height: 1.5em;
-    --sg-sub-header-font-weight: var(--sg-font-weight-bold);
-
     --sg-label-font-family: var(--sg-font-family-secundary);
     --sg-label-font-size: 1rem;
     --sg-label-line-height: 1.5em;
@@ -176,12 +171,6 @@ h6 {
     font-size: var(--sg-h6-font-size);
     line-height: var(--sg-h6-line-height);
     font-weight: var(--sg-h6-font-weight);
-}
-.sub-header {
-    font-family: var(--sg-sub-header-font-family);
-    font-size: var(--sg-sub-header-font-size);
-    line-height: var(--sg-sub-header-line-height);
-    font-weight: var(--sg-sub-header-font-weight);
 }
 label {
     font-family: var(--sg-label-font-family);
