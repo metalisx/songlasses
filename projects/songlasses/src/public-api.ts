@@ -11,6 +11,6 @@ export * from './lib/components/sg-select/sg-select.module';
 export * from './lib/components/sg-sidebar/sg-sidebar.component';
 export * from './lib/components/sg-sidebar-hamburger/sg-sidebar-hamburger.component';
 export * from './lib/services/sg-sidebar/sg-sidebar.service';
-export * from './lib/models/sg-select/sg-option-metadata.model';
+export * from './lib/models/sg-select/sg-options-metadata.model';
 export * from './lib/models/sg-sidebar/sg-menu-item.model';
 export * from './lib/models/sg-sidebar/sg-sidebar.model';

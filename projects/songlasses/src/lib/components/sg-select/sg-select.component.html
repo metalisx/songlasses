@@ -1,10 +1,9 @@
 <div class="sg-select">
-    <input *ngIf="selectedValue" [(ngModel)]="selectedValue[sgOptionMetadata.descriptionField]"/>
-    <input *ngIf="!selectedValue" value=""/>
-    <ul *ngIf="options">
-        <li *ngFor="let option of options" (click)="select(option)">
-            {{option[sgOptionMetadata.descriptionField]}}
+    <input [ngModel]="value" (ngModelChange)="modelChange($event)"/>
+    <ul *ngIf="sgOptionsMetadata && sgOptionsMetadata.options">
+        <li *ngFor="let option of sgOptionsMetadata.options" (click)="select(option)">
+            {{option[sgOptionsMetadata.descriptionField]}}
         </li>
     </ul>
 </div>
-{{selectedValue | json}}
+{{selectedOption | json}}

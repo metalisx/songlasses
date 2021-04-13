@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { SgOptionMetadata } from '../../models/sg-select/sg-option-metadata.model';
+import { Component, Input, OnInit } from '@angular/core';
+import { SgOptionsMetadata } from '../../models/sg-select/sg-options-metadata.model';
 
 @Component({
   selector: 'sg-select',
@@ -8,31 +8,34 @@ import { SgOptionMetadata } from '../../models/sg-select/sg-option-metadata.mode
 })
 export class SgSelectComponent implements OnInit {
 
-  selectedValue?: any;
+  private static DEFAULT_VALUE_FIELD: string = 'value';
+  private static DEFAULT_DESCRIPTION_FIELD: string = 'description';
 
-  sgOptionMetadata: SgOptionMetadata = {
-    valueField: 'value',
-    descriptionField: 'description'
-  }
+  @Input() sgOptionsMetadata: SgOptionsMetadata = {
+    valueField: SgSelectComponent.DEFAULT_VALUE_FIELD,
+    descriptionField: SgSelectComponent.DEFAULT_DESCRIPTION_FIELD,
+    options: []
+  };
+  @Input() value: any;
 
-  options: any = [
-    {
-      value: 'value1',
-      description: 'description1'
-    },
-    {
-      value: 'value2',
-      description: 'description2'
-    }
-  ]
+  selectedOption?: any;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  select(selectedValue: any): void {
-    this.selectedValue = selectedValue;
+  select(selectedOption: any): void {
+    this.selectedOption = selectedOption;
+    if (this.sgOptionsMetadata) {
+      this.value = selectedOption[this.sgOptionsMetadata.valueField];
+    }
+  }
+
+  modelChange(value: any): void {
+    if (this.sgOptionsMetadata && this.sgOptionsMetadata.options) {
+      this.selectedOption = this.sgOptionsMetadata.options.find((option: any) => option[this.sgOptionsMetadata.valueField] === value);
+    }
   }
 
 }
