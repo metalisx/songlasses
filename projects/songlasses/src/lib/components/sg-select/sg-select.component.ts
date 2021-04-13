@@ -33,6 +33,7 @@ export class SgSelectComponent implements OnInit {
   }
 
   modelChange(value: any): void {
+    this.value = value;
     if (this.sgOptionsMetadata && this.sgOptionsMetadata.options) {
       this.selectedOption = this.sgOptionsMetadata.options.find((option: any) => option[this.sgOptionsMetadata.valueField] === value);
     }
