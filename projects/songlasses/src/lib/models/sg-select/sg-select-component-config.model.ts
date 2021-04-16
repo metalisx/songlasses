@@ -1,10 +1,8 @@
 export interface SgSelectComponentConfig {
 
     name: string;
-
-    valueField: string;
-    descriptionField: string;
-
-    options: any[];
+    itemsValueField: string;
+    itemsDescriptionField: string;
+    items: any[];
 
 }

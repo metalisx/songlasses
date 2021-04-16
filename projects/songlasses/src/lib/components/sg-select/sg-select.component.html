@@ -1,9 +1,9 @@
 <div class="sg-select">
-    <input [ngModel]="value" (ngModelChange)="modelChange($event)"/>
-    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.options">
-        <li *ngFor="let option of sgSelectComponentConfig.options" (click)="select(option)">
-            {{option[sgSelectComponentConfig.descriptionField]}}
+    <input [name]="sgSelectComponentConfig.name" [ngModel]="value" (ngModelChange)="modelChange($event)"/>
+    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items">
+        <li *ngFor="let item of sgSelectComponentConfig.items" (click)="select(item)">
+            {{item[sgSelectComponentConfig.itemsDescriptionField]}}
         </li>
     </ul>
 </div>
-{{selectedOption | json}}
+{{selectedItem | json}}

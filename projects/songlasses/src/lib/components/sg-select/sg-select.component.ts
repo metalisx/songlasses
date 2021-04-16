@@ -8,36 +8,37 @@ import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-compon
 })
 export class SgSelectComponent implements OnInit {
 
-  private static DEFAULT_VALUE_FIELD: string = 'value';
-  private static DEFAULT_DESCRIPTION_FIELD: string = 'description';
+  private static DEFAULT_ITEMS_VALUE_FIELD: string = 'value';
+  private static DEFAULT_ITEMS_DESCRIPTION_FIELD: string = 'description';
 
   @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
     name: '',
-    valueField: SgSelectComponent.DEFAULT_VALUE_FIELD,
-    descriptionField: SgSelectComponent.DEFAULT_DESCRIPTION_FIELD,
-    options: []
+    itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
+    itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
+    items: []
   };
+
   @Input() value: any;
 
-  selectedOption?: any;
+  selectedItem?: any;
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  select(selectedOption: any): void {
-    this.selectedOption = selectedOption;
+  select(item: any): void {
+    this.selectedItem = item;
     if (this.sgSelectComponentConfig) {
-      this.value = selectedOption[this.sgSelectComponentConfig.valueField];
+      this.value = item[this.sgSelectComponentConfig.itemsValueField];
     }
   }
 
   modelChange(value: any): void {
     this.value = value;
-    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.options) {
-      this.selectedOption = this.sgSelectComponentConfig.options
-        .find((option: any) => option[this.sgSelectComponentConfig.valueField] === value);
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
+      this.selectedItem = this.sgSelectComponentConfig.items
+        .find((option: any) => option[this.sgSelectComponentConfig.itemsValueField] === value);
     }
   }
 
