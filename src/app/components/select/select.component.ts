@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SgOptionsMetadata } from 'songlasses';
+import { SgSelectComponentConfig } from 'songlasses';
 
 @Component({
   selector: 'app-select',
@@ -19,7 +19,8 @@ export class SelectComponent implements OnInit {
     }
   ]
 
-  sgOptionsMetadata: SgOptionsMetadata = {
+  sgSelectComponentConfig: SgSelectComponentConfig = {
+    name: 'select1',
     valueField: 'value',
     descriptionField: 'description',
     options: this.options

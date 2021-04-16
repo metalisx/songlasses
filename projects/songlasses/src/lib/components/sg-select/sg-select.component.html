@@ -1,8 +1,8 @@
 <div class="sg-select">
     <input [ngModel]="value" (ngModelChange)="modelChange($event)"/>
-    <ul *ngIf="sgOptionsMetadata && sgOptionsMetadata.options">
-        <li *ngFor="let option of sgOptionsMetadata.options" (click)="select(option)">
-            {{option[sgOptionsMetadata.descriptionField]}}
+    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.options">
+        <li *ngFor="let option of sgSelectComponentConfig.options" (click)="select(option)">
+            {{option[sgSelectComponentConfig.descriptionField]}}
         </li>
     </ul>
 </div>
