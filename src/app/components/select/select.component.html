@@ -1,4 +1,5 @@
 <h1>Select</h1>
 <p>
-    <sg-select [sgSelectComponentConfig]="sgSelectComponentConfig"></sg-select>
+    <sg-select [(ngModel)]="value" [sgSelectComponentConfig]="sgSelectComponentConfig"></sg-select>
 </p>
+External value : {{value | json}}

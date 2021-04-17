@@ -1,9 +1,9 @@
 <div class="sg-select">
-    <input [name]="sgSelectComponentConfig.name" [ngModel]="value" (ngModelChange)="modelChange($event)"/>
+    <input [name]="sgSelectComponentConfig.name" [(ngModel)]="value" [disabled]="disabled"/>
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items">
         <li *ngFor="let item of sgSelectComponentConfig.items" (click)="select(item)">
             {{item[sgSelectComponentConfig.itemsDescriptionField]}}
         </li>
     </ul>
 </div>
-{{selectedItem | json}}
+Internal selected item : {{selectedItem | json}}

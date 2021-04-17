@@ -8,23 +8,23 @@ import { SgSelectComponentConfig } from 'songlasses';
 })
 export class SelectComponent implements OnInit {
 
-  items: any[] = [
-    {
-      value: 'value1',
-      description: 'description1'
-    },
-    {
-      value: 'value2',
-      description: 'description2'
-    }
-  ]
-
   sgSelectComponentConfig: SgSelectComponentConfig = {
     name: 'select1',
     itemsValueField: 'value',
     itemsDescriptionField: 'description',
-    items: this.items
+    items: [
+      {
+        value: 'value1',
+        description: 'description1'
+      },
+      {
+        value: 'value2',
+        description: 'description2'
+      }
+    ]
   }
+
+  value?: string = 'value2';
 
   constructor() { }
 
