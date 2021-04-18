@@ -1,0 +1,23 @@
+.sg-select {
+    position: relative;
+}
+.sg-select-items {
+    cursor: pointer;
+    display: block;
+    position: absolute;
+    padding: 10px 0;
+    margin: 0;
+    background-color: #fff;
+    list-style: none;
+    border: 1px solid var(--sg-divider-color);
+}
+.sg-select-items-show {
+    display: block;
+}
+.sg-select-item {
+    padding: 4px 10px;
+}
+.sg-select-item:hover {
+    background-color: var(--sg-primary-light-color);
+    color: var(--sg-primary-on-color);
+}

@@ -33,6 +33,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   onChange: any = () => {};
   onTouched: any = () => {};
   disabled = false;
+  showItems: boolean = false;
 
   constructor() { }
 
@@ -76,7 +77,15 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if (this.sgSelectComponentConfig) {
       this.value = item[this.sgSelectComponentConfig.itemsValueField];
     }
+    this.doHideItems();
   }
 
+  doShowItems(): void {
+    this.showItems = true;
+  }
+
+  doHideItems(): void {
+    this.showItems = false;
+  }
 
 }
