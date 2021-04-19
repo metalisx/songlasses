@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
 
@@ -35,11 +35,18 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
-  constructor() { }
+  constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
   }
 
+  @HostListener('document:click', ['$event'])
+  clickout(event: any) {
+    if(!this.elementRef.nativeElement.contains(event.target)) {
+      this.doHideItems();
+    }
+  }
+    
   set value(value: any){
     if (value !== undefined && this.internalValue !== value) {
       this.internalValue = value;
