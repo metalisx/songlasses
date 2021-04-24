@@ -1,9 +1,14 @@
 .sg-select {
     position: relative;
+    width: 100%;
+}
+.sg-select-input {
+    width: 100%;
 }
 .sg-select-items {
     display: none;
     position: absolute;
+    width: 100%;
     padding: 10px 0;
     margin: 0;
     background-color: #fff;

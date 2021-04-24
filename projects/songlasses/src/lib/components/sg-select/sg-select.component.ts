@@ -23,7 +23,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     name: '',
     itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
     itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
-    items: []
+    items: [],
+    className: ''
   };
 
   private internalValue: any;

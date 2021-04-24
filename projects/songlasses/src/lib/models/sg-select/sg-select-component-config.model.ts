@@ -5,4 +5,6 @@ export interface SgSelectComponentConfig {
     itemsDescriptionField: string;
     items: any[];
 
+    className?: string;
+
 }

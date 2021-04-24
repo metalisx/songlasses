@@ -1,5 +1,19 @@
-<h1>Select</h1>
-<p>
+<h1>Select - Default</h1>
+<div>
     <sg-select [(ngModel)]="value" [sgSelectComponentConfig]="sgSelectComponentConfig"></sg-select>
-</p>
+</div>
 External value : {{value | json}}
+
+<h1>Select - Custom styled</h1>
+<p>
+    To style the component set the classname in the components config. In the example it is set 
+    to select2 and some custom style is added to target the components elements.
+</p>
+<div [innerHTML]="stylesSafeHtml"></div>
+<div>
+    <sg-select [(ngModel)]="valueStyled" [sgSelectComponentConfig]="sgSelectComponentConfigStyled"></sg-select>
+</div>
+<div>
+    External value : {{valueStyled | json}}
+</div>
+<textarea class="code" readonly>{{styles}}</textarea> 
