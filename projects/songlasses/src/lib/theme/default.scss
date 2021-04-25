@@ -7,47 +7,47 @@
 
     --sg-body-font-family: var(--sg-font-family-primary);
     --sg-body-font-size: 1rem;
-    --sg-body-line-height: 1.5em;
+    --sg-body-line-height: 1.5;
     --sg-body-font-weight: var(--sg-font-weight-normal);
 
     --sg-h1-font-family: var(--sg-font-family-secundary);
     --sg-h1-font-size: 3rem;
-    --sg-h1-line-height: 4.5em;
+    --sg-h1-line-height: 1.5;
     --sg-h1-font-weight: var(--sg-font-weight-bold);
 
     --sg-h2-font-family: var(--sg-font-family-secundary);
     --sg-h2-font-size: 2rem;
-    --sg-h2-line-height: 3em;
+    --sg-h2-line-height: 1.5;
     --sg-h2-font-weight: var(--sg-font-weight-bold);
 
     --sg-h3-font-family: var(--sg-font-family-secundary);
     --sg-h3-font-size: 1.5rem;
-    --sg-h3-line-height: 2.5em;
+    --sg-h3-line-height: 1.5;
     --sg-h3-font-weight: var(--sg-font-weight-bold);
 
     --sg-h4-font-family: var(--sg-font-family-secundary);
     --sg-h4-font-size: 1.25rem;
-    --sg-h4-line-height: 2em;
+    --sg-h4-line-height: 1.5em;
     --sg-h4-font-weight: var(--sg-font-weight-bold);
 
     --sg-h5-font-family: var(--sg-font-family-secundary);
     --sg-h5-font-size: 1rem;
-    --sg-h5-line-height: 1.5em;
+    --sg-h5-line-height: 1.5;
     --sg-h5-font-weight: var(--sg-font-weight-bold);
 
     --sg-h6-font-family: var(--sg-font-family-secundary);
     --sg-h6-font-size: 0.875rem;
-    --sg-h6-line-height: 1.5em;
+    --sg-h6-line-height: 1.5;
     --sg-h6-font-weight: var(--sg-font-weight-bold);
 
     --sg-label-font-family: var(--sg-font-family-secundary);
     --sg-label-font-size: 1rem;
-    --sg-label-line-height: 1.5em;
+    --sg-label-line-height: 1.5;
     --sg-label-font-weight: var(--sg-font-weight-bold);
 
     --sg-button-font-family: var(--sg-font-family-secundary);
     --sg-button-font-size: 1rem;
-    --sg-button-line-height: 1.5em;
+    --sg-button-line-height: 1.5;
     --sg-button-font-weight: var(--sg-font-weight-bold);
 
     /* colors */
@@ -72,6 +72,14 @@
     --sg-overlay-background-color: rgba(0, 0, 0, 0.5);
 
     --sg-divider-color: #eaeaea;
+
+    --sg-input-border-color: #eaeaea;
+
+    /* input */
+    --sg-input-border-width: 0.1em;
+    --sg-input-border-style: solid;
+    --sg-input-border: var(--sg-input-border-width) var(--sg-input-border-style) var(--sg-input-border-color);
+    --sg-input-padding: 0.5em;
 
     /* link */
     --sg-a-color: var(--sg-body-on-color);
@@ -123,6 +131,7 @@
 /* Global CSS */
 * {
     box-sizing: border-box;
+    outline: none;
 }
 html, body {
     margin: 0;
@@ -177,6 +186,14 @@ label {
     font-size: var(--sg-label-font-size);
     line-height: var(--sg-label-line-height);
     font-weight: var(--sg-label-font-weight);
+}
+input {
+    border: var(--sg-input-border);
+    padding: var(--sg-input-padding);
+    font-family: var(--sg-body-font-family);
+    font-weight: var(--sg-body-font-weight);
+    font-size: var(--sg-body-font-size);
+    line-height: var(--sg-body-line-height);
 }
 button {
     font-family: var(--sg-button-font-family);

@@ -51,13 +51,17 @@ export class SelectComponent implements OnInit {
       width: 50%;
     }
     .sg-select.select2 input {
-      border: 1px solid green;
+      border: 1px solid #904040;
     }
     .sg-select.select2 ul {
-      border: 1px solid red';
+      border: 1px solid #904040;
     }
     .sg-select.select2 ul li {
       background-color: #904040;
+      color: #fff;
+    }
+    .sg-select.select2 ul li:hover {
+      background-color: #803030;
       color: #fff;
     }
   </style>
