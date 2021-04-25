@@ -4,3 +4,12 @@
 // are automatically picked up when library build is started in watch mode.
 // In a real application it should be imported from the dist directory.
 @use '../projects/songlasses/src/lib/theme/default.scss';
+
+.code {
+    border: 1px solid var(--sg-divider-color);
+    outline: none;
+    width: 100%;
+    min-height: 300px;
+    max-height: 600px;
+    resize: none;
+}
