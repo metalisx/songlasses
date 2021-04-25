@@ -43,11 +43,15 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if(!this.elementRef.nativeElement.contains(event.target)) {
+    if(!this.elementRef.nativeElement.contains(event.target) && this.showItems === true) {
       this.doHideItems();
     }
   }
-    
+
+  keyupEsc(event: any){
+    this.doHideItems();
+  }
+
   set value(value: any){
     if (value !== undefined && this.internalValue !== value) {
       this.internalValue = value;
