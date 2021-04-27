@@ -3,6 +3,12 @@
     <sg-select [(ngModel)]="value" [sgSelectComponentConfig]="sgSelectComponentConfig"></sg-select>
 </div>
 External value : {{value | json}}
+<div class="code-container">
+    <div class="code-panel">
+        <h6>Config</h6> 
+        <textarea class="code" readonly>{{sgSelectComponentConfig | json}}</textarea> 
+    </div>
+</div>
 
 <h1>Select - Custom styled</h1>
 <p>
@@ -16,5 +22,13 @@ External value : {{value | json}}
 <div>
     External value : {{valueStyled | json}}
 </div>
-<h6>Custom style</h6> 
-<textarea class="code" readonly>{{styles}}</textarea> 
+<div class="code-container">
+    <div class="code-panel">
+        <h6>Config</h6> 
+        <textarea class="code" readonly>{{sgSelectComponentConfigStyled | json}}</textarea> 
+    </div>
+    <div class="code-panel">
+        <h6>Custom style</h6> 
+        <textarea class="code" readonly>{{styles}}</textarea> 
+    </div>
+</div>

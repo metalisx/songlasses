@@ -5,7 +5,14 @@
 // In a real application it should be imported from the dist directory.
 @use '../projects/songlasses/src/lib/theme/default.scss';
 
-.code {
+.code-container {
+    display: flex;
+    gap: 10px;
+}
+.code-container .code-panel {
+    flex: 1;
+}
+.code-container .code-panel .code {
     border: 1px solid var(--sg-divider-color);
     outline: none;
     width: 100%;
