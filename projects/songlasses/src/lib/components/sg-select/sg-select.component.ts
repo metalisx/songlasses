@@ -48,6 +48,50 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
 
+  private selectedIndex(): number {
+    let index = -1;
+    if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
+      for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
+        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsValueField] === 
+            this.selectedItem[this.sgSelectComponentConfig.itemsValueField]) {
+              index = i;
+              break;
+        }
+      }
+    }
+    return index;
+  }
+
+  private selectPrevious(): void {
+    let index = this.selectedIndex();
+    if (index !== -1 && index !== 0) {
+      this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsValueField];
+    }
+  }
+
+  private selectNext(): void {
+    let index = this.selectedIndex();
+    if (index !== -1 && this.sgSelectComponentConfig.items && index != this.sgSelectComponentConfig.items.length -1) {
+      this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsValueField];
+    }
+  }
+
+  keydownArrowup(event: any) {
+    if (this.showItems === true) {
+      this.selectPrevious();
+      return false;
+    }
+    return;
+  }
+
+  keydownArrowdown(event: any) {
+    if (this.showItems === true) {
+      this.selectNext();
+      return false;
+    }
+    return;
+  }
+
   keyupEsc(event: any){
     this.toggleItems();
   }
