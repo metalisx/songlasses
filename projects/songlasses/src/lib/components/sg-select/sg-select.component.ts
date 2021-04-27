@@ -49,7 +49,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keyupEsc(event: any){
-    this.doHideItems();
+    this.toggleItems();
   }
 
   set value(value: any){
@@ -90,6 +90,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       this.value = item[this.sgSelectComponentConfig.itemsValueField];
     }
     this.doHideItems();
+  }
+
+  toggleItems(): void {
+    this.showItems == true ? this.doHideItems() : this.doShowItems();
   }
 
   doShowItems(): void {
