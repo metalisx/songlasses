@@ -79,14 +79,24 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   keydownArrowup(event: any) {
     if (this.showItems === true) {
       this.selectPrevious();
-      return false;
+    } else {
+      this.doShowItems();
     }
-    return;
+    return false;
   }
 
   keydownArrowdown(event: any) {
     if (this.showItems === true) {
       this.selectNext();
+    } else {
+      this.doShowItems();
+    }
+    return false;
+  }
+
+  keydownEnter(event: any) {
+    if (this.showItems === true) {
+      this.doHideItems();
       return false;
     }
     return;
