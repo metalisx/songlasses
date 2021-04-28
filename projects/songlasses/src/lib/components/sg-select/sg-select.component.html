@@ -6,7 +6,8 @@
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
-        <li class="sg-select-item"
+        <li class="sg-select-item" 
+            [ngClass]="isSelectedItem(item) ? 'sg-select-item-active' : ''"
             *ngFor="let item of sgSelectComponentConfig.items" (click)="select(item)">
             {{item[sgSelectComponentConfig.itemsDescriptionField]}}
         </li>

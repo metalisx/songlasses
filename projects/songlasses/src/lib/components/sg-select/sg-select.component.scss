@@ -22,6 +22,10 @@
     cursor: pointer;
     padding: 0.25em 0.5em;
 }
+.sg-select-item-active {
+    background-color: var(--sg-primary-color);
+    color: var(--sg-primary-on-color);
+}
 .sg-select-item:hover {
     background-color: var(--sg-primary-light-color);
     color: var(--sg-primary-on-color);

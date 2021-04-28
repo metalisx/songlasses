@@ -136,6 +136,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     this.doHideItems();
   }
 
+  isSelectedItem(item: any): boolean {
+    return this.sgSelectComponentConfig && this.selectedItem && 
+            this.selectedItem[this.sgSelectComponentConfig.itemsValueField] === item[this.sgSelectComponentConfig.itemsValueField];
+  }
+
   toggleItems(): void {
     this.showItems == true ? this.doHideItems() : this.doShowItems();
   }
