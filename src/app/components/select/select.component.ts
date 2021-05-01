@@ -87,8 +87,8 @@ export class SelectComponent implements OnInit {
     className: 'select2'
   }
 
-  value?: string = 'BW';
-  valueStyled?: string = 'OM';
+  value?: string = 'Jessica Drew';
+  valueStyled?: string = 'Bruce Wayne';
 
   public styles: string = `<style>
   .select2.sg-select {

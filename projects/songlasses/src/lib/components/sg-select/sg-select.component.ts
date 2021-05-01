@@ -52,8 +52,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     let index = -1;
     if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
       for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
-        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsValueField] === 
-            this.selectedItem[this.sgSelectComponentConfig.itemsValueField]) {
+        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsDescriptionField] === 
+            this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField]) {
               index = i;
               break;
         }
@@ -63,16 +63,32 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private selectPrevious(): void {
-    let index = this.selectedIndex();
-    if (index !== -1 && index !== 0) {
-      this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsValueField];
+    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+      let index = this.selectedIndex();
+      if (index === -1) {
+        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
+      } else if (index !== 0) {
+        this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsDescriptionField];
+      }
     }
   }
 
   private selectNext(): void {
-    let index = this.selectedIndex();
-    if (index !== -1 && this.sgSelectComponentConfig.items && index != this.sgSelectComponentConfig.items.length -1) {
-      this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsValueField];
+    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+      let index = this.selectedIndex();
+      if (index === -1) {
+        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
+      } else if (index !== this.sgSelectComponentConfig.items.length - 1) {
+        this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsDescriptionField];
+      }
+    }
+  }
+
+  click(event: any) {
+    if (this.showItems === false) {
+      this.doShowItems();
+    } else {
+      this.doHideItems();
     }
   }
 
@@ -113,7 +129,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       this.internalValue = value;
       if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
         this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsValueField] === value);
+          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField] === value);
         let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
         this.onChange(externalValue);
         this.onTouched(externalValue);
@@ -143,7 +159,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   select(item: any): void {
     if (this.sgSelectComponentConfig) {
-      this.value = item[this.sgSelectComponentConfig.itemsValueField];
+      this.value = item[this.sgSelectComponentConfig.itemsDescriptionField];
     }
     this.doHideItems();
   }

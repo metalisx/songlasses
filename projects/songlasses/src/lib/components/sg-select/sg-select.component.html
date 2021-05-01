@@ -1,7 +1,7 @@
 <div class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
     <input class="sg-select-input"
         [name]="sgSelectComponentConfig.name" [(ngModel)]="value" [disabled]="disabled"
-        (click)="doShowItems();"
+        (click)="click($event)"
         (keyup.esc)="keyupEsc($event)" (keydown.arrowup)="keydownArrowup($event)" (keydown.arrowdown)="keydownArrowdown($event)" (keydown.enter)="keydownEnter($event)"/>
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 
         class="sg-select-items"
