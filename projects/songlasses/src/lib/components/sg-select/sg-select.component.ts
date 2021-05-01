@@ -21,6 +21,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
     name: '',
+    itemMatching: 'startsWith',
     itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
     itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
     items: [],
@@ -128,8 +129,13 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if (value !== undefined && this.internalValue !== value) {
       this.internalValue = value;
       if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-        this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField] === value);
+        if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
+          this.selectedItem = this.sgSelectComponentConfig.items
+            .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
+        } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
+          this.selectedItem = this.sgSelectComponentConfig.items
+            .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
+        }
         let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
         this.onChange(externalValue);
         this.onTouched(externalValue);
