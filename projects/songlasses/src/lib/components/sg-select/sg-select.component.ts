@@ -103,7 +103,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keyupEsc(event: any){
-    this.toggleItems();
+    if (this.showItems === true) {
+      this.toggleItems();
+    }
   }
 
   set value(value: any){
