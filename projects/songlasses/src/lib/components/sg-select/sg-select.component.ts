@@ -88,8 +88,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   click(event: any) {
     if (this.showItems === false) {
       this.doShowItems();
-    } else {
-      this.doHideItems();
     }
   }
 
