@@ -62,10 +62,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     return required;
   }
 
-  // blur(event: Event) {
-  //   this.valid = this.isValid();
-  // }
-
   click(event: Event) {
     if (!this.showItems) {
       this.doShowItems();
@@ -164,7 +160,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
     this.doHideItems();
     this.focusOnInputElement();
-    // this.valid = this.isValid();
   }
 
   isSelectedItem(item: any): boolean {
@@ -183,18 +178,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   doHideItems(): void {
     this.showItems = false;
   }
-
-  // private hasValue(): boolean {
-  //   return this.selectedItem ? true : false;
-  // }
-
-  // private isValid(): boolean {
-  //   let valid: boolean = true;
-  //   if (this.sgSelectComponentConfig.required && !this.hasValue()) {
-  //     valid = false;
-  //   }
-  //   return valid;
-  // }
 
   private focusOnInputElement(): void {
     if (this.inputElement) {
