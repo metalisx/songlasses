@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit } from '@angular/core';
+import { APP_INITIALIZER, Component, ElementRef, forwardRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
 
@@ -19,14 +19,19 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   private static DEFAULT_ITEMS_VALUE_FIELD: string = 'value';
   private static DEFAULT_ITEMS_DESCRIPTION_FIELD: string = 'description';
 
+  valid: boolean = true;
+  
   @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
     name: '',
+    required: true,
     itemMatching: 'startsWith',
     itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
     itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
     items: [],
     className: ''
   };
+
+  @ViewChild('input') inputElement?: ElementRef;
 
   private internalValue: any;
 
@@ -47,6 +52,22 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if(!this.elementRef.nativeElement.contains(event.target) && this.showItems) {
       this.doHideItems();
     }
+  }
+
+  private hasValue(): boolean {
+    return this.selectedItem ? true : false;
+  }
+
+  private isValid(): boolean {
+    let valid: boolean = true;
+    if (this.sgSelectComponentConfig.required && !this.hasValue()) {
+      valid = false;
+    }
+    return valid;
+  }
+
+  blur(event: any) {
+    this.valid = this.isValid();
   }
 
   click(event: any) {
@@ -140,6 +161,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       this.value = item[this.sgSelectComponentConfig.itemsDescriptionField];
     }
     this.doHideItems();
+    this.focusOnInputElement();
   }
 
   isSelectedItem(item: any): boolean {
@@ -157,6 +179,12 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   doHideItems(): void {
     this.showItems = false;
+  }
+
+  private focusOnInputElement(): void {
+    if (this.inputElement) {
+      this.inputElement.nativeElement.focus();
+    }
   }
 
   private selectedIndex(): number {
