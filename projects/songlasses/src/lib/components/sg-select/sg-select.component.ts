@@ -49,42 +49,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
 
-  private selectedIndex(): number {
-    let index = -1;
-    if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
-      for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
-        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsDescriptionField] === 
-            this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField]) {
-              index = i;
-              break;
-        }
-      }
-    }
-    return index;
-  }
-
-  private selectPrevious(): void {
-    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
-      let index = this.selectedIndex();
-      if (index === -1) {
-        this.value = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1][this.sgSelectComponentConfig.itemsDescriptionField];
-      } else if (index !== 0) {
-        this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsDescriptionField];
-      }
-    }
-  }
-
-  private selectNext(): void {
-    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
-      let index = this.selectedIndex();
-      if (index === -1) {
-        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
-      } else if (index !== this.sgSelectComponentConfig.items.length - 1) {
-        this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsDescriptionField];
-      }
-    }
-  }
-
   click(event: any) {
     if (!this.showItems) {
       this.doShowItems();
@@ -193,6 +157,42 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   doHideItems(): void {
     this.showItems = false;
+  }
+
+  private selectedIndex(): number {
+    let index = -1;
+    if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
+      for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
+        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsDescriptionField] === 
+            this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField]) {
+              index = i;
+              break;
+        }
+      }
+    }
+    return index;
+  }
+
+  private selectPrevious(): void {
+    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+      let index = this.selectedIndex();
+      if (index === -1) {
+        this.value = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1][this.sgSelectComponentConfig.itemsDescriptionField];
+      } else if (index !== 0) {
+        this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsDescriptionField];
+      }
+    }
+  }
+
+  private selectNext(): void {
+    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+      let index = this.selectedIndex();
+      if (index === -1) {
+        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
+      } else if (index !== this.sgSelectComponentConfig.items.length - 1) {
+        this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsDescriptionField];
+      }
+    }
   }
 
 }
