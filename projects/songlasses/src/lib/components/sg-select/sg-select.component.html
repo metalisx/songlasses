@@ -1,8 +1,9 @@
 <div class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
-    <input #input class="sg-select-input" required
-        [ngClass]="valid ? '' : 'sg-invalid'"
-        [name]="sgSelectComponentConfig.name" [(ngModel)]="value" [disabled]="disabled"
-        (blur)="blur($event)" 
+    <input #input #model="ngModel" [(ngModel)]="value" 
+        [name]="sgSelectComponentConfig.name" 
+        class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
+        [disabled]="disabled" [required]="isRequired()"
+        (keyup)="keyup($event)"
         (click)="click($event)"
         (keyup.esc)="keyupEsc($event)" (keydown.arrowup)="keydownArrowup($event)" (keydown.arrowdown)="keydownArrowdown($event)" (keydown.enter)="keydownEnter($event)"/>
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 

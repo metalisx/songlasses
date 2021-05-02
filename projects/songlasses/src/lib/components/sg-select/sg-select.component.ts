@@ -48,35 +48,31 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   @HostListener('document:click', ['$event'])
-  clickout(event: any) {
+  clickout(event: Event) {
     if(!this.elementRef.nativeElement.contains(event.target) && this.showItems) {
       this.doHideItems();
     }
   }
 
-  private hasValue(): boolean {
-    return this.selectedItem ? true : false;
-  }
-
-  private isValid(): boolean {
-    let valid: boolean = true;
-    if (this.sgSelectComponentConfig.required && !this.hasValue()) {
-      valid = false;
+  isRequired() {
+    let required = true;
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.required !== undefined && this.sgSelectComponentConfig.required === true) {
+      required = true;
     }
-    return valid;
+    return required;
   }
 
-  blur(event: any) {
-    this.valid = this.isValid();
-  }
+  // blur(event: Event) {
+  //   this.valid = this.isValid();
+  // }
 
-  click(event: any) {
+  click(event: Event) {
     if (!this.showItems) {
       this.doShowItems();
     }
   }
 
-  keydownArrowup(event: any) {
+  keydownArrowup(event: Event) {
     if (this.showItems) {
       this.selectPrevious();
     } else {
@@ -86,7 +82,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     return false;
   }
 
-  keydownArrowdown(event: any) {
+  keydownArrowdown(event: Event) {
     if (this.showItems) {
       this.selectNext();
     } else {
@@ -96,21 +92,27 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     return false;
   }
 
-  keydownEnter(event: any) {
+  keydownEnter(event: Event) {
     if (this.showItems) {
       this.doHideItems();
       return false;
     }
-    return;
+    return true;
   }
 
-  keyupEsc(event: any){
+  keyup(event: Event) {
+    this.doShowItems();
+    return true;
+  }
+
+  keyupEsc(event: Event) {
     if (this.showItems) {
       this.toggleItems();
     }
+    return true;
   }
 
-  set value(value: any){
+  set value(value: any) {
     if (value !== undefined && value !== "") {
       if (this.internalValue !== value) {
         this.internalValue = value;
@@ -133,7 +135,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       let externalValue: any = null;
       this.onChange(externalValue);
       this.onTouched(externalValue);
-  }
+    }
   }
 
   get value() {
@@ -162,6 +164,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
     this.doHideItems();
     this.focusOnInputElement();
+    // this.valid = this.isValid();
   }
 
   isSelectedItem(item: any): boolean {
@@ -180,6 +183,18 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   doHideItems(): void {
     this.showItems = false;
   }
+
+  // private hasValue(): boolean {
+  //   return this.selectedItem ? true : false;
+  // }
+
+  // private isValid(): boolean {
+  //   let valid: boolean = true;
+  //   if (this.sgSelectComponentConfig.required && !this.hasValue()) {
+  //     valid = false;
+  //   }
+  //   return valid;
+  // }
 
   private focusOnInputElement(): void {
     if (this.inputElement) {

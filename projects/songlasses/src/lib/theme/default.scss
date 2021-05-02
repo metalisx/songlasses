@@ -89,7 +89,7 @@
     --sg-body-on-color: #000;
     --sg-body-on-color-hover: #eaeaea;
 
-    --sg-input-invalid-border-color: #ff1414;
+    --sg-input-border-color-error: #ff1414;
 
     --sg-overlay-background-color: rgba(0, 0, 0, 0.5);
 
@@ -151,7 +151,9 @@
     --sg-svg-icon-height: 1rem;
 }
 /* Global CSS */
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     outline: none;
 }
@@ -240,6 +242,9 @@ input {
     font-weight: var(--sg-body-font-weight);
     font-size: var(--sg-body-font-size);
     line-height: var(--sg-body-line-height);
+}
+.sg-input-error {
+    border-color: var(--sg-input-border-color-error);
 }
 button {
     font-family: var(--sg-button-font-family);
