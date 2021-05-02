@@ -44,7 +44,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   @HostListener('document:click', ['$event'])
   clickout(event: any) {
-    if(!this.elementRef.nativeElement.contains(event.target) && this.showItems === true) {
+    if(!this.elementRef.nativeElement.contains(event.target) && this.showItems) {
       this.doHideItems();
     }
   }
@@ -67,7 +67,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
       let index = this.selectedIndex();
       if (index === -1) {
-        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
+        this.value = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1][this.sgSelectComponentConfig.itemsDescriptionField];
       } else if (index !== 0) {
         this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsDescriptionField];
       }
@@ -86,31 +86,33 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   click(event: any) {
-    if (this.showItems === false) {
+    if (!this.showItems) {
       this.doShowItems();
     }
   }
 
   keydownArrowup(event: any) {
-    if (this.showItems === true) {
+    if (this.showItems) {
       this.selectPrevious();
     } else {
+      this.selectPrevious();
       this.doShowItems();
     }
     return false;
   }
 
   keydownArrowdown(event: any) {
-    if (this.showItems === true) {
+    if (this.showItems) {
       this.selectNext();
     } else {
+      this.selectNext();
       this.doShowItems();
     }
     return false;
   }
 
   keydownEnter(event: any) {
-    if (this.showItems === true) {
+    if (this.showItems) {
       this.doHideItems();
       return false;
     }
@@ -118,27 +120,35 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keyupEsc(event: any){
-    if (this.showItems === true) {
+    if (this.showItems) {
       this.toggleItems();
     }
   }
 
   set value(value: any){
-    if (value !== undefined && this.internalValue !== value) {
-      this.internalValue = value;
-      if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-        if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
-          this.selectedItem = this.sgSelectComponentConfig.items
-            .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
-        } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
-          this.selectedItem = this.sgSelectComponentConfig.items
-            .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
+    if (value !== undefined && value !== "") {
+      if (this.internalValue !== value) {
+        this.internalValue = value;
+        if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
+          if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
+            this.selectedItem = this.sgSelectComponentConfig.items
+              .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
+          } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
+            this.selectedItem = this.sgSelectComponentConfig.items
+              .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
+          }
+          let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
+          this.onChange(externalValue);
+          this.onTouched(externalValue);
         }
-        let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
-        this.onChange(externalValue);
-        this.onTouched(externalValue);
       }
-    }
+    } else {
+      this.selectedItem = null;
+      this.internalValue = null;
+      let externalValue: any = null;
+      this.onChange(externalValue);
+      this.onTouched(externalValue);
+  }
   }
 
   get value() {
