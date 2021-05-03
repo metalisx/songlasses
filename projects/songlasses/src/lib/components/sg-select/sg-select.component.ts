@@ -62,68 +62,64 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     return required;
   }
 
+  blur(event: Event) {
+    //this.setExternalValue(this.internalValue);
+  }
+
   click(event: Event) {
     if (!this.showItems) {
       this.doShowItems();
     }
   }
 
-  keydownArrowup(event: Event) {
-    if (this.showItems) {
-      this.selectPrevious();
-    } else {
-      this.selectPrevious();
-      this.doShowItems();
+  keydown(event: KeyboardEvent) {
+    let returnValue = true;
+    switch(event.key) {
+      case 'ArrowDown': {
+        this.keydownArrowdown();
+        returnValue = false;
+        break;
+      }
+      case 'ArrowUp': {
+        this.keydownArrowup();
+        returnValue = false;
+        break;
+      }
+      default: {
+        break;
+      }
     }
-    return false;
+    return returnValue;
   }
 
-  keydownArrowdown(event: Event) {
-    if (this.showItems) {
-      this.selectNext();
-    } else {
-      this.selectNext();
-      this.doShowItems();
+  keyup(event: KeyboardEvent) {
+    let returnValue: boolean = true;
+    switch(event.key) {
+      case 'Enter': {
+        this.doHideItems();
+        break;
+      }
+      case 'Escape': {
+        this.doHideItems();
+        break;
+      }
+      case 'Tab': {
+        break;
+      }
+      default: {
+        this.doShowItems();
+        break;
+      }
     }
-    return false;
-  }
-
-  keydownEnter(event: Event) {
-    if (this.showItems) {
-      this.doHideItems();
-      return false;
-    }
-    return true;
-  }
-
-  keyup(event: Event) {
-    this.doShowItems();
-    return true;
-  }
-
-  keyupEsc(event: Event) {
-    if (this.showItems) {
-      this.toggleItems();
-    }
-    return true;
+    return returnValue;
   }
 
   set value(value: any) {
     if (value !== undefined && value !== "") {
       if (this.internalValue !== value) {
         this.internalValue = value;
-        if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-          if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
-            this.selectedItem = this.sgSelectComponentConfig.items
-              .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
-          } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
-            this.selectedItem = this.sgSelectComponentConfig.items
-              .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
-          }
-          let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
-          this.onChange(externalValue);
-          this.onTouched(externalValue);
-        }
+        this.setSelectedItemByDescription(value);
+        this.setExternalValue(value);
       }
     } else {
       this.selectedItem = null;
@@ -139,7 +135,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: any): void {
-    this.value = value;
+    this.setSelectedItemByValue(value);
+    if (this.sgSelectComponentConfig && this.selectedItem) {
+       this.value = this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField];
+    }
   }
 
   registerOnChange(fn: any): void {
@@ -167,16 +166,62 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
             this.selectedItem[this.sgSelectComponentConfig.itemsValueField] === item[this.sgSelectComponentConfig.itemsValueField];
   }
 
-  toggleItems(): void {
-    this.showItems == true ? this.doHideItems() : this.doShowItems();
-  }
-
   doShowItems(): void {
     this.showItems = true;
   }
 
   doHideItems(): void {
     this.showItems = false;
+  }
+
+  private keydownArrowup() {
+    if (this.showItems) {
+      this.selectPrevious();
+    } else {
+      this.selectPrevious();
+      this.doShowItems();
+    }
+  }
+
+  private keydownArrowdown() {
+    if (this.showItems) {
+      this.selectNext();
+    } else {
+      this.selectNext();
+      this.doShowItems();
+    }
+  }
+
+  private setSelectedItemByValue(value: any) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
+      if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
+        this.selectedItem = this.sgSelectComponentConfig.items
+          .find((item: any) => item[this.sgSelectComponentConfig.itemsValueField].search(new RegExp(value, "i")) === 0);
+      } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
+        this.selectedItem = this.sgSelectComponentConfig.items
+          .find((item: any) => item[this.sgSelectComponentConfig.itemsValueField].search(new RegExp(value, "i")) !== -1);
+      }
+    }
+  }
+
+  private setSelectedItemByDescription(value: any) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
+      if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
+        this.selectedItem = this.sgSelectComponentConfig.items
+          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
+      } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
+        this.selectedItem = this.sgSelectComponentConfig.items
+          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
+      }
+    }
+  }
+
+  private setExternalValue(value: any) {
+    if (this.sgSelectComponentConfig) {
+      let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
+      this.onChange(externalValue);
+      this.onTouched(externalValue);
+    }
   }
 
   private focusOnInputElement(): void {

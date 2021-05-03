@@ -3,9 +3,7 @@
         [name]="sgSelectComponentConfig.name" 
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
-        (keyup)="keyup($event)"
-        (click)="click($event)"
-        (keyup.esc)="keyupEsc($event)" (keydown.arrowup)="keydownArrowup($event)" (keydown.arrowdown)="keydownArrowdown($event)" (keydown.enter)="keydownEnter($event)"/>
+        (blur)="blur($event)" (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
