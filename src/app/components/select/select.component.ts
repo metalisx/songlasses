@@ -75,8 +75,8 @@ export class SelectComponent implements OnInit {
   sgSelectComponentConfig: SgSelectComponentConfig = {
     name: 'select1',
     required: true,
-    itemsValueField: 'id',
-    itemsDescriptionField: 'name',
+    itemValueField: 'id',
+    itemDescriptionField: 'name',
     items: this.items
   }
 
@@ -84,8 +84,8 @@ export class SelectComponent implements OnInit {
     name: 'select2',
     required: true,
     itemDescriptionMatchStrategy: 'contains',
-    itemsValueField: 'id',
-    itemsDescriptionField: 'name',
+    itemValueField: 'id',
+    itemDescriptionField: 'name',
     items: this.items,
     className: 'select2'
   }

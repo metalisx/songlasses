@@ -3,8 +3,8 @@ export interface SgSelectComponentConfig {
     name: string;
     required: boolean;
     itemDescriptionMatchStrategy?: 'startsWith' | 'contains',
-    itemsValueField: string;
-    itemsDescriptionField: string;
+    itemValueField: string;
+    itemDescriptionField: string;
     items: any[];
 
     className?: string;

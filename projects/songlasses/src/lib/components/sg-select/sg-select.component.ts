@@ -25,8 +25,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     name: '',
     required: true,
     itemDescriptionMatchStrategy: 'startsWith',
-    itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
-    itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
+    itemValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
+    itemDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
     items: [],
     className: ''
   };
@@ -137,7 +137,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   writeValue(value: any): void {
     this.setSelectedItemByValue(value);
     if (this.sgSelectComponentConfig && this.selectedItem) {
-       this.value = this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField];
+       this.value = this.selectedItem[this.sgSelectComponentConfig.itemDescriptionField];
     }
   }
 
@@ -155,7 +155,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   select(item: any): void {
     if (this.sgSelectComponentConfig) {
-      this.value = item[this.sgSelectComponentConfig.itemsDescriptionField];
+      this.value = item[this.sgSelectComponentConfig.itemDescriptionField];
     }
     this.doHideItems();
     this.focusOnInputElement();
@@ -163,7 +163,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   isSelectedItem(item: any): boolean {
     return this.sgSelectComponentConfig && this.selectedItem && 
-            this.selectedItem[this.sgSelectComponentConfig.itemsValueField] === item[this.sgSelectComponentConfig.itemsValueField];
+            this.selectedItem[this.sgSelectComponentConfig.itemValueField] === item[this.sgSelectComponentConfig.itemValueField];
   }
 
   doShowItems(): void {
@@ -194,13 +194,13 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setSelectedItemByValue(value: any) {
     if (this.sgSelectComponentConfig) {
-      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemsValueField)
+      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemValueField)
     }
   }
 
   private setSelectedItemByDescription(value: any) {
     if (this.sgSelectComponentConfig) {
-      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemsDescriptionField)
+      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemDescriptionField)
     }
   }
 
@@ -219,7 +219,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setExternalValue(value: any) {
     if (this.sgSelectComponentConfig) {
-      let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemsValueField] : null;
+      let externalValue: any = this.selectedItem ? this.selectedItem[this.sgSelectComponentConfig.itemValueField] : null;
       this.onChange(externalValue);
       this.onTouched(externalValue);
     }
@@ -235,8 +235,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     let index = -1;
     if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
       for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
-        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemsDescriptionField] === 
-            this.selectedItem[this.sgSelectComponentConfig.itemsDescriptionField]) {
+        if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemDescriptionField] === 
+            this.selectedItem[this.sgSelectComponentConfig.itemDescriptionField]) {
               index = i;
               break;
         }
@@ -249,9 +249,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
       let index = this.selectedIndex();
       if (index === -1) {
-        this.value = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1][this.sgSelectComponentConfig.itemsDescriptionField];
+        this.value = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1][this.sgSelectComponentConfig.itemDescriptionField];
       } else if (index !== 0) {
-        this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemsDescriptionField];
+        this.value = this.sgSelectComponentConfig.items[index - 1][this.sgSelectComponentConfig.itemDescriptionField];
       }
     }
   }
@@ -260,9 +260,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
       let index = this.selectedIndex();
       if (index === -1) {
-        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemsDescriptionField];
+        this.value = this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemDescriptionField];
       } else if (index !== this.sgSelectComponentConfig.items.length - 1) {
-        this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemsDescriptionField];
+        this.value = this.sgSelectComponentConfig.items[index + 1][this.sgSelectComponentConfig.itemDescriptionField];
       }
     }
   }

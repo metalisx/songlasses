@@ -10,7 +10,7 @@
         <li class="sg-select-item" 
             [ngClass]="isSelectedItem(item) ? 'sg-select-item-active' : ''"
             *ngFor="let item of sgSelectComponentConfig.items" (click)="select(item)">
-            {{item[sgSelectComponentConfig.itemsDescriptionField]}}
+            {{item[sgSelectComponentConfig.itemDescriptionField]}}
         </li>
     </ul>
 </div>
