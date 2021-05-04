@@ -24,7 +24,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
     name: '',
     required: true,
-    itemDescriptionMatchStrategy: 'startsWith',
+    itemMatchStrategy: 'startsWith',
     itemValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
     itemDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
     items: [],
@@ -96,6 +96,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     let returnValue: boolean = true;
     switch(event.key) {
       case 'Enter': {
+        this.select(this.selectedItem);
         this.doHideItems();
         break;
       }
@@ -206,11 +207,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setSelectedItemByProperty(value: any, property: string) {
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-      if (!this.sgSelectComponentConfig.itemDescriptionMatchStrategy || 
-          this.sgSelectComponentConfig.itemDescriptionMatchStrategy === 'startsWith') {
+      if (!this.sgSelectComponentConfig.itemMatchStrategy || 
+          this.sgSelectComponentConfig.itemMatchStrategy === 'startsWith') {
         this.selectedItem = this.sgSelectComponentConfig.items
           .find((item: any) => item[property].search(new RegExp(value, "i")) === 0);
-      } else if (this.sgSelectComponentConfig.itemDescriptionMatchStrategy === 'contains') {
+      } else if (this.sgSelectComponentConfig.itemMatchStrategy === 'contains') {
         this.selectedItem = this.sgSelectComponentConfig.items
           .find((item: any) => item[property].search(new RegExp(value, "i")) !== -1);
       }
