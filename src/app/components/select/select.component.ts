@@ -83,7 +83,7 @@ export class SelectComponent implements OnInit {
   sgSelectComponentConfigStyled: SgSelectComponentConfig = {
     name: 'select2',
     required: true,
-    itemMatching: 'contains',
+    itemDescriptionMatchStrategy: 'contains',
     itemsValueField: 'id',
     itemsDescriptionField: 'name',
     items: this.items,

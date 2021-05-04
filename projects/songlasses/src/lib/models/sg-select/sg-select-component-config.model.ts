@@ -2,7 +2,7 @@ export interface SgSelectComponentConfig {
 
     name: string;
     required: boolean;
-    itemMatching?: 'startsWith' | 'contains',
+    itemDescriptionMatchStrategy?: 'startsWith' | 'contains',
     itemsValueField: string;
     itemsDescriptionField: string;
     items: any[];

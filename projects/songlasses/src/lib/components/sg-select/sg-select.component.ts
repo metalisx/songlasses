@@ -24,7 +24,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
     name: '',
     required: true,
-    itemMatching: 'startsWith',
+    itemDescriptionMatchStrategy: 'startsWith',
     itemsValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
     itemsDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
     items: [],
@@ -193,25 +193,26 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private setSelectedItemByValue(value: any) {
-    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-      if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
-        this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsValueField].search(new RegExp(value, "i")) === 0);
-      } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
-        this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsValueField].search(new RegExp(value, "i")) !== -1);
-      }
+    if (this.sgSelectComponentConfig) {
+      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemsValueField)
     }
   }
 
   private setSelectedItemByDescription(value: any) {
+    if (this.sgSelectComponentConfig) {
+      this.setSelectedItemByProperty(value, this.sgSelectComponentConfig.itemsDescriptionField)
+    }
+  }
+
+  private setSelectedItemByProperty(value: any, property: string) {
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-      if (!this.sgSelectComponentConfig.itemMatching || this.sgSelectComponentConfig.itemMatching === 'startsWith') {
+      if (!this.sgSelectComponentConfig.itemDescriptionMatchStrategy || 
+          this.sgSelectComponentConfig.itemDescriptionMatchStrategy === 'startsWith') {
         this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) === 0);
-      } else if (this.sgSelectComponentConfig.itemMatching === 'contains') {
+          .find((item: any) => item[property].search(new RegExp(value, "i")) === 0);
+      } else if (this.sgSelectComponentConfig.itemDescriptionMatchStrategy === 'contains') {
         this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemsDescriptionField].search(new RegExp(value, "i")) !== -1);
+          .find((item: any) => item[property].search(new RegExp(value, "i")) !== -1);
       }
     }
   }
