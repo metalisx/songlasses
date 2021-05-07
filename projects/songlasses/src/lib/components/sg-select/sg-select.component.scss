@@ -22,11 +22,11 @@
     cursor: pointer;
     padding: 0.25em 0.5em;
 }
-.sg-select-selected-item-active, .sg-select-item:hover {
+.sg-select-item:hover {
     background-color: var(--sg-primary-light-color);
     color: var(--sg-primary-on-color);
 }
-.sg-select-item-active {
+.sg-select-selected-item-active {
     background-color: var(--sg-primary-color);
     color: var(--sg-primary-on-color);
 }

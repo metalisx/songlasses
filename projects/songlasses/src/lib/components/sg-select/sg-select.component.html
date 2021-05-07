@@ -8,7 +8,7 @@
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
         <li class="sg-select-item"
-            [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '', isItem(itm) ? 'sg-select-item-active' : '']"
+            [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '']"
             *ngFor="let itm of sgSelectComponentConfig.items" (click)="select(itm)">
             {{itm[sgSelectComponentConfig.itemDescriptionField]}}
         </li>
