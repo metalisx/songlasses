@@ -3,14 +3,14 @@
         [name]="sgSelectComponentConfig.name" 
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
-        (blur)="blur($event)" (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
+        (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
     <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
-        <li class="sg-select-item" 
-            [ngClass]="[isSelectedItem(item) ? 'sg-select-selected-item-active' : '', isItem(item) ? 'sg-select-item-active' : '']"
-            *ngFor="let item of sgSelectComponentConfig.items" (click)="select(item)">
-            {{item[sgSelectComponentConfig.itemDescriptionField]}}
+        <li class="sg-select-item"
+            [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '', isItem(itm) ? 'sg-select-item-active' : '']"
+            *ngFor="let itm of sgSelectComponentConfig.items" (click)="select(itm)">
+            {{itm[sgSelectComponentConfig.itemDescriptionField]}}
         </li>
     </ul>
 </div>
