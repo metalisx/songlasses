@@ -113,6 +113,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         this.internalValue = value;
         this.setItemByDescription(value);
         this.setExternalValue(value);
+        if (this.showItems) {
+          this.setSelectedItem(value);
+        }
       }
     } else {
       this.item = null;
