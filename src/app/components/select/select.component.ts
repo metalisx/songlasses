@@ -48,15 +48,16 @@ export class SelectComponent implements OnInit {
     background-color: #a06060;
     color: #fff;
   }
-  .select2.sg-select .sg-select-items .sg-select-item-active {
-    background-color: #702020;
-    color: #fff;
-  }
   .select2.sg-select .sg-select-items .sg-select-item:hover {
     background-color: #904040;
     color: #fff;
   }
+  .select2.sg-select .sg-select-items .sg-select-selected-item-active {
+    background-color: #702020;
+    color: #fff;
+  } 
 </style>`;
+
   public stylesSafeHtml?: SafeHtml;
   
   constructor(private sanitizer: DomSanitizer) { }
