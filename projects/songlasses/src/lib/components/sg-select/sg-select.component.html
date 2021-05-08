@@ -1,5 +1,5 @@
-<div class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
-    <input #input #model="ngModel" [(ngModel)]="value" 
+<div *ngIf="sgSelectComponentConfig" class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
+    <input *ngIf="sgSelectComponentConfig.name" #input #model="ngModel" [(ngModel)]="value" 
         [name]="sgSelectComponentConfig.name" 
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
@@ -10,7 +10,9 @@
         <li class="sg-select-item"
             [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '']"
             *ngFor="let itm of sgSelectComponentConfig.items" (click)="select(itm)">
-            {{itm[sgSelectComponentConfig.itemDescriptionField]}}
+            <ng-container *ngIf="sgSelectComponentConfig.itemDescriptionField">
+                {{itm[sgSelectComponentConfig.itemDescriptionField]}}
+            </ng-container>
         </li>
     </ul>
 </div>

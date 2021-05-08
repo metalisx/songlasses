@@ -21,15 +21,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   valid: boolean = true;
   
-  @Input() sgSelectComponentConfig: SgSelectComponentConfig = {
-    name: '',
-    required: true,
-    itemMatchStrategy: 'startsWith',
-    itemValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
-    itemDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
-    items: [],
-    className: ''
-  };
+  @Input() sgSelectComponentConfig?: SgSelectComponentConfig;
 
   @ViewChild('input') inputElement?: ElementRef;
 
@@ -46,6 +38,15 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   constructor(private elementRef: ElementRef) { }
 
   ngOnInit(): void {
+    this.sgSelectComponentConfig = this.sgSelectComponentConfig || {
+      name: 'name',
+      required: true,
+      itemMatchStrategy: 'startsWith',
+      itemValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
+      itemDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
+      items: [],
+      className: ''
+    };
   }
 
   isRequired() {
@@ -132,7 +133,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   writeValue(value: any): void {
     this.setItemByValue(value);
-    if (this.sgSelectComponentConfig && this.item) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField && this.item) {
        this.value = this.item[this.sgSelectComponentConfig.itemDescriptionField];
     }
   }
@@ -157,18 +158,18 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private setValueFromSelectedItem() {
-    if (this.sgSelectComponentConfig && this.selectedItem) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField && this.selectedItem) {
       this.value = this.selectedItem[this.sgSelectComponentConfig.itemDescriptionField];
     }
   }
 
   isItem(item: any): boolean {
-    return this.sgSelectComponentConfig && this.item && 
+    return this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemValueField && this.item && 
             this.item[this.sgSelectComponentConfig.itemValueField] === item[this.sgSelectComponentConfig.itemValueField];
   }
 
   isSelectedItem(item: any): boolean {
-    return this.sgSelectComponentConfig && this.selectedItem && 
+    return this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemValueField && this.selectedItem && 
             this.selectedItem[this.sgSelectComponentConfig.itemValueField] === item[this.sgSelectComponentConfig.itemValueField];
   }
 
@@ -199,13 +200,13 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private setItemByValue(value: any) {
-    if (this.sgSelectComponentConfig) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemValueField) {
       this.setItemByProperty(value, this.sgSelectComponentConfig.itemValueField)
     }
   }
 
   private setItemByDescription(value: any) {
-    if (this.sgSelectComponentConfig) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField) {
       this.setItemByProperty(value, this.sgSelectComponentConfig.itemDescriptionField)
     }
   }
@@ -219,19 +220,30 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setSelectedItem(value: any) {
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
+      let itemDescriptionField: string | undefined = this.sgSelectComponentConfig.itemDescriptionField;
       if (!this.sgSelectComponentConfig.itemMatchStrategy || 
           this.sgSelectComponentConfig.itemMatchStrategy === 'startsWith') {
         this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemDescriptionField].search(new RegExp(value, "i")) === 0);
+          .find((item: any) => {
+              if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField) {
+                return item[this.sgSelectComponentConfig.itemDescriptionField].search(new RegExp(value, "i")) === 0;
+              }
+              return undefined;
+            });
       } else if (this.sgSelectComponentConfig.itemMatchStrategy === 'contains') {
         this.selectedItem = this.sgSelectComponentConfig.items
-          .find((item: any) => item[this.sgSelectComponentConfig.itemDescriptionField].search(new RegExp(value, "i")) !== -1);
+          .find((item: any) => {
+              if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField) {
+                return item[this.sgSelectComponentConfig.itemDescriptionField].search(new RegExp(value, "i")) !== -1
+              }
+              return undefined;
+            });
       }
     }
   }
 
   private setExternalValue(value: any) {
-    if (this.sgSelectComponentConfig) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemValueField) {
       let externalValue: any = this.item ? this.item[this.sgSelectComponentConfig.itemValueField] : null;
       this.onChange(externalValue);
       this.onTouched(externalValue);
@@ -246,7 +258,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private selectedIndex(): number {
     let index = -1;
-    if (this.selectedItem && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items) {
+    if (this.selectedItem && this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField && 
+      this.sgSelectComponentConfig.items && 
+        this.sgSelectComponentConfig.items) {
       for (let i=0; i<this.sgSelectComponentConfig.items.length; i++) {
         if (this.sgSelectComponentConfig.items[i][this.sgSelectComponentConfig.itemDescriptionField] === 
             this.selectedItem[this.sgSelectComponentConfig.itemDescriptionField]) {
@@ -259,7 +273,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private selectPrevious(): void {
-    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
       let index = this.selectedIndex();
       if (index === -1) {
         this.selectedItem = this.sgSelectComponentConfig.items[this.sgSelectComponentConfig.items.length - 1];
@@ -270,7 +284,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private selectNext(): void {
-    if (this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items && this.sgSelectComponentConfig.items.length > 0) {
       let index = this.selectedIndex();
       if (index === -1) {
         this.selectedItem = this.sgSelectComponentConfig.items[0];

@@ -1,4 +1,3 @@
-import { TmplAstRecursiveVisitor } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
