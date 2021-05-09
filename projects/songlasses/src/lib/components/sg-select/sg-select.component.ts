@@ -1,4 +1,4 @@
-import { APP_INITIALIZER, Component, ElementRef, forwardRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
 
@@ -35,7 +35,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
-  constructor(private elementRef: ElementRef) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.sgSelectComponentConfig = this.sgSelectComponentConfig || {
