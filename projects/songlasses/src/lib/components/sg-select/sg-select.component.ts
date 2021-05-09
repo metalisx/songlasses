@@ -1,6 +1,7 @@
 import { Component, ElementRef, forwardRef, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
+import { SgSelectService } from '../../services/sg-select/sg-select.service';
 
 @Component({
   selector: 'sg-select',
@@ -15,9 +16,6 @@ import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-compon
   ]    
 })
 export class SgSelectComponent implements ControlValueAccessor, OnInit {
-
-  private static DEFAULT_ITEMS_VALUE_FIELD: string = 'value';
-  private static DEFAULT_ITEMS_DESCRIPTION_FIELD: string = 'description';
 
   valid: boolean = true;
   
@@ -35,24 +33,17 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
-  constructor() { }
+  constructor(private selectService: SgSelectService) { 
+  }
 
   ngOnInit(): void {
-    this.sgSelectComponentConfig = this.sgSelectComponentConfig || {
-      name: 'name',
-      required: true,
-      itemMatchStrategy: 'startsWith',
-      itemValueField: SgSelectComponent.DEFAULT_ITEMS_VALUE_FIELD,
-      itemDescriptionField: SgSelectComponent.DEFAULT_ITEMS_DESCRIPTION_FIELD,
-      items: [],
-      className: ''
-    };
+    this.sgSelectComponentConfig = Object.assign({}, this.selectService.getDefaults(), this.sgSelectComponentConfig);
   }
 
   isRequired() {
     let required = true;
-    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.required !== undefined && this.sgSelectComponentConfig.required === true) {
-      required = true;
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.required !== undefined && this.sgSelectComponentConfig.required === false) {
+      required = false;
     }
     return required;
   }

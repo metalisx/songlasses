@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
+import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
 import { SgSelect } from '../../models/sg-select/sg-select.model';
 
 @Injectable({
@@ -7,15 +8,33 @@ import { SgSelect } from '../../models/sg-select/sg-select.model';
 })
 export class SgSelectService {
 
+    private static DEFAULT_ITEMS_VALUE_FIELD: string = 'value';
+    private static DEFAULT_ITEMS_DESCRIPTION_FIELD: string = 'description';
+  
+    private selectComponentConfigDefault: SgSelectComponentConfig = {
+        name: 'name',
+        show: true,
+        required: true,
+        itemMatchStrategy: 'startsWith',
+        itemValueField: SgSelectService.DEFAULT_ITEMS_VALUE_FIELD,
+        itemDescriptionField: SgSelectService.DEFAULT_ITEMS_DESCRIPTION_FIELD,
+        items: [],
+        className: ''
+      };
+
     private selects: SgSelect[] = [];
 
     constructor() {
     }
 
-    private findSelect(name: String): SgSelect | undefined {
-        return this.selects.find(select => select.selectComponentConfig.name === name) ;
+    getDefaults(): SgSelectComponentConfig{
+        return this.selectComponentConfigDefault;
     }
     
+    setDefaults(selectComponentConfigDefault: SgSelectComponentConfig): void {
+        this.selectComponentConfigDefault = selectComponentConfigDefault;
+    }
+
     getSelectObservable(name: String): Observable<SgSelect> | undefined {
         return this.findSelect(name)?.subject;
     }
@@ -52,6 +71,10 @@ export class SgSelectService {
             select.selectComponentConfig.show = false;
             this.sendSelect(name);
         }
+    }
+
+    private findSelect(name: String): SgSelect | undefined {
+        return this.selects.find(select => select.selectComponentConfig.name === name) ;
     }
 
     private sendSelect(name: String): void {
