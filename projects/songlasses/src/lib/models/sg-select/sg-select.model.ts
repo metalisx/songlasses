@@ -5,5 +5,5 @@ export interface SgSelect {
 
     value: any;
     selectComponentConfig: SgSelectComponentConfig;
-    subject: Subject<SgSelect>;
+    subject?: Subject<SgSelect>;
 }

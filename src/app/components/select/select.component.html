@@ -32,3 +32,18 @@ External value : {{value | json}}
         <textarea class="code" readonly>{{styles}}</textarea> 
     </div>
 </div>
+
+<h1>Select - SgSelectService service show, hide and isVisible methods</h1>
+<p>
+    Show and hide the component by using the SgSelectService show and hide methods.<br/>
+    Show and hide the buttons by using the SgSelectService isVisible method.
+</p>
+<div>
+    <sg-select [(ngModel)]="valueShowAndHide" [sgSelectComponentConfig]="sgSelectComponentConfigShowAndHide"></sg-select>
+</div>
+<div>
+    External value : {{valueStyled | json}}
+</div>
+<div>
+    <button *ngIf="!isVisible()" (click)="show()">Show</button> <button *ngIf="isVisible()" (click)="hide()">Hide</button>
+</div>

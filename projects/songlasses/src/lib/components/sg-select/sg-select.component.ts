@@ -1,6 +1,8 @@
 import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Observable } from 'rxjs';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
+import { SgSelect } from '../../models/sg-select/sg-select.model';
 import { SgSelectService } from '../../services/sg-select/sg-select.service';
 
 @Component({
@@ -19,7 +21,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   valid: boolean = true;
   
-  @Input() sgSelectComponentConfig?: SgSelectComponentConfig;
+  @Input() sgSelectComponentConfig?: SgSelectComponentConfig = {};
 
   @ViewChild('input') inputElement?: ElementRef;
 
@@ -33,6 +35,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
+  observerable: Observable<SgSelect> | undefined;
+
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
     if(!this.elementRef.nativeElement.contains(event.target) && this.showItems) {
@@ -43,8 +47,69 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   constructor(private elementRef: ElementRef, private selectService: SgSelectService) { 
   }
 
+  private getKeys<T>(obj: T): Array<keyof T> {
+    return Object.keys(obj) as Array<keyof T>;
+  }
+
+  private merge<T extends object>(dest: T | undefined | null, source: T | undefined | null): void {
+    if (dest && source) {
+      this.getKeys(source).forEach(key => {
+        if (!dest[key]) {
+          dest[key] = source[key];
+        }
+      });
+    }
+  }
+
+  private copy<T extends object>(dest: T | undefined | null, source: T | undefined | null): void {
+    if (dest && source) {
+      this.getKeys(source).forEach(key => {
+        dest[key] = source[key];
+      });
+    }
+  }
+
   ngOnInit(): void {
-    this.sgSelectComponentConfig = Object.assign({}, this.selectService.getDefaults(), this.sgSelectComponentConfig);
+    this.merge(this.sgSelectComponentConfig, this.selectService.getDefaults());
+    if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.name) {
+      this.selectService.addSelect({
+        selectComponentConfig: this.sgSelectComponentConfig,
+        value: this.value
+      })
+      this.observerable = this.selectService.getSelectObservable(this.sgSelectComponentConfig.name);
+      if (this.observerable) {
+        this.observerable.subscribe(sgSelect => {
+          this.sgSelectComponentConfig = sgSelect.selectComponentConfig;
+          this.validateSelectComponentConfig();
+
+          //this.copy(this.sgSelectComponentConfig, sgSelect.selectComponentConfig);
+        });
+      }
+      this.validateSelectComponentConfig();
+    }
+  }
+
+  validateSelectComponentConfig() {
+    if (!this.hasItemValueField()) {
+      console.warn("Items are missing value field: " + this.sgSelectComponentConfig?.itemValueField + ". " +
+                    "Did you specify the right itemValueField?");
+    }
+    if (!this.hasItemDescriptionField()) {
+      console.warn("Items are missing description field: " + this.sgSelectComponentConfig?.itemDescriptionField + ". " +
+                    "Did you specify the right itemDescriptionField?");
+    }
+  }
+  
+  hasItemDescriptionField() {
+    return this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemDescriptionField && this.sgSelectComponentConfig.items && 
+            this.sgSelectComponentConfig.items.length > 0 && 
+            this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemDescriptionField] ? true : false;
+  }
+
+  hasItemValueField() {
+    return this.sgSelectComponentConfig && this.sgSelectComponentConfig.itemValueField && this.sgSelectComponentConfig.items && 
+            this.sgSelectComponentConfig.items.length > 0 && 
+            this.sgSelectComponentConfig.items[0][this.sgSelectComponentConfig.itemValueField] ? true : false;
   }
 
   isRequired() {
@@ -218,7 +283,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setSelectedItem(value: any) {
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.items) {
-      let itemDescriptionField: string | undefined = this.sgSelectComponentConfig.itemDescriptionField;
       if (!this.sgSelectComponentConfig.itemMatchStrategy || 
           this.sgSelectComponentConfig.itemMatchStrategy === 'startsWith') {
         this.selectedItem = this.sgSelectComponentConfig.items

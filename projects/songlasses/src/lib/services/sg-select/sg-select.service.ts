@@ -27,7 +27,15 @@ export class SgSelectService {
     constructor() {
     }
 
-    getDefaults(): SgSelectComponentConfig{
+    getSelectObservable(name: string): Observable<SgSelect> | undefined {
+        return this.getSelect(name)?.subject;
+    }
+
+    getSelect(name: string): SgSelect | undefined {
+        return this.selects.find((select) => select.selectComponentConfig.name === name);
+    }
+
+    getDefaults(): SgSelectComponentConfig {
         return this.selectComponentConfigDefault;
     }
     
@@ -35,17 +43,9 @@ export class SgSelectService {
         this.selectComponentConfigDefault = selectComponentConfigDefault;
     }
 
-    getSelectObservable(name: String): Observable<SgSelect> | undefined {
-        return this.findSelect(name)?.subject;
-    }
-
-    getSelect(name: string): SgSelect | undefined {
-        return this.selects.find((select) => select.selectComponentConfig.name === name);
-    }
-
     addSelect(select: SgSelect): void {
         if (select.selectComponentConfig && select.selectComponentConfig.name && 
-            !this.findSelect(select.selectComponentConfig.name)) {
+            this.getSelect(select.selectComponentConfig.name)) {
             console.error("Select with name " + select.selectComponentConfig.name + " already added to the SgSelectService. Name should be unique.");
         } else {
             select.subject = new Subject<SgSelect>();
@@ -58,7 +58,7 @@ export class SgSelectService {
     }
     
     show(name: string): void {
-        let select: SgSelect | undefined = this.findSelect(name);
+        let select: SgSelect | undefined = this.getSelect(name);
         if (select) {
             select.selectComponentConfig.show = true;
             this.sendSelect(name);
@@ -66,19 +66,18 @@ export class SgSelectService {
     }
 
     hide(name: string): void {
-        let select: SgSelect | undefined = this.findSelect(name);
+        let select: SgSelect | undefined = this.getSelect(name);
         if (select) {
             select.selectComponentConfig.show = false;
             this.sendSelect(name);
         }
     }
 
-    private findSelect(name: String): SgSelect | undefined {
-        return this.selects.find(select => select.selectComponentConfig.name === name) ;
-    }
-
-    private sendSelect(name: String): void {
-        this.findSelect(name)?.subject.next();
+    private sendSelect(name: string): void {
+        let sgSelect: SgSelect | undefined = this.getSelect(name);
+        if (sgSelect && sgSelect.subject) {
+            sgSelect.subject.next(sgSelect);
+        }
     }
 
 }

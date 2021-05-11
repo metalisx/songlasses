@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SgSelectComponentConfig } from 'songlasses';
+import { SgSelectComponentConfig, SgSelectService } from 'songlasses';
 import { Superhero } from 'src/app/models/superhero.model';
 import { SUPERHEROES } from '../../mocks/mock-superheroes';
 
@@ -31,8 +31,17 @@ export class SelectComponent implements OnInit {
     className: 'select2'
   }
 
+  sgSelectComponentConfigShowAndHide: SgSelectComponentConfig = {
+    name: 'selectShowHide',
+    show: true,
+    itemValueField: 'id',
+    itemDescriptionField: 'name',
+    items: this.items
+  }
+
   value?: string = 'JD';
   valueStyled?: string = 'BW';
+  valueShowAndHide?: string = 'BW';
 
   public styles: string = `<style>
   .select2.sg-select {
@@ -60,10 +69,29 @@ export class SelectComponent implements OnInit {
 
   public stylesSafeHtml?: SafeHtml;
   
-  constructor(private sanitizer: DomSanitizer) { }
+  constructor(private sanitizer: DomSanitizer, private selectService: SgSelectService) { }
 
   ngOnInit(): void {
     this.stylesSafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.styles);
-   }
+  }
 
+  isVisible(): boolean {
+    let visible: boolean = false;
+    if (this.sgSelectComponentConfigShowAndHide.name) {
+      visible = this.selectService.getSelect(this.sgSelectComponentConfigShowAndHide.name)?.selectComponentConfig.show || false;
+    }
+    return visible;
+  }
+
+  show(): void {
+    if (this.sgSelectComponentConfigShowAndHide.name) {
+      this.selectService.show(this.sgSelectComponentConfigShowAndHide.name);
+    }
+  }
+
+  hide(): void {
+    if (this.sgSelectComponentConfigShowAndHide.name) {
+      this.selectService.hide(this.sgSelectComponentConfigShowAndHide.name);
+    }
+  }
 }

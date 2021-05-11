@@ -1,4 +1,5 @@
-<div *ngIf="sgSelectComponentConfig" class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
+<div *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.show === true" 
+    class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
     <input *ngIf="sgSelectComponentConfig.name" #input #model="ngModel" [(ngModel)]="value" 
         [name]="sgSelectComponentConfig.name" 
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
@@ -15,5 +16,5 @@
             </ng-container>
         </li>
     </ul>
+    Internal selected item : {{item | json}}
 </div>
-Internal selected item : {{item | json}}
