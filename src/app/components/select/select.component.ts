@@ -33,7 +33,6 @@ export class SelectComponent implements OnInit {
 
   sgSelectComponentConfigShowAndHide: SgSelectComponentConfig = {
     name: 'selectShowHide',
-    show: true,
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items

@@ -1,6 +1,6 @@
 export interface Superhero {
 
-    id: string,
+    id: string | null,
     name: string,
     superheroName: string
 

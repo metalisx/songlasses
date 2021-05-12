@@ -1,4 +1,4 @@
-<h1>Select - Default</h1>
+<h2>Select - Default</h2>
 <div>
     <sg-select [(ngModel)]="value" [sgSelectComponentConfig]="sgSelectComponentConfig"></sg-select>
 </div>
@@ -10,7 +10,7 @@ External value : {{value | json}}
     </div>
 </div>
 
-<h1>Select - Custom styled</h1>
+<h2>Select - Custom styled</h2>
 <p>
     To style the component set the classname in the components config. In the example it is set 
     to select2 and some custom style is added to target the components elements.
@@ -33,7 +33,7 @@ External value : {{value | json}}
     </div>
 </div>
 
-<h1>Select - SgSelectService service show, hide and isVisible methods</h1>
+<h2>Select - SgSelectService service show, hide and isVisible methods</h2>
 <p>
     Show and hide the component by using the SgSelectService show and hide methods.<br/>
     Show and hide the buttons by using the SgSelectService isVisible method.
@@ -42,7 +42,7 @@ External value : {{value | json}}
     <sg-select [(ngModel)]="valueShowAndHide" [sgSelectComponentConfig]="sgSelectComponentConfigShowAndHide"></sg-select>
 </div>
 <div>
-    External value : {{valueStyled | json}}
+    External value : {{valueShowAndHide | json}}
 </div>
 <div>
     <button *ngIf="!isVisible()" (click)="show()">Show</button> <button *ngIf="isVisible()" (click)="hide()">Hide</button>

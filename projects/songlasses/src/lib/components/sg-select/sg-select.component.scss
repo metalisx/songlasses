@@ -11,9 +11,10 @@
     width: 100%;
     padding: 0.5em 0;
     margin: 0; // calc(var(--sg-input-border-width) * -1) 0;
-    background-color: #fff;
-    list-style: none;
+    z-index: var(--sg-select-items-z-index);
+    background-color: var(--sg-select-items-background-color);
     border: var(--sg-input-border);
+    list-style: none;
 }
 .sg-select-items-show {
     display: block;
