@@ -23,7 +23,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   
   @Input() sgSelectComponentConfig?: SgSelectComponentConfig = {};
 
-  @ViewChild('input') inputElement?: ElementRef;
+  @ViewChild('input') inputElement!: ElementRef;
 
   private internalValue: any;
 
@@ -313,9 +313,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   private focusOnInputElement(): void {
-    if (this.inputElement) {
-      this.inputElement.nativeElement.focus();
-    }
+    this.inputElement.nativeElement.focus();
   }
 
   private selectedIndex(): number {
