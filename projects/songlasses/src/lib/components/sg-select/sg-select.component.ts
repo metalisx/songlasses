@@ -81,8 +81,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         this.observerable.subscribe(sgSelect => {
           this.sgSelectComponentConfig = sgSelect.selectComponentConfig;
           this.validateSelectComponentConfig();
-
-          //this.copy(this.sgSelectComponentConfig, sgSelect.selectComponentConfig);
         });
       }
       this.validateSelectComponentConfig();
