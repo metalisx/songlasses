@@ -33,7 +33,7 @@ export class ObjectUtils {
      * @param sources
      */
     static assign(destination: object, ...sources: object[]): object {
-        return ObjectUtils.copy(true, destination, ...sources);
+        return ObjectUtils.copyObject(true, destination, ...sources);
     }
 
     /**
@@ -44,32 +44,60 @@ export class ObjectUtils {
      * @param sources
      */
      static merge(destination: object, ...sources: object[]): object {
-        return ObjectUtils.copy(false, destination, ...sources);
+        return ObjectUtils.copyObject(false, destination, ...sources);
     }
 
-    /** TODO : array copy */
-    private static copy(copyKnownProperties: boolean, destination: object = {}, ...sources: object[]): object {
+    /**
+     * Somewhat excesive statements just for preventing type check errors.
+     */
+    private static copyObject(copyKnownProperties: boolean, destination: object, ...sources: object[]): object {
         if (!sources.length) {
             return destination;
         }
-        let source = sources.shift();
-        if (ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
+        let source: object | undefined = sources.shift();
+        if (source && ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
             ObjectUtils.getKeys(source).forEach(key => {
                 if (source && (copyKnownProperties || (!copyKnownProperties && !destination[key]))) {
                     if (ObjectUtils.isObject(source[key])) {
-                        // if (!destination[key]) {
-                        //     destination[key] = {};
-                        // }
-                        //ObjectUtils.merge(destination[key], source[key]);
-                        // Somewhat excesive just for preventing type check errors
-                        Object.assign(destination, { [key]: ObjectUtils.copy(copyKnownProperties, {}, source[key]) });
+                        Object.assign(destination, { [key]: ObjectUtils.copyObject(copyKnownProperties, {}, source[key]) });
+                    } else if (ObjectUtils.isArray(source[key])) {
+                        Object.assign(destination, { [key]: ObjectUtils.copyArray(copyKnownProperties, [], source[key]) });
                     } else {
                         Object.assign(destination, { [key]: source[key] });
                     }
                 }
             });
         }
-        return ObjectUtils.copy(copyKnownProperties, destination, ...sources);
+        return ObjectUtils.copyObject(copyKnownProperties, destination, ...sources);
+    }
+
+    /**
+     * Somewhat excesive statements just for preventing type check errors.
+     */
+     private static copyArray(copyKnownProperties: boolean, destination: [] = [], ...sources: [][]): [] {
+        if (!sources.length) {
+            return destination;
+        }
+        let source: [] | undefined = sources.shift();
+        if (source && ObjectUtils.isArray(destination) && ObjectUtils.isArray(source)) {
+            source.forEach((item, index) => {
+                if (item) {
+                    if (ObjectUtils.isObject(item)) {
+                        ObjectUtils.push(destination, ObjectUtils.copyObject(copyKnownProperties, {}, item));
+                    } else if (ObjectUtils.isArray(item)) {
+                        ObjectUtils.push(destination, ObjectUtils.copyArray(copyKnownProperties, [], item));
+                    } else {
+                        destination[index] = item;
+                    }
+                }
+            });
+        }
+        return destination;
+    }
+
+    private static push(destination: object[], item: object): object[] {
+        destination.push(item);
+        return destination;
     }
 
 }

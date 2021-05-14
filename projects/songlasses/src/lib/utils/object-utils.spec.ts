@@ -77,11 +77,11 @@ describe('SgSidebarervice', () => {
         expect(destination).toEqual(expected);
     });
 
-    it('#assign source containing a hierachy of objects should update destination with source property', () => {
+    it('#assign source containing a hierachy of objects should update destination with with deep copy of source property', () => {
         let destination = {
         };
         let source = {
-            "sourceProperty1": {
+            "sourceProperty": {
                 "level2SourceProperty1": "level2SourceValue1",
                 "level2SourceProperty2": {
                     "level3SourceProperty1": "level3SourceValue1"
@@ -89,7 +89,7 @@ describe('SgSidebarervice', () => {
             }
         };
         let expected = {
-            "sourceProperty1": {
+            "sourceProperty": {
                 "level2SourceProperty1": "level2SourceValue1",
                 "level2SourceProperty2": {
                     "level3SourceProperty1": "level3SourceValue1"
@@ -97,6 +97,82 @@ describe('SgSidebarervice', () => {
             }
         };
         ObjectUtils.assign(destination, source);
+        expect(destination).toEqual(expected);
+
+        // assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"]["level2SourceProperty1"] = value;
+        expect(source["sourceProperty"]["level2SourceProperty1"]).toEqual(value);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#assign source containing a hierachy of objects should update destination with with deep copy of source property', () => {
+        let destination = {
+        };
+        let source = {
+            "sourceProperty": [
+                {
+                    "item1": "item2value",
+                }, {
+                    "item2": "item2value"
+                }
+            ]
+        };
+        let expected = {
+            "sourceProperty": [
+                {
+                    "item1": "item2value",
+                }, {
+                    "item2": "item2value"
+                }
+            ]
+        };
+        ObjectUtils.assign(destination, source);
+        expect(destination).toEqual(expected);
+
+        // assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"][0]["item1"] = value;
+        expect(source["sourceProperty"][0]["item1"]).toEqual(value);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#assign source containing a hierachy of arrays should update destination with with deep copy of source property', () => {
+        let destination = {
+        };
+        let source = {
+            "sourceProperty": [
+                [
+                    {
+                        "item1": "item2value",
+                    }
+                ], [
+                    {
+                        "item1": "item2value"
+                    }
+                ]
+            ]
+        };
+        let expected = {
+            "sourceProperty": [
+                [
+                    {
+                        "item1": "item2value",
+                    }
+                ], [
+                    {
+                        "item1": "item2value"
+                    }
+                ]
+            ]
+        };
+        ObjectUtils.assign(destination, source);
+        expect(destination).toEqual(expected);
+
+        //assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"][0][0]["item1"] = value;
+        expect(source["sourceProperty"][0][0]["item1"]).toEqual(value);
         expect(destination).toEqual(expected);
     });
 
@@ -175,11 +251,11 @@ describe('SgSidebarervice', () => {
         expect(destination).toEqual(expected);
     });
 
-    it('#merge source containing a hierachy of objects should update destination with source property', () => {
+    it('#merge source containing a hierachy of objects should update destination with deep copy of source property', () => {
         let destination = {
         };
         let source = {
-            "sourceProperty1": {
+            "sourceProperty": {
                 "level2SourceProperty1": "level2SourceValue1",
                 "level2SourceProperty2": {
                     "level3SourceProperty1": "level3SourceValue1"
@@ -187,7 +263,7 @@ describe('SgSidebarervice', () => {
             }
         };
         let expected = {
-            "sourceProperty1": {
+            "sourceProperty": {
                 "level2SourceProperty1": "level2SourceValue1",
                 "level2SourceProperty2": {
                     "level3SourceProperty1": "level3SourceValue1"
@@ -195,6 +271,82 @@ describe('SgSidebarervice', () => {
             }
         };
         ObjectUtils.merge(destination, source);
+        expect(destination).toEqual(expected);
+
+        // assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"]["level2SourceProperty1"] = value;
+        expect(source["sourceProperty"]["level2SourceProperty1"]).toEqual(value);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#merge source containing a hierachy of objects should update destination with with deep copy of source property', () => {
+        let destination = {
+        };
+        let source = {
+            "sourceProperty": [
+                {
+                    "item1": "item2value",
+                }, {
+                    "item2": "item2value"
+                }
+            ]
+        };
+        let expected = {
+            "sourceProperty": [
+                {
+                    "item1": "item2value",
+                }, {
+                    "item2": "item2value"
+                }
+            ]
+        };
+        ObjectUtils.merge(destination, source);
+        expect(destination).toEqual(expected);
+
+        // assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"][0]["item1"] = value;
+        expect(source["sourceProperty"][0]["item1"]).toEqual(value);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#merge source containing a hierachy of arrays should update destination with with deep copy of source property', () => {
+        let destination = {
+        };
+        let source = {
+            "sourceProperty": [
+                [
+                    {
+                        "item1": "item2value",
+                    }
+                ], [
+                    {
+                        "item1": "item2value"
+                    }
+                ]
+            ]
+        };
+        let expected = {
+            "sourceProperty": [
+                [
+                    {
+                        "item1": "item2value",
+                    }
+                ], [
+                    {
+                        "item1": "item2value"
+                    }
+                ]
+            ]
+        };
+        ObjectUtils.merge(destination, source);
+        expect(destination).toEqual(expected);
+
+        //assert deep copy
+        let value: string = "changed value";
+        source["sourceProperty"][0][0]["item1"] = value;
+        expect(source["sourceProperty"][0][0]["item1"]).toEqual(value);
         expect(destination).toEqual(expected);
     });
 
