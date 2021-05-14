@@ -5,19 +5,19 @@ export class ObjectUtils {
      *
      * The source objects are stringified with JSON and then compared.
      */
-    static equals(source1: any, source2: any): boolean {
+    static equals<T>(source1: T, source2: T): boolean {
         return JSON.stringify(source1) === JSON.stringify(source2);
     }
 
-    static isFunction(object: any) {
+    static isFunction<T>(object: T) {
         return (object && typeof object === 'function');
     }
 
-    static isObject(object: any) {
+    static isObject<T>(object: T) {
         return (object && typeof object === 'object' && !Array.isArray(object));
     }
 
-    static isArray(object: any) {
+    static isArray<T>(object: T) {
         return (object && typeof object === 'object' && Array.isArray(object));
     }
 
@@ -95,7 +95,7 @@ export class ObjectUtils {
         return destination;
     }
 
-    private static push(destination: object[], item: object): object[] {
+    private static push<T>(destination: T[], item: T): T[] {
         destination.push(item);
         return destination;
     }
