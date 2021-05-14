@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { SgSidebarHamburgerComponent } from '../sg-sidebar-hamburger/sg-sidebar-hamburger.component';
 
 import { SgAppHeaderComponent } from './sg-app-header.component';
 
@@ -8,7 +9,7 @@ describe('SgAppHeaderComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SgAppHeaderComponent ]
+      declarations: [ SgAppHeaderComponent, SgSidebarHamburgerComponent ]
     })
     .compileComponents();
   });

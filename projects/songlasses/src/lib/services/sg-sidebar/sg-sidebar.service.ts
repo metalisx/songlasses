@@ -65,9 +65,6 @@ export class SgSidebarService {
 
     popMenuItems(): void {
         this.sidebar.menuItemsStack.pop();
-        if (this.sidebar.menuItemsStack.length === 0) {
-            this.sidebar.menuItemsStack.push([]);
-        }
         this.sendSidebar();
     }
 

@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
 import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 import { SgSidebarService } from './sg-sidebar.service';
@@ -138,7 +138,7 @@ describe('SgSidebarervice', () => {
         service.integratedHide();
     });
 
-    it('#pushMenuItems should push menuItems to sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+    it('#pushMenuItems should push menuItems as first item to sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
         let menuItems: SgMenuItem[] = [{
             label: 'some label'
         }];
@@ -149,18 +149,69 @@ describe('SgSidebarervice', () => {
         service.pushMenuItems(menuItems);
     });
 
-    it('#popMenuItems should pop the last menuItems from the sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+    it('#pushMenuItems should push menuItems2 as second item to sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+        let menuItems1: SgMenuItem[] = [{
+            label: 'some label1'
+        }];
+        service.setMenuItems(menuItems1);
+        let menuItems2: SgMenuItem[] = [{
+            label: 'some label2'
+        }];
+        service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack[1]).toEqual(menuItems2);
+            done();
+        });
+        service.pushMenuItems(menuItems2);
+    });
+    
+    it('#popMenuItems should pop the first menuItems from sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+        console.log('aaa');
+        let subscription: Subscription;
         let menuItems: SgMenuItem[] = [{
             label: 'some label'
         }];
-        service.getSidebarObservable().subscribe(value => {
+        subscription = service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack.length).toEqual(1);
+            done();
+        });
+        service.setMenuItems(menuItems);
+        subscription.unsubscribe();
+        subscription = service.getSidebarObservable().subscribe(value => {
             expect(value.menuItemsStack.length).toEqual(0);
+            done();
+        });
+        service.popMenuItems();
+        console.log('bbb');
+    });
+
+    it('#popMenuItems should pop the second item from sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+        let subscription: Subscription;
+        let menuItems1: SgMenuItem[] = [{
+            label: 'some label1'
+        }];
+        subscription = service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack.length).toEqual(1);
+            done();
+        });
+        service.setMenuItems(menuItems1);
+        subscription.unsubscribe();
+        let menuItems2: SgMenuItem[] = [{
+            label: 'some label2'
+        }];
+        subscription = service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack.length).toEqual(2);
+            done();
+        });
+        service.pushMenuItems(menuItems2);
+        subscription.unsubscribe();
+        subscription = service.getSidebarObservable().subscribe(value => {
+            expect(value.menuItemsStack.length).toEqual(1);
             done();
         });
         service.popMenuItems();
     });
 
-    it('#setMenuItems should set menuItems to last item in sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
+    it('#setMenuItems should set menuItems as the first item in sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
         let menuItems: SgMenuItem[] = [{
             label: 'some label'
         }];

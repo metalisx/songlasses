@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 
 import { SgSelectComponent } from './sg-select.component';
 
@@ -8,6 +9,7 @@ describe('SgSelectComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[FormsModule],
       declarations: [ SgSelectComponent ]
     })
     .compileComponents();
