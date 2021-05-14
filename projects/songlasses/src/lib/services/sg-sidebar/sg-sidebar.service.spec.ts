@@ -165,7 +165,6 @@ describe('SgSidebarervice', () => {
     });
     
     it('#popMenuItems should pop the first menuItems from sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
-        console.log('aaa');
         let subscription: Subscription;
         let menuItems: SgMenuItem[] = [{
             label: 'some label'
@@ -181,7 +180,6 @@ describe('SgSidebarervice', () => {
             done();
         });
         service.popMenuItems();
-        console.log('bbb');
     });
 
     it('#popMenuItems should pop the second item from sidebar.menuItemsStack and return sidebar from observable', (done: DoneFn) => {
