@@ -27,7 +27,7 @@ export class ObjectUtils {
     
     /**
      * Copy properties from sources to destination.
-     * When different objects have the same property, the value of the property in the last source is set in the destination.
+     * When merging objects with the same property, the value of the property in the last source is set in the destination.
      * 
      * @param destination
      * @param sources
@@ -38,7 +38,7 @@ export class ObjectUtils {
 
     /**
      * Merge only properties in sources which are not present in destination to destination.
-     * When different objects have the same property, the value of the first found property is set in the destination.
+     * When merging objects with the same property, the value of the first found property is set in the destination.
      * 
      * @param destination
      * @param sources
