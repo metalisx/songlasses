@@ -2,6 +2,146 @@ import { ObjectUtils } from './object-utils';
 
 describe('SgSidebarervice', () => {
       
+    it('#equals source1 and source2 are null should return true', () => {
+        expect(ObjectUtils.equals(null, null)).toEqual(true);
+    });
+
+    it('#equals source1 and source2 are undefined should return true', () => {
+        expect(ObjectUtils.equals(undefined, undefined)).toEqual(true);
+    });
+
+    it('#equals source1 is null and source2 is undefined should return false', () => {
+        expect(ObjectUtils.equals(null, undefined)).toEqual(false);
+    });
+
+    it('#equals source1 is undefined and source2 is null should return false', () => {
+        expect(ObjectUtils.equals(undefined, null)).toEqual(false);
+    });
+
+    it('#equals source1 is object and source2 is null should return false', () => {
+        expect(ObjectUtils.equals({}, null)).toEqual(false);
+    });
+
+    it('#equals source1 is object and source2 is undefined should return false', () => {
+        expect(ObjectUtils.equals({}, null)).toEqual(false);
+    });
+
+    it('#equals source1 is null and source2 is object should return false', () => {
+        expect(ObjectUtils.equals(null, {})).toEqual(false);
+    });
+
+    it('#equals source1 is undefined and source2 is object should return false', () => {
+        expect(ObjectUtils.equals(undefined, {})).toEqual(false);
+    });
+
+    it('#equals source1 is not the same as source2 should return false', () => {
+        expect(ObjectUtils.equals({"name": "value"}, {"name1": "value"})).toEqual(false);
+    });
+
+    it('#equals source1 and source2 are empty object should return true', () => {
+        expect(ObjectUtils.equals({}, {})).toEqual(true);
+    });
+
+    it('#equals source1 is the same as source2 should return true', () => {
+        let obj: object = {"name": "value"};
+        expect(ObjectUtils.equals(obj, obj)).toEqual(true);
+    });
+
+    it('#equals source1 is the same as source2 and are containing a hierachy of objects should return true', () => {
+        let obj: object = {
+            "name": "value",
+            "childObj": {
+                "childName": "valueChildName",
+                "childNumber": 1,
+                "childDate": new Date()
+            }
+        }
+        expect(ObjectUtils.equals(obj, obj)).toEqual(true);
+    });
+
+    it('#isFunction variations should pass', () => {
+        expect(ObjectUtils.isFunction(ObjectUtils.isFunction)).toEqual(true);
+        expect(ObjectUtils.isFunction(function(){})).toEqual(true);
+        expect(ObjectUtils.isFunction(() => {})).toEqual(true);
+        expect(ObjectUtils.isFunction(class A {})).toEqual(true);
+        expect(ObjectUtils.isFunction(null)).toEqual(false);
+        expect(ObjectUtils.isFunction(undefined)).toEqual(false);
+        expect(ObjectUtils.isFunction(new String(""))).toEqual(false);
+        expect(ObjectUtils.isFunction("")).toEqual(false);
+        expect(ObjectUtils.isFunction(new Number(1))).toEqual(false);
+        expect(ObjectUtils.isFunction(1)).toEqual(false);
+        expect(ObjectUtils.isFunction(new Date())).toEqual(false);
+        expect(ObjectUtils.isFunction(new Boolean(true))).toEqual(false);
+        expect(ObjectUtils.isFunction(true)).toEqual(false);
+        expect(ObjectUtils.isFunction(false)).toEqual(false);
+        expect(ObjectUtils.isFunction(new Array<string>())).toEqual(false);
+        expect(ObjectUtils.isFunction([])).toEqual(false);
+        expect(ObjectUtils.isFunction(new Object())).toEqual(false);
+        expect(ObjectUtils.isFunction({})).toEqual(false);
+    });
+
+    it('#isObject variations should pass', () => {
+        expect(ObjectUtils.isObject(ObjectUtils.isObject)).toEqual(false);
+        expect(ObjectUtils.isObject(function(){})).toEqual(false);
+        expect(ObjectUtils.isObject(() => {})).toEqual(false);
+        expect(ObjectUtils.isObject(class A {})).toEqual(false);
+        expect(ObjectUtils.isObject(null)).toEqual(false);
+        expect(ObjectUtils.isObject(undefined)).toEqual(false);
+        expect(ObjectUtils.isObject(new String(""))).toEqual(true);
+        expect(ObjectUtils.isObject("")).toEqual(false);
+        expect(ObjectUtils.isObject(new Number(1))).toEqual(true);
+        expect(ObjectUtils.isObject(1)).toEqual(false);
+        expect(ObjectUtils.isObject(new Date())).toEqual(true);
+        expect(ObjectUtils.isObject(new Boolean(true))).toEqual(true);
+        expect(ObjectUtils.isObject(true)).toEqual(false);
+        expect(ObjectUtils.isObject(false)).toEqual(false);
+        expect(ObjectUtils.isObject(new Array<string>())).toEqual(false);
+        expect(ObjectUtils.isObject([])).toEqual(false);
+        expect(ObjectUtils.isObject(new Object())).toEqual(true);
+        expect(ObjectUtils.isObject({})).toEqual(true);
+    });
+
+    it('#isArray variations should pass', () => {
+        expect(ObjectUtils.isArray(ObjectUtils.isArray)).toEqual(false);
+        expect(ObjectUtils.isArray(function(){})).toEqual(false);
+        expect(ObjectUtils.isArray(() => {})).toEqual(false);
+        expect(ObjectUtils.isArray(class A {})).toEqual(false);
+        expect(ObjectUtils.isArray(null)).toEqual(false);
+        expect(ObjectUtils.isArray(undefined)).toEqual(false);
+        expect(ObjectUtils.isArray(new String(""))).toEqual(false);
+        expect(ObjectUtils.isArray("")).toEqual(false);
+        expect(ObjectUtils.isArray(new Number(1))).toEqual(false);
+        expect(ObjectUtils.isArray(1)).toEqual(false);
+        expect(ObjectUtils.isArray(new Date())).toEqual(false);
+        expect(ObjectUtils.isArray(new Boolean(true))).toEqual(false);
+        expect(ObjectUtils.isArray(true)).toEqual(false);
+        expect(ObjectUtils.isArray(false)).toEqual(false);
+        expect(ObjectUtils.isArray(new Array<string>())).toEqual(true);
+        expect(ObjectUtils.isArray([])).toEqual(true);
+        expect(ObjectUtils.isArray(new Object())).toEqual(false);
+        expect(ObjectUtils.isArray({})).toEqual(false);
+    });
+
+    it('#getKeys null should return empty array', () => {
+        expect(ObjectUtils.getKeys(null)).toEqual([]);
+    });
+
+    it('#getKeys undefined should return empty array', () => {
+        expect(ObjectUtils.getKeys(undefined)).toEqual([]);
+    });
+
+    it('#getKeys empty object should return empty array', () => {
+        expect(ObjectUtils.getKeys({})).toEqual([]);
+    });
+
+    it('#getKeys object with one property should return array with one elmeent', () => {
+        expect(ObjectUtils.getKeys({"name": "value"})).toEqual(["name"]);
+    });
+
+    it('#getKeys object with 2 properties should return array with two elmeents', () => {
+        expect(ObjectUtils.getKeys({"name1": "value1", "name2": "value2"})).toEqual(["name1", "name2"]);
+    });
+
     it('#assign destination without source(s) should not update destination and return destination', () => {
         let destination = {
             "destinationProperty1": "destinationValue1"

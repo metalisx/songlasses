@@ -5,23 +5,24 @@ export class ObjectUtils {
      *
      * The source objects are stringified with JSON and then compared.
      */
-    static equals<T>(source1: T, source2: T): boolean {
+    static equals<T, U>(source1: T, source2: U): boolean {
         return JSON.stringify(source1) === JSON.stringify(source2);
     }
 
     static isFunction<T>(object: T) {
-        return (object && typeof object === 'function');
+        return (object !== undefined && object !== null && typeof object === 'function');
     }
 
     static isObject<T>(object: T) {
-        return (object && typeof object === 'object' && !Array.isArray(object));
+        return (object !== undefined && object !== null && typeof object === 'object' && !Array.isArray(object));
     }
 
     static isArray<T>(object: T) {
-        return (object && typeof object === 'object' && Array.isArray(object));
+        return (object !== undefined && object !== null && typeof object === 'object' && Array.isArray(object));
     }
 
     static getKeys<T>(obj: T): Array<keyof T> {
+        if (obj === undefined || obj === null) return [];
         return Object.keys(obj) as Array<keyof T>;
     }
     
