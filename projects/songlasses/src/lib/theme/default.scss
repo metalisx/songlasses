@@ -98,7 +98,7 @@
     --sg-input-border-color: #eaeaea;
 
     /* input */
-    --sg-input-border-width: 0.1em;
+    --sg-input-border-width: 1px;
     --sg-input-border-style: solid;
     --sg-input-border: var(--sg-input-border-width) var(--sg-input-border-style) var(--sg-input-border-color);
     --sg-input-padding: 0.5em;
@@ -147,6 +147,7 @@
     --sg-sidebar-hamburger-svg-icon-height: 3rem;
 
     /* select */
+    --sg-select-items-height: auto;
     --sg-select-items-background-color: var(--sg-body-color);
     --sg-select-items-z-index: 10;
 

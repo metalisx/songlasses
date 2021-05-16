@@ -5,10 +5,10 @@
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
         (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
-    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items" 
+    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items"
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
-        <li class="sg-select-item"
+        <li class="sg-select-item" #item
             [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '']"
             *ngFor="let itm of sgSelectComponentConfig.items" (click)="select(itm)">
             <ng-container *ngIf="sgSelectComponentConfig.itemDescriptionField">

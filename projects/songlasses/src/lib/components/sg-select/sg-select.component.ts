@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
@@ -24,6 +24,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   @Input() sgSelectComponentConfig?: SgSelectComponentConfig = {};
 
   @ViewChild('input') inputElement!: ElementRef;
+  @ViewChildren('item') liElements!: QueryList<ElementRef>;
 
   private internalValue: any;
 
@@ -125,16 +126,15 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keydown(event: KeyboardEvent) {
-    let returnValue = true;
     switch(event.key) {
       case 'ArrowDown': {
         this.keydownArrowdown();
-        returnValue = false;
+        event.preventDefault();
         break;
       }
       case 'ArrowUp': {
+        event.preventDefault();
         this.keydownArrowup();
-        returnValue = false;
         break;
       }
       case 'Tab': {
@@ -145,20 +145,20 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         break;
       }
     }
-    return returnValue;
   }
 
   keyup(event: KeyboardEvent) {
-    let returnValue: boolean = true;
     switch(event.key) {
       case 'Enter': {
         if (this.showItems) {
+          event.preventDefault();
           this.setValueFromSelectedItem();
           this.doHideItems();
         }
         break;
       }
       case 'Escape': {
+        event.preventDefault();
         this.doHideItems();
         break;
       }
@@ -166,7 +166,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         break;
       }
     }
-    return returnValue;
   }
 
   set value(value: any) {
@@ -244,12 +243,21 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     this.showItems = false;
   }
 
+  private scrollIntoView(alignToTop: boolean) {
+    this.liElements.forEach(el => {
+      if (el.nativeElement.classList.contains('sg-select-selected-item-active')) {
+        el.nativeElement.scrollIntoView({ behavior: "smooth", block: alignToTop ? "start" : "end"});
+      }
+    });
+  }
+
   private keydownArrowup() {
     if (!this.showItems) {
       this.doShowItems();
     } else {
       this.selectPrevious();
     }
+    //this.scrollIntoView(false);
   }
 
   private keydownArrowdown() {
@@ -258,6 +266,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     } else {
       this.selectNext();
     }
+    //this.scrollIntoView(true);
   }
 
   private setItemByValue(value: any) {

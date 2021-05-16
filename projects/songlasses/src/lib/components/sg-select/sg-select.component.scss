@@ -14,7 +14,10 @@
     z-index: var(--sg-select-items-z-index);
     background-color: var(--sg-select-items-background-color);
     border: var(--sg-input-border);
+    border-top: 0;
     list-style: none;
+    overflow-y: auto;
+    height: var(--sg-select-items-height);
 }
 .sg-select-items-show {
     display: block;
