@@ -27,66 +27,87 @@ export class ObjectUtils {
     }
     
     /**
-     * Copy properties from sources to destination.
-     * When merging objects with the same property, the value of the property in the last source is set in the destination.
+     * Removing all items from the array. Use this method to keep references to the array alive.
+     * 
+     * @param items 
+     * @returns 
+     */
+    static clearArray<T>(items: T[]) {
+        items.splice(0, items.length);
+        return items;
+    }
+
+    /**
+     * Copy items from sources to destination.
+     * 
+     * @param destination
+     * @param sources
+     */
+     static copyArray(destination: object[], ...sources: object[][]): object[] {
+        return ObjectUtils.internalCopyArray(true, destination, ...sources);
+    }
+
+    /**
+     * Copy properties from the source objects to the destination object.
+     * When copying objects with the same property, the value of the property in the last source object is set in the destination object.
      * 
      * @param destination
      * @param sources
      */
     static assign(destination: object, ...sources: object[]): object {
-        return ObjectUtils.copyObject(true, destination, ...sources);
+        return ObjectUtils.internalCopyObject(true, destination, ...sources);
     }
 
     /**
-     * Merge only properties in sources which are not present in destination to destination.
-     * When merging objects with the same property, the value of the first found property is set in the destination.
+     * Merge only properties from the source objects which are not present in the destination object to the destination object.
+     * When merging objects with the same property, the value of the first source object containing the property is set in the destination object.
      * 
      * @param destination
      * @param sources
      */
      static merge(destination: object, ...sources: object[]): object {
-        return ObjectUtils.copyObject(false, destination, ...sources);
+        return ObjectUtils.internalCopyObject(false, destination, ...sources);
     }
 
     /**
      * Somewhat excesive statements just for preventing type check errors.
      */
-    private static copyObject(copyKnownProperties: boolean, destination: object, ...sources: object[]): object {
+    private static internalCopyObject(copyKnownProperties: boolean, destination: object, ...sources: object[]): object {
         if (!sources.length) {
             return destination;
         }
         let source: object | undefined = sources.shift();
-        if (source && ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
+        if (source !== undefined && ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
             ObjectUtils.getKeys(source).forEach(key => {
                 if (source && (copyKnownProperties || (!copyKnownProperties && !destination[key]))) {
                     if (ObjectUtils.isObject(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.copyObject(copyKnownProperties, {}, source[key]) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyObject(copyKnownProperties, {}, source[key]) });
                     } else if (ObjectUtils.isArray(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.copyArray(copyKnownProperties, [], source[key]) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyArray(copyKnownProperties, [], source[key]) });
                     } else {
                         Object.assign(destination, { [key]: source[key] });
                     }
                 }
             });
         }
-        return ObjectUtils.copyObject(copyKnownProperties, destination, ...sources);
+        return ObjectUtils.internalCopyObject(copyKnownProperties, destination, ...sources);
     }
 
     /**
      * Somewhat excesive statements just for preventing type check errors.
      */
-     private static copyArray(copyKnownProperties: boolean, destination: [] = [], ...sources: [][]): [] {
+     private static internalCopyArray(copyKnownProperties: boolean, destination: object[] = [], ...sources: object[][]): object[] {
         if (!sources.length) {
             return destination;
         }
-        let source: [] | undefined = sources.shift();
-        if (source && ObjectUtils.isArray(destination) && ObjectUtils.isArray(source)) {
+        let source: object[] | undefined = sources.shift();
+        if (source !== undefined && ObjectUtils.isArray(destination) && ObjectUtils.isArray(source)) {
             source.forEach((item, index) => {
                 if (item) {
                     if (ObjectUtils.isObject(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.copyObject(copyKnownProperties, {}, item));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyObject(copyKnownProperties, {}, item));
                     } else if (ObjectUtils.isArray(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.copyArray(copyKnownProperties, [], item));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyArray(copyKnownProperties, [], item as Array<object>));
                     } else {
                         destination[index] = item;
                     }

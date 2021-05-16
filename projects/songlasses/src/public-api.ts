@@ -15,3 +15,4 @@ export * from './lib/services/sg-select/sg-select.service';
 export * from './lib/models/sg-select/sg-select-component-config.model';
 export * from './lib/models/sg-sidebar/sg-menu-item.model';
 export * from './lib/models/sg-sidebar/sg-sidebar.model';
+export * from './lib/utils/object-utils';
