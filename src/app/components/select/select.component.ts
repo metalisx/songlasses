@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SgSelectComponentConfig, SgSelectService } from 'songlasses';
-import { Superhero } from 'src/app/models/superhero.model';
-import { SUPERHEROES } from '../../mocks/mock-superheroes';
+import { SuperheroesService } from '../../services/superheroes.service';
+import { Superhero } from '../../models/superhero.model';
+import { ObjectUtils } from 'songlasses';
 
 @Component({
   selector: 'app-select',
@@ -11,7 +12,7 @@ import { SUPERHEROES } from '../../mocks/mock-superheroes';
 })
 export class SelectComponent implements OnInit {
 
-  private items: Superhero[] = SUPERHEROES;
+  private items: Superhero[] = [];
 
   sgSelectComponentConfig: SgSelectComponentConfig = {
     name: 'select1',
@@ -68,10 +69,15 @@ export class SelectComponent implements OnInit {
 
   public stylesSafeHtml?: SafeHtml;
   
-  constructor(private sanitizer: DomSanitizer, private selectService: SgSelectService) { }
+  constructor(private sanitizer: DomSanitizer, private selectService: SgSelectService,
+              private superheroesService: SuperheroesService) { }
 
   ngOnInit(): void {
     this.stylesSafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.styles);
+    this.superheroesService.getSuperheroes().subscribe(superheroes => {
+      ObjectUtils.clearArray(this.items);
+      ObjectUtils.copyArray(this.items, superheroes);
+    });
   }
 
   isVisible(): boolean {
