@@ -142,6 +142,51 @@ describe('SgSidebarervice', () => {
         expect(ObjectUtils.getKeys({"name1": "value1", "name2": "value2"})).toEqual(["name1", "name2"]);
     });
 
+    it('#clearArray empty array should return same empty array', () => {
+        let arr: string[] = [];
+        let result: string[] = ObjectUtils.clearArray(arr);
+        expect(result).toEqual([]);
+
+        // assert reference is intact
+        arr.push("value");
+        expect(result).toEqual(arr);
+    });
+ 
+    it('#clearArray array with values should return empty array', () => {
+        let arr: string[] = ["value1", "value2"];
+        let expected: string[] = [];
+        let result: string[] = ObjectUtils.clearArray(arr);
+        expect(result).toEqual(expected);
+
+        // assert reference is intact
+        arr.push("value");
+        expect(result).toEqual(arr);
+    });
+ 
+    it('#copyArray empty destination array and no source array should return empty destination array', () => {
+        let destination: string[] = [];
+        let expected: string[] = [];
+        expect(ObjectUtils.copyArray(destination)).toEqual([]);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#copyArray empty destination array and source array should return destination array with source array items', () => {
+        let destination: string[] = [];
+        let source: string[] = ["value1"];
+        let expected: string[] = ["value1"];
+        expect(ObjectUtils.copyArray(destination, source)).toEqual(expected);
+        expect(destination).toEqual(expected);
+    });
+
+    it('#copyArray empty destination array and two source arrays should return destination array with source array items', () => {
+        let destination: string[] = [];
+        let source1: string[] = ["value1", "value2"];
+        let source2: string[] = ["value3", "value4"];
+        let expected: string[] = ["value1", "value2", "value3", "value4"];
+        expect(ObjectUtils.copyArray(destination, source1, source2)).toEqual(expected);
+        expect(destination).toEqual(expected);
+    });
+
     it('#assign destination without source(s) should not update destination and return destination', () => {
         let destination = {
             "destinationProperty1": "destinationValue1"
@@ -149,8 +194,13 @@ describe('SgSidebarervice', () => {
         let expected = {
             "destinationProperty1": "destinationValue1"
         };
-        expect(ObjectUtils.assign(destination)).toEqual(expected);
+        let result: object = ObjectUtils.assign(destination);
+        expect(result).toEqual(expected);
         expect(destination).toEqual(expected);
+
+        // assert reference is intact
+        destination.destinationProperty1 = "somevalue";
+        expect(result).toEqual(destination);
     });
 
     it('#assign source with new property should add property to destination and return updated destination', () => {

@@ -43,7 +43,7 @@ export class ObjectUtils {
      * @param destination
      * @param sources
      */
-     static copyArray(destination: object[], ...sources: object[][]): object[] {
+     static copyArray(destination: any[], ...sources: any[][]): any[] {
         return ObjectUtils.internalCopyArray(true, destination, ...sources);
     }
 
@@ -81,9 +81,9 @@ export class ObjectUtils {
             ObjectUtils.getKeys(source).forEach(key => {
                 if (source && (copyKnownProperties || (!copyKnownProperties && !destination[key]))) {
                     if (ObjectUtils.isObject(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.internalCopyObject(copyKnownProperties, {}, source[key]) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyObject(copyKnownProperties, {}, source[key] as object) });
                     } else if (ObjectUtils.isArray(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.internalCopyArray(copyKnownProperties, [], source[key]) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyArray(copyKnownProperties, [], source[key] as Array<any>) });
                     } else {
                         Object.assign(destination, { [key]: source[key] });
                     }
@@ -96,25 +96,25 @@ export class ObjectUtils {
     /**
      * Somewhat excesive statements just for preventing type check errors.
      */
-     private static internalCopyArray(copyKnownProperties: boolean, destination: object[] = [], ...sources: object[][]): object[] {
+     private static internalCopyArray(copyKnownProperties: boolean, destination: any[] = [], ...sources: any[][]): any[] {
         if (!sources.length) {
             return destination;
         }
-        let source: object[] | undefined = sources.shift();
+        let source: any[] | undefined = sources.shift();
         if (source !== undefined && ObjectUtils.isArray(destination) && ObjectUtils.isArray(source)) {
-            source.forEach((item, index) => {
+            source.forEach((item) => {
                 if (item) {
                     if (ObjectUtils.isObject(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.internalCopyObject(copyKnownProperties, {}, item));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyObject(copyKnownProperties, {}, item as object));
                     } else if (ObjectUtils.isArray(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.internalCopyArray(copyKnownProperties, [], item as Array<object>));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyArray(copyKnownProperties, [], item as Array<any>));
                     } else {
-                        destination[index] = item;
+                        destination[destination.length] = item;
                     }
                 }
             });
         }
-        return destination;
+        return ObjectUtils.internalCopyArray(copyKnownProperties, destination, ...sources);;
     }
 
     private static push<T>(destination: T[], item: T): T[] {
