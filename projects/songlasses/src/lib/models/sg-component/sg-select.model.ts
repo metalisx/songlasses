@@ -1,9 +1,9 @@
-import { Subject } from "rxjs";
+import { SgComponent } from "./sg-component.model";
 import { SgSelectComponentConfig } from "./sg-select-component-config.model";
 
-export interface SgSelect {
+export interface SgSelect extends SgComponent {
 
-    value: any;
     selectComponentConfig: SgSelectComponentConfig;
-    subject?: Subject<SgSelect>;
+    value: any;
+   
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SgSelectComponentConfig, SgSelectService } from 'songlasses';
+import { SgSelectComponentConfig, SgSelectComponentService,  } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
-import { ObjectUtils } from 'songlasses';
+import { ObjectUtils, SgComponentServicesService } from 'songlasses';
 
 @Component({
   selector: 'app-select',
@@ -69,7 +69,10 @@ export class SelectComponent implements OnInit {
 
   public stylesSafeHtml?: SafeHtml;
   
-  constructor(private sanitizer: DomSanitizer, private selectService: SgSelectService,
+  private selectComponentServiceShowAndHide!: SgSelectComponentService;
+
+  constructor(private sanitizer: DomSanitizer, 
+              private componentServicesService: SgComponentServicesService,
               private superheroesService: SuperheroesService) { }
 
   ngOnInit(): void {
@@ -80,23 +83,32 @@ export class SelectComponent implements OnInit {
     });
   }
 
+  getSelectComponentServiceShowAndHide() {
+    if (this.selectComponentServiceShowAndHide === undefined && this.sgSelectComponentConfigShowAndHide.name) {
+      this.selectComponentServiceShowAndHide = this.componentServicesService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
+    }
+  }
+
   isVisible(): boolean {
+    this.getSelectComponentServiceShowAndHide();
     let visible: boolean = false;
     if (this.sgSelectComponentConfigShowAndHide.name) {
-      visible = this.selectService.getSelect(this.sgSelectComponentConfigShowAndHide.name)?.selectComponentConfig.show || false;
+      visible = this.selectComponentServiceShowAndHide.getSelect().selectComponentConfig.show || false;
     }
     return visible;
   }
 
   show(): void {
+    this.getSelectComponentServiceShowAndHide();
     if (this.sgSelectComponentConfigShowAndHide.name) {
-      this.selectService.show(this.sgSelectComponentConfigShowAndHide.name);
+      this.selectComponentServiceShowAndHide.show();
     }
   }
 
   hide(): void {
+    this.getSelectComponentServiceShowAndHide();
     if (this.sgSelectComponentConfigShowAndHide.name) {
-      this.selectService.hide(this.sgSelectComponentConfigShowAndHide.name);
+      this.selectComponentServiceShowAndHide.hide();
     }
   }
 }

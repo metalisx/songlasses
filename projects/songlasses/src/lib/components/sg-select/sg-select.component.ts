@@ -1,9 +1,10 @@
 import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SgSelectComponentConfig } from '../../models/sg-select/sg-select-component-config.model';
-import { SgSelect } from '../../models/sg-select/sg-select.model';
-import { SgSelectService } from '../../services/sg-select/sg-select.service';
+import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
+import { SgSelect } from '../../models/sg-component/sg-select.model';
+import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
+import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
 
 @Component({
   selector: 'sg-select',
@@ -45,7 +46,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
   
-  constructor(private elementRef: ElementRef, private selectService: SgSelectService) { 
+  constructor(private elementRef: ElementRef, 
+    private selectComponentService: SgSelectComponentService, private componentServicesService: SgComponentServicesService) { 
   }
 
   private getKeys<T>(obj: T): Array<keyof T> {
@@ -71,13 +73,15 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    this.merge(this.sgSelectComponentConfig, this.selectService.getDefaults());
+    this.merge(this.sgSelectComponentConfig, this.selectComponentService.getDefaults());
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.name) {
-      this.selectService.addSelect({
+      this.selectComponentService.setSelect({
+        name: this.sgSelectComponentConfig.name,
         selectComponentConfig: this.sgSelectComponentConfig,
         value: this.value
       })
-      this.observerable = this.selectService.getSelectObservable(this.sgSelectComponentConfig.name);
+      this.componentServicesService.register(this.selectComponentService);
+      this.observerable = this.selectComponentService.getSelectObservable();
       if (this.observerable) {
         this.observerable.subscribe(sgSelect => {
           this.sgSelectComponentConfig = sgSelect.selectComponentConfig;
@@ -246,7 +250,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   private scrollIntoView(alignToTop: boolean) {
     this.liElements.forEach(el => {
       if (el.nativeElement.classList.contains('sg-select-selected-item-active')) {
-        el.nativeElement.scrollIntoView({ behavior: "smooth", block: alignToTop ? "start" : "end"});
+        el.nativeElement.scrollIntoView({ behavior: "nearest"});
+        //el.nativeElement.scrollIntoView({ behavior: "smooth", block: alignToTop ? "start" : "end"});
       }
     });
   }
