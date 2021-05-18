@@ -11,6 +11,7 @@ import { SgSelectComponentService } from '../../services/sg-component/sg-select-
   templateUrl: './sg-select.component.html',
   styleUrls: ['./sg-select.component.scss'],
   providers: [
+    SgSelectComponentService,
     { 
       provide: NG_VALUE_ACCESSOR,
       useExisting: forwardRef(() => SgSelectComponent),

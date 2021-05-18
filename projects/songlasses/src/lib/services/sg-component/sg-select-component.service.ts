@@ -1,12 +1,8 @@
-import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
 import { SgSelect } from '../../models/sg-component/sg-select.model';
 import { SgComponentService } from './sg-component.service';
 
-@Injectable({
-    providedIn: 'root'
-})
 export class SgSelectComponentService implements SgComponentService {
 
     private static DEFAULT_ITEMS_VALUE_FIELD: string = 'value';

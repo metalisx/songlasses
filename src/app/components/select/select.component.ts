@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SgSelectComponentConfig, SgSelectComponentService,  } from 'songlasses';
+import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
+import { ObjectUtils, SgComponentServicesService } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
-import { ObjectUtils, SgComponentServicesService } from 'songlasses';
 
 @Component({
   selector: 'app-select',

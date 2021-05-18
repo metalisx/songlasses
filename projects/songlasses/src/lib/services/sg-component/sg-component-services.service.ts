@@ -25,4 +25,8 @@ export class SgComponentServicesService {
         return this.componentServices.find(componentService => componentService.getName() === name);
     }
 
+    getComponentServices(): SgComponentService[] {
+        return this.componentServices;
+    }
+
 }
