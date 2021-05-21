@@ -5,6 +5,7 @@ import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-com
 import { SgSelect } from '../../models/sg-component/sg-select.model';
 import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
+import { ObjectUtils } from '../../utils/object-utils';
 
 @Component({
   selector: 'sg-select',
@@ -23,7 +24,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   valid: boolean = true;
   
-  @Input() sgSelectComponentConfig?: SgSelectComponentConfig = {};
+  @Input() sgSelectComponentConfig: SgSelectComponentConfig = {};
 
   @ViewChild('input') inputElement!: ElementRef;
   @ViewChildren('item') liElements!: QueryList<ElementRef>;
@@ -51,30 +52,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     private selectComponentService: SgSelectComponentService, private componentServicesService: SgComponentServicesService) { 
   }
 
-  private getKeys<T>(obj: T): Array<keyof T> {
-    return Object.keys(obj) as Array<keyof T>;
-  }
-
-  private merge<T extends object>(dest: T | undefined | null, source: T | undefined | null): void {
-    if (dest && source) {
-      this.getKeys(source).forEach(key => {
-        if (!dest[key]) {
-          dest[key] = source[key];
-        }
-      });
-    }
-  }
-
-  private copy<T extends object>(dest: T | undefined | null, source: T | undefined | null): void {
-    if (dest && source) {
-      this.getKeys(source).forEach(key => {
-        dest[key] = source[key];
-      });
-    }
-  }
-
   ngOnInit(): void {
-    this.merge(this.sgSelectComponentConfig, this.selectComponentService.getDefaults());
+    ObjectUtils.merge(this.sgSelectComponentConfig, this.selectComponentService.getDefaults());
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.name) {
       this.selectComponentService.setSelect({
         name: this.sgSelectComponentConfig.name,

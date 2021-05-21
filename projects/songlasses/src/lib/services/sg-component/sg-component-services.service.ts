@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { SgComponentService } from './sg-component.service';
 
+/**
+ * A singleton instance where components can register there component service.
+ * 
+ * This makes it possible to retrieve a component service from anywhere in the application
+ * to manipulate the component.
+ */
 @Injectable({
     providedIn: 'root'
 })

@@ -48,8 +48,8 @@ export class ObjectUtils {
     }
 
     /**
-     * Copy properties from the source objects to the destination object.
-     * When copying objects with the same property, the value of the property in the last source object is set in the destination object.
+     * Copy properties from the source object(s) to the destination object.
+     * Override existing properties with properties from subsequent parameters.
      * 
      * @param destination
      * @param sources
@@ -59,8 +59,8 @@ export class ObjectUtils {
     }
 
     /**
-     * Merge only properties from the source objects which are not present in the destination object to the destination object.
-     * When merging objects with the same property, the value of the first source object containing the property is set in the destination object.
+     * Merge properties from the source object(s) which are not present in the destination object to the destination object.
+     * Does not override existing properties with properties from subsequent parameters.
      * 
      * @param destination
      * @param sources
@@ -72,31 +72,31 @@ export class ObjectUtils {
     /**
      * Somewhat excesive statements just for preventing type check errors.
      */
-    private static internalCopyObject(copyKnownProperties: boolean, destination: object, ...sources: object[]): object {
+    private static internalCopyObject(override: boolean, destination: object, ...sources: object[]): object {
         if (!sources.length) {
             return destination;
         }
         let source: object | undefined = sources.shift();
         if (source !== undefined && ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
             ObjectUtils.getKeys(source).forEach(key => {
-                if (source && (copyKnownProperties || (!copyKnownProperties && !destination[key]))) {
+                if (source && (override || (!destination[key]))) {
                     if (ObjectUtils.isObject(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.internalCopyObject(copyKnownProperties, {}, source[key] as object) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyObject(override, {}, source[key] as object) });
                     } else if (ObjectUtils.isArray(source[key])) {
-                        Object.assign(destination, { [key]: ObjectUtils.internalCopyArray(copyKnownProperties, [], source[key] as Array<any>) });
+                        Object.assign(destination, { [key]: ObjectUtils.internalCopyArray(override, [], source[key] as Array<any>) });
                     } else {
                         Object.assign(destination, { [key]: source[key] });
                     }
                 }
             });
         }
-        return ObjectUtils.internalCopyObject(copyKnownProperties, destination, ...sources);
+        return ObjectUtils.internalCopyObject(override, destination, ...sources);
     }
 
     /**
      * Somewhat excesive statements just for preventing type check errors.
      */
-     private static internalCopyArray(copyKnownProperties: boolean, destination: any[] = [], ...sources: any[][]): any[] {
+     private static internalCopyArray(override: boolean, destination: any[] = [], ...sources: any[][]): any[] {
         if (!sources.length) {
             return destination;
         }
@@ -105,16 +105,16 @@ export class ObjectUtils {
             source.forEach((item) => {
                 if (item) {
                     if (ObjectUtils.isObject(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.internalCopyObject(copyKnownProperties, {}, item as object));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyObject(override, {}, item as object));
                     } else if (ObjectUtils.isArray(item)) {
-                        ObjectUtils.push(destination, ObjectUtils.internalCopyArray(copyKnownProperties, [], item as Array<any>));
+                        ObjectUtils.push(destination, ObjectUtils.internalCopyArray(override, [], item as Array<any>));
                     } else {
                         destination[destination.length] = item;
                     }
                 }
             });
         }
-        return ObjectUtils.internalCopyArray(copyKnownProperties, destination, ...sources);;
+        return ObjectUtils.internalCopyArray(override, destination, ...sources);;
     }
 
     private static push<T>(destination: T[], item: T): T[] {
