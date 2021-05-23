@@ -69,8 +69,6 @@ export class SelectComponent implements OnInit {
 
   public stylesSafeHtml?: SafeHtml;
   
-  private selectComponentServiceShowAndHide!: SgSelectComponentService;
-
   constructor(private sanitizer: DomSanitizer, 
               private componentServicesService: SgComponentServicesService,
               private superheroesService: SuperheroesService) { }
@@ -83,32 +81,50 @@ export class SelectComponent implements OnInit {
     });
   }
 
-  getSelectComponentServiceShowAndHide() {
-    if (this.selectComponentServiceShowAndHide === undefined && this.sgSelectComponentConfigShowAndHide.name) {
-      this.selectComponentServiceShowAndHide = this.componentServicesService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
+  private getSelectComponentServiceShowAndHide(): SgSelectComponentService | null {
+    let selectComponentService: SgSelectComponentService | null = null;
+    if (this.sgSelectComponentConfigShowAndHide.name) {
+      return this.componentServicesService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
     }
+    return selectComponentService;
   }
 
-  isVisible(): boolean {
-    this.getSelectComponentServiceShowAndHide();
+  isVisibleShowAndHide(): boolean {
+    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
     let visible: boolean = false;
-    if (this.sgSelectComponentConfigShowAndHide.name) {
-      visible = this.selectComponentServiceShowAndHide.getSelect().selectComponentConfig.show || false;
+    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+      visible = selectComponentService.getSelect().selectComponentConfig.show || false;
     }
     return visible;
   }
 
-  show(): void {
-    this.getSelectComponentServiceShowAndHide();
-    if (this.sgSelectComponentConfigShowAndHide.name) {
-      this.selectComponentServiceShowAndHide.show();
+  toggleShowAndHide(): void {
+    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+      selectComponentService.toggle();
     }
   }
 
-  hide(): void {
-    this.getSelectComponentServiceShowAndHide();
-    if (this.sgSelectComponentConfigShowAndHide.name) {
-      this.selectComponentServiceShowAndHide.hide();
+  showShowAndHide(): void {
+    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+      selectComponentService.show();
     }
   }
+
+  hideShowAndHide(): void {
+    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+      selectComponentService.hide();
+    }
+  }
+
+  componentServiceToggleAll(): void {
+    this.componentServicesService.toggle();
+  }
+
+  componentServicesServiceLog(): void {
+    this.componentServicesService.log();
+  }
+
 }

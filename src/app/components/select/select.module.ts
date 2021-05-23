@@ -4,13 +4,15 @@ import { FormsModule } from '@angular/forms';
 import { SelectRoutingModule } from './select.routing.module';
 import { SelectComponent } from './select.component';
 import { SgSelectModule } from 'songlasses';
+import { SgGroupComponentDirectiveModule } from 'songlasses';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         SelectRoutingModule,
-        SgSelectModule
+        SgSelectModule,
+        SgGroupComponentDirectiveModule
     ],
     declarations: [
         SelectComponent

@@ -1,9 +1,10 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
 import { SgSelect } from '../../models/sg-component/sg-select.model';
 import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
+import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
 import { ObjectUtils } from '../../utils/object-utils';
 
@@ -49,7 +50,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
   
   constructor(private elementRef: ElementRef, 
-    private selectComponentService: SgSelectComponentService, private componentServicesService: SgComponentServicesService) { 
+    private selectComponentService: SgSelectComponentService, 
+    @Optional() private groupComponentService: SgGroupComponentService | null,
+    private componentServicesService: SgComponentServicesService) { 
   }
 
   ngOnInit(): void {
@@ -60,7 +63,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         selectComponentConfig: this.sgSelectComponentConfig,
         value: this.value
       })
-      this.componentServicesService.register(this.selectComponentService);
+      this.componentServicesService.register(this.selectComponentService, this.groupComponentService);
       this.observerable = this.selectComponentService.getSelectObservable();
       if (this.observerable) {
         this.observerable.subscribe(sgSelect => {
@@ -227,6 +230,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     this.showItems = false;
   }
 
+  // TODO: make scroll into view work better
   private scrollIntoView(alignToTop: boolean) {
     this.liElements.forEach(el => {
       if (el.nativeElement.classList.contains('sg-select-selected-item-active')) {

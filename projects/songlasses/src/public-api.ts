@@ -20,3 +20,5 @@ export * from './lib/models/sg-component/sg-select.model';
 export * from './lib/models/sg-sidebar/sg-menu-item.model';
 export * from './lib/models/sg-sidebar/sg-sidebar.model';
 export * from './lib/utils/object-utils';
+export * from './lib/directives/sg-component/group-component.directive';
+export * from './lib/directives/sg-component/group-component-directive.module';

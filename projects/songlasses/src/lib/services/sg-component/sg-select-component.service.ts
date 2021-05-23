@@ -9,7 +9,7 @@ export class SgSelectComponentService implements SgComponentService {
     private static DEFAULT_ITEMS_DESCRIPTION_FIELD: string = 'description';
   
     private selectComponentConfigDefault: SgSelectComponentConfig = {
-        name: 'name',
+        name: 'select',
         show: true,
         required: true,
         itemMatchStrategy: 'startsWith',
@@ -58,6 +58,13 @@ export class SgSelectComponentService implements SgComponentService {
         this.sendSelect();
     }
     
+    toggle(): void {
+        if (this.select && this.select.selectComponentConfig) {
+            this.select.selectComponentConfig.show = !this.select.selectComponentConfig.show;
+            this.sendSelect();
+        }
+    }
+
     show(): void {
         if (this.select && this.select.selectComponentConfig) {
             this.select.selectComponentConfig.show = true;

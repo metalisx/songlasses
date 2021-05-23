@@ -7,5 +7,6 @@
 export interface SgComponentService  {
 
     getName(): string | undefined;
+    toggle(): void;
 
 }
