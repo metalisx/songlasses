@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SgGroupComponentService } from './sg-group-component.service';
 import { SgComponentService } from './sg-component.service';
+import { ObjectUtils } from '../../utils/object-utils';
+import { ArrayUtils } from '../../utils/array-utils';
 
 /**
  * A singleton instance where components can register there component service.
@@ -46,6 +48,15 @@ export class SgComponentServicesService {
         }
     }
 
+    unregister(componentService: SgComponentService, groupComponentService?: SgGroupComponentService | null) {
+        const predicate = (cs: SgComponentService) => cs.getName() === componentService.getName();
+        if (groupComponentService !== undefined && groupComponentService !== null) {
+            ArrayUtils.remove(groupComponentService.getComponentServices(), predicate);
+        } else {
+            ArrayUtils.remove(this.componentServices, predicate);
+        }
+    }
+
     getComponentService(name: string, componentServices: SgComponentService[] = this.componentServices): SgComponentService | undefined {
         let returnComponentService: SgComponentService | undefined;
         componentServices.every(componentService => {
@@ -79,12 +90,13 @@ export class SgComponentServicesService {
      */
     log(componentServices: SgComponentService[] = this.componentServices, level: number = 1): void {
         if (level === 1) {
-            console.log("%cComponentServices structure", "color:" + this.logColor + ";");
+            console.log(`%cComponentServices structure`, `color: ${this.logColor};`);
         }
         componentServices.forEach(componentService => {
-            console.log("%cLevel %c%i: %o", 
-                "padding-left: " + (this.logPaddingLeft * (level - 1)) + "px;color:" + this.logColor + ";", "color: " + this.logColor + ";", 
-                level, componentService);
+            console.log(`%cLevel %c${level}: %o`, 
+                `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
+                `color: ${this.logColor};`,
+                 componentService);
             if (componentService instanceof SgGroupComponentService) {
                 this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
                 level--;

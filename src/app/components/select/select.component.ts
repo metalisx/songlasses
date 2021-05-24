@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
-import { ObjectUtils, SgComponentServicesService } from 'songlasses';
+import { ArrayUtils, CopyUtils, SgComponentServicesService } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
+import { SgGroupComponentConfig } from 'projects/songlasses/src/lib/models/sg-component/sg-group-component-config.model';
 
 @Component({
   selector: 'app-select',
@@ -15,7 +16,7 @@ export class SelectComponent implements OnInit {
   private items: Superhero[] = [];
 
   sgSelectComponentConfig: SgSelectComponentConfig = {
-    name: 'select1',
+    name: 'select',
     required: true,
     itemValueField: 'id',
     itemDescriptionField: 'name',
@@ -23,20 +24,28 @@ export class SelectComponent implements OnInit {
   }
 
   sgSelectComponentConfigStyled: SgSelectComponentConfig = {
-    name: 'select2',
+    name: 'selectStyled',
     required: true,
     itemMatchStrategy: 'contains',
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items,
-    className: 'select2'
+    className: 'selectStyled'
   }
 
   sgSelectComponentConfigShowAndHide: SgSelectComponentConfig = {
-    name: 'selectShowHide',
+    name: 'selectShowAndHide',
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items
+  }
+
+  sgGroupComponentConfigStyled: SgGroupComponentConfig = {
+    name: 'groupComponentSelectStyled'
+  }
+
+  sgGroupComponentConfigShowAndHide: SgGroupComponentConfig = {
+    name: 'groupComponentSelectShowHide'
   }
 
   value?: string = 'JD';
@@ -44,24 +53,24 @@ export class SelectComponent implements OnInit {
   valueShowAndHide?: string = 'BW';
 
   public styles: string = `<style>
-  .select2.sg-select {
+  .selectStyled.sg-select {
     width: 50%;
   }
-  .select2.sg-select sg-select-input {
+  .selectStyled.sg-select sg-select-input {
     border: 1px solid #b07070;
   }
-  .select2.sg-select .sg-select-items {
+  .selectStyled.sg-select .sg-select-items {
     border: 1px solid #a06060;
   }
-  .select2.sg-select .sg-select-items .sg-select-item {
+  .selectStyled.sg-select .sg-select-items .sg-select-item {
     background-color: #a06060;
     color: #fff;
   }
-  .select2.sg-select .sg-select-items .sg-select-item:hover {
+  .selectStyled.sg-select .sg-select-items .sg-select-item:hover {
     background-color: #904040;
     color: #fff;
   }
-  .select2.sg-select .sg-select-items .sg-select-selected-item-active {
+  .selectStyled.sg-select .sg-select-items .sg-select-selected-item-active {
     background-color: #702020;
     color: #fff;
   } 
@@ -76,8 +85,8 @@ export class SelectComponent implements OnInit {
   ngOnInit(): void {
     this.stylesSafeHtml = this.sanitizer.bypassSecurityTrustHtml(this.styles);
     this.superheroesService.getSuperheroes().subscribe(superheroes => {
-      ObjectUtils.clearArray(this.items);
-      ObjectUtils.copyArray(this.items, superheroes);
+      ArrayUtils.clear(this.items);
+      CopyUtils.copyArray(this.items, superheroes);
     });
   }
 
@@ -87,15 +96,6 @@ export class SelectComponent implements OnInit {
       return this.componentServicesService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
     }
     return selectComponentService;
-  }
-
-  isVisibleShowAndHide(): boolean {
-    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
-    let visible: boolean = false;
-    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
-      visible = selectComponentService.getSelect().selectComponentConfig.show || false;
-    }
-    return visible;
   }
 
   toggleShowAndHide(): void {
@@ -119,10 +119,17 @@ export class SelectComponent implements OnInit {
     }
   }
 
-  componentServiceToggleAll(): void {
-    this.componentServicesService.toggle();
+  componentServiceToggleAllSelectComponents(): void {
+    this.componentServicesService.getComponentService('select')?.toggle();
+    this.componentServicesService.getComponentService('selectStyled')?.toggle();
+    this.componentServicesService.getComponentService('selectShowAndHide')?.toggle();
   }
 
+  componentServiceToggleAllGroupComponents(): void {
+    this.componentServicesService.getComponentService('groupComponentSelectStyled')?.toggle();
+    this.componentServicesService.getComponentService('groupComponentSelectShowHide')?.toggle();
+  }
+  
   componentServicesServiceLog(): void {
     this.componentServicesService.log();
   }

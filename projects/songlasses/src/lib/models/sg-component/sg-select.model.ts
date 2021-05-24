@@ -5,5 +5,5 @@ export interface SgSelect extends SgComponent {
 
     selectComponentConfig: SgSelectComponentConfig;
     value: any;
-   
+
 }

@@ -6,7 +6,7 @@ import { SgSelect } from '../../models/sg-component/sg-select.model';
 import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
-import { ObjectUtils } from '../../utils/object-utils';
+import { CopyUtils } from '../../utils/copy-utils';
 
 @Component({
   selector: 'sg-select',
@@ -56,7 +56,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    ObjectUtils.merge(this.sgSelectComponentConfig, this.selectComponentService.getDefaults());
+    CopyUtils.merge(this.sgSelectComponentConfig, this.selectComponentService.getDefaults());
     if (this.sgSelectComponentConfig && this.sgSelectComponentConfig.name) {
       this.selectComponentService.setSelect({
         name: this.sgSelectComponentConfig.name,
@@ -73,6 +73,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       }
       this.validateSelectComponentConfig();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.componentServicesService.unregister(this.selectComponentService, this.groupComponentService);
   }
 
   validateSelectComponentConfig() {
