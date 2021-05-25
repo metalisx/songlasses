@@ -2,11 +2,12 @@ import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
 import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
+import { SingletonService } from '../singleton-service.service';
 
 @Injectable({
     providedIn: 'root'
 })
-export class SgSidebarService {
+export class SgSidebarService extends SingletonService<SgSidebarService> {
 
     private sidebar: SgSidebar = {
         show: false,
@@ -19,6 +20,7 @@ export class SgSidebarService {
     private subject = new Subject<SgSidebar>();
 
     constructor() {
+        super(SgSidebarService);
     }
 
     getSidebarObservable(): Observable<SgSidebar> {

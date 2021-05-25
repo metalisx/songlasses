@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { SgGroupComponentService } from './sg-group-component.service';
 import { SgComponentService } from './sg-component.service';
-import { ObjectUtils } from '../../utils/object-utils';
 import { ArrayUtils } from '../../utils/array-utils';
+import { SingletonService } from '../singleton-service.service';
 
 /**
  * A singleton instance where components can register there component service.
@@ -17,7 +17,7 @@ import { ArrayUtils } from '../../utils/array-utils';
 @Injectable({
     providedIn: 'root'
 })
-export class SgComponentServicesService {
+export class SgComponentServicesService extends SingletonService<SgComponentServicesService> {
 
     private componentServices: SgComponentService[] = [];
 
@@ -25,6 +25,7 @@ export class SgComponentServicesService {
     private logPaddingLeft: number = 10;
 
     constructor() {
+        super(SgComponentServicesService);
     }
 
     register(componentService: SgComponentService, groupComponentService?: SgGroupComponentService | null) {
