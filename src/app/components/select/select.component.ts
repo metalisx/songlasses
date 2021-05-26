@@ -48,9 +48,9 @@ export class SelectComponent implements OnInit {
     name: 'groupComponentSelectShowHide'
   }
 
-  value?: string = 'JD';
-  valueStyled?: string = 'BW';
-  valueShowAndHide?: string = 'BW';
+  value: string = 'JD';
+  valueStyled: string = 'BW';
+  valueShowAndHide: string = 'BW';
 
   public styles: string = `<style>
   .selectStyled.sg-select {
