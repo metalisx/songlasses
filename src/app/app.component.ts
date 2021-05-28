@@ -18,12 +18,25 @@ export class AppComponent {
       divider: true
     },
     {
+      subHeader: 'Components'
+    },
+    {
       label: 'Select',
       routerLink: ['select']
     },
     {
       label: 'Sidebar',
       routerLink: ['sidebar']
+    },
+    {
+      divider: true
+    },
+    {
+      subHeader: 'Services'
+    },
+    {
+      label: 'ComponentServicesService',
+      routerLink: ['services/component-services-service']
     }
   ];
 

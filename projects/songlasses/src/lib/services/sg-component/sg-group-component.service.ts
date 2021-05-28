@@ -1,6 +1,9 @@
+import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
 import { SgGroupComponentConfig } from "../../models/sg-component/sg-group-component-config.model";
 import { SgGroupComponent } from "../../models/sg-component/sg-group-component.model";
+import { ArrayUtils } from "../../utils/array-utils";
+import { ComponentServiceUtils } from "../../utils/component-service-utils";
 import { SgComponentService } from "./sg-component.service";
 
 /**
@@ -9,6 +12,7 @@ import { SgComponentService } from "./sg-component.service";
  * This makes it possible to retrieve a group of component services from anywhere in the application
  * to manipulate only the components in the group.
  */
+@Injectable()
 export class SgGroupComponentService implements SgComponentService {
 
     private groupComponentConfigDefault: SgGroupComponentConfig = {
@@ -40,6 +44,18 @@ export class SgGroupComponentService implements SgComponentService {
     
     setDefaults(groupComponentConfigDefault: SgGroupComponentConfig): void {
         this.groupComponentConfigDefault = groupComponentConfigDefault;
+    }
+
+    register(componentService: SgComponentService): void {
+        this.componentServices.push(componentService);
+    }
+
+    unregister(componentService: SgComponentService): void {
+        ArrayUtils.remove(this.componentServices, ComponentServiceUtils.getNamePredicate(componentService));
+    }
+
+    getComponentService(name: string): SgComponentService | undefined {
+        return ComponentServiceUtils.getComponentService(name, this.componentServices);
     }
 
     getComponentServices(): SgComponentService[] {

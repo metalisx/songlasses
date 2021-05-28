@@ -1,0 +1,89 @@
+<h2>ComponentServicesService</h2>
+<p>
+    The ComponentServicesService is a singleton service containing a hierarchical tree structure of ComponentService 
+    implementations. The ComponentServicesService can be injected in every part of the application so you can retrieve 
+    a ComponentService. Depending on the implementation you could for instance call show and hide methods on the 
+    ComponentService to manipulate the appearance of the Component.<br/>
+    You can retrieve a single ComponentService or retrieve the hierarchical tree structure of ComponentServices 
+    to filter out the ComponentServices you are interested in.
+</p>
+<h3>Hierachical tree structure</h3>
+<p>
+    The ComponentServicesService hierarchical tree structure is componsed out of ComponentService implementations. The 
+    GroupComponentService implements the ComponentService interface with the ability to register ComponentServices. By 
+    nesting GroupComponentServices it is possible to create the hierachical tree structure of ComponentServices.
+</p>
+<h3>Registration of ComponentService</h3>
+<p>
+    The ComponentService is created and registered by a Component<br/>
+</p>
+<h3>Registration of GroupComponentService</h3>
+<p>
+    A GroupComponentService can be created by specifying the GroupComponentDirective on a container. For example on 
+    a div or a span element. This will mark the container as a GroupComponent and register the GroupComponentService 
+    at the parent GroupComponentService or at the root in the ComponentServicesService. Created ComponentServices 
+    in the container are registered with the GroupComponentService making the hierachical tree structure possible.
+</p>
+<h3>CompentServicesService methods</h3>
+<table>
+    <tr>
+        <td>register(componentService, groupCompnentService)</td>
+        <td>Register a ComponentService. If the second parameter is provided then the ComponentService is registered
+            in the GroupComponentService provided in the second parameter otherwise it is registered as a root 
+            ComponentService. The register method is called in ngOnInit method.
+        </td>
+    </tr>
+    <tr>
+        <td>unregister(componentService, groupCompnentService)</td>
+        <td>Unregister a ComponentService. If the second parameter is provided then the ComponentService is 
+            unregistered from the GroupComponentService provided as the second parameter otherwise it is unregistered 
+            from the root. The unregister method is called in the ngOnDestroy method of the same class as where the 
+            register method is called from.
+        </td>
+    </tr>
+    <tr>
+        <td>getComponentService(name)</td>
+        <td>Retrieve a ComponentService by name from the hierachical tree structure of ComponentServices.</td>
+    </tr>
+    <tr>
+        <td>getComponentServices()</td>
+        <td>Retrieve the hierachical tree structure of ComponentServices</td>
+    </tr>
+    <tr>
+        <td>log()</td>
+        <td>Prints the hierachical tree structure to the browsers console.</td>
+    </tr>
+</table>
+
+<h2>SgComponentServicesService hierachical tree structure example</h2>
+<div groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel1">
+    <ng-container *ngIf="sgGroupComponentConfigLevel1.show">
+        <p>Group 1</p>
+        <div style="padding-left: 20px" groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel2_1">
+            <ng-container *ngIf="sgGroupComponentConfigLevel2_1.show">
+                <p>Group 2.1</p>
+                <sg-select [(ngModel)]="value2_1" [sgSelectComponentConfig]="sgSelectComponentConfig2_1"></sg-select>
+            </ng-container>
+        </div>
+        <div style="padding-left: 20px" groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel2_2">
+            <ng-container *ngIf="sgGroupComponentConfigLevel2_2.show">
+                <p>Group 2.2</p>
+                <sg-select [(ngModel)]="value2_2" [sgSelectComponentConfig]="sgSelectComponentConfig2_2"></sg-select>
+            </ng-container>
+        </div>
+    </ng-container>
+</div>
+<div>
+    <button (click)="componentServiceToggleGroupComponentLevel1()">Toggle group 1</button>
+    <button (click)="componentServiceToggleGroupComponentLevel2_1()">Toggle group 2.1</button>
+    <button (click)="componentServiceToggleAllSelectComponents()">Toggle select components</button>
+    <button (click)="componentServiceToggleSelectComponent2_1()">Toggle select component group 2.1</button>
+</div>
+
+<h2>SgComponentServicesService log methods</h2>
+<p>
+    Log registered component services structure in the SgComponentServicesService to the console.<br/>
+</p>
+<div>
+    <button (click)="componentServicesServiceLog()">Log</button>
+</div>

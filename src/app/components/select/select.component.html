@@ -10,63 +10,38 @@ External value : {{value | json}}
     </div>
 </div>
 
-<div groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigStyled">
-    <ng-container *ngIf="sgGroupComponentConfigStyled.show">
-        <h2>Select - Custom styled</h2>
-        <p>
-            To style the component set the classname in the components config. In the example it is set 
-            to select2 and some custom style is added to target the components elements.
-        </p>
-        <div [innerHTML]="stylesSafeHtml"></div>
-        <sg-select [(ngModel)]="valueStyled" [sgSelectComponentConfig]="sgSelectComponentConfigStyled"></sg-select>
-        <div>
-            External value : {{valueStyled | json}}
-        </div>
-        <div class="code-container">
-            <div class="code-panel">
-                <h6>Config</h6> 
-                <textarea class="code" readonly>{{sgSelectComponentConfigStyled | json}}</textarea> 
-            </div>
-            <div class="code-panel">
-                <h6>Custom style</h6> 
-                <textarea class="code" readonly>{{styles}}</textarea> 
-            </div>
-        </div>
-    </ng-container>
-</div>
-
-<div groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigShowAndHide">
-    <ng-container *ngIf="sgGroupComponentConfigShowAndHide.show">
-        <h2>SgSelectService toggle, show, hide and isVisible methods</h2>
-        <p>
-            Show and hide the component by using the SgSelectService toggle, show and hide methods.<br/>
-            The show and hide buttons are toggled by using the SgSelectService isVisible method.
-        </p>
-        <sg-select [(ngModel)]="valueShowAndHide" [sgSelectComponentConfig]="sgSelectComponentConfigShowAndHide"></sg-select>
-        <div>
-            External value : {{valueShowAndHide | json}}
-        </div>
-        <div>
-            <button *ngIf="!sgSelectComponentConfigShowAndHide.show" (click)="showShowAndHide()">Show</button> 
-            <button *ngIf="sgSelectComponentConfigShowAndHide.show" (click)="hideShowAndHide()">Hide</button> 
-            <button (click)="toggleShowAndHide()">Toggle</button>
-        </div>
-    </ng-container>
-</div>
-
-<h2>SgComponentServicesService toggle, show, hide and isVisible methods</h2>
+<h2>Select - Custom styled</h2>
 <p>
-    Toggle all componentsregistered component services structure in the SgComponentServicesService to the console.<br/>
+    To style the component set the classname in the components config. In the example it is set 
+    to select2 and some custom style is added to target the components elements.
 </p>
+<div [innerHTML]="stylesSafeHtml"></div>
+<sg-select [(ngModel)]="valueStyled" [sgSelectComponentConfig]="sgSelectComponentConfigStyled"></sg-select>
 <div>
-    <button (click)="componentServiceToggleAllSelectComponents()">Toggle select components</button>
-    <button (click)="componentServiceToggleAllGroupComponents()">Toggle group components</button>
+    External value : {{valueStyled | json}}
+</div>
+<div class="code-container">
+    <div class="code-panel">
+        <h6>Config</h6> 
+        <textarea class="code" readonly>{{sgSelectComponentConfigStyled | json}}</textarea> 
+    </div>
+    <div class="code-panel">
+        <h6>Custom style</h6> 
+        <textarea class="code" readonly>{{styles}}</textarea> 
+    </div>
 </div>
 
-<h2>SgComponentServicesService log methods</h2>
+<h2>SgSelectService toggle, show, hide and isVisible methods</h2>
 <p>
-    Log registered component services structure in the SgComponentServicesService to the console.<br/>
+    Show and hide the component by using the SgSelectService toggle, show and hide methods.<br/>
+    The show and hide buttons are toggled by using the SgSelectService isVisible method.
 </p>
+<sg-select [(ngModel)]="valueShowAndHide" [sgSelectComponentConfig]="sgSelectComponentConfigShowAndHide"></sg-select>
 <div>
-    <button (click)="componentServicesServiceLog()">Log</button>
+    External value : {{valueShowAndHide | json}}
+</div>
+<div>
+    <button *ngIf="!sgSelectComponentConfigShowAndHide.show" (click)="showShowAndHide()">Show</button> 
+    <button *ngIf="sgSelectComponentConfigShowAndHide.show" (click)="hideShowAndHide()">Hide</button> 
+    <button (click)="toggleShowAndHide()">Toggle</button>
 </div>

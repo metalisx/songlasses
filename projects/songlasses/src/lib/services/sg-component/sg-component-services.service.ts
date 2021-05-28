@@ -3,6 +3,7 @@ import { SgGroupComponentService } from './sg-group-component.service';
 import { SgComponentService } from './sg-component.service';
 import { ArrayUtils } from '../../utils/array-utils';
 import { SingletonService } from '../singleton-service.service';
+import { ComponentServiceUtils } from '../../utils/component-service-utils';
 
 /**
  * A singleton instance where components can register there component service.
@@ -37,7 +38,7 @@ export class SgComponentServicesService extends SingletonService<SgComponentServ
         //     this.sendComponents();
         // }
         if (groupComponentService !== undefined && groupComponentService !== null) {
-            groupComponentService.getComponentServices().push(componentService);
+            groupComponentService.register(componentService);
             // TODO When we use a name the following can be used.
             // let groupComponentService = this.componentServices
             //     .filter((componentService: SgComponentService) => componentService instanceof SgGroupComponentService)
@@ -50,29 +51,15 @@ export class SgComponentServicesService extends SingletonService<SgComponentServ
     }
 
     unregister(componentService: SgComponentService, groupComponentService?: SgGroupComponentService | null) {
-        const predicate = (cs: SgComponentService) => cs.getName() === componentService.getName();
         if (groupComponentService !== undefined && groupComponentService !== null) {
-            ArrayUtils.remove(groupComponentService.getComponentServices(), predicate);
+            groupComponentService.unregister(componentService);
         } else {
-            ArrayUtils.remove(this.componentServices, predicate);
+            ArrayUtils.remove(this.componentServices, ComponentServiceUtils.getNamePredicate(componentService));
         }
     }
 
-    getComponentService(name: string, componentServices: SgComponentService[] = this.componentServices): SgComponentService | undefined {
-        let returnComponentService: SgComponentService | undefined;
-        componentServices.every(componentService => {
-            if (componentService.getName() === name) {
-                returnComponentService = componentService;
-            }
-            if (returnComponentService === undefined && componentService instanceof SgGroupComponentService) {
-                returnComponentService = this.getComponentService(name, (componentService as SgGroupComponentService).getComponentServices());
-            }
-            if (returnComponentService !== undefined) {
-                return false;
-            }
-            return true;
-        });
-        return returnComponentService;
+    getComponentService(name: string): SgComponentService | undefined {
+        return ComponentServiceUtils.getComponentService(name, this.componentServices);
     }
 
     getComponentServices(): SgComponentService[] {

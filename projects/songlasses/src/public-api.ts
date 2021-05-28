@@ -15,6 +15,8 @@ export * from './lib/services/sg-component/sg-component.service';
 export * from './lib/services/sg-component/sg-component-services.service';
 export * from './lib/services/sg-component/sg-select-component.service';
 export * from './lib/models/sg-component/sg-component.model';
+export * from './lib/models/sg-component/sg-group-component-config.model';
+export * from './lib/models/sg-component/sg-group-component.model';
 export * from './lib/models/sg-component/sg-select-component-config.model';
 export * from './lib/models/sg-component/sg-select.model';
 export * from './lib/models/sg-sidebar/sg-menu-item.model';

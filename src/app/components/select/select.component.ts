@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
 import { ArrayUtils, CopyUtils, SgComponentServicesService } from 'songlasses';
+import { SgGroupComponentConfig } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
-import { SgGroupComponentConfig } from 'projects/songlasses/src/lib/models/sg-component/sg-group-component-config.model';
 
 @Component({
   selector: 'app-select',
