@@ -3,7 +3,6 @@ import { Observable, Subject } from "rxjs";
 import { SgGroupComponentConfig } from "../../models/sg-component/sg-group-component-config.model";
 import { SgGroupComponent } from "../../models/sg-component/sg-group-component.model";
 import { ArrayUtils } from "../../utils/array-utils";
-import { ComponentServiceUtils } from "../../utils/component-service-utils";
 import { SgComponentService } from "./sg-component.service";
 
 /**
@@ -15,8 +14,11 @@ import { SgComponentService } from "./sg-component.service";
 @Injectable()
 export class SgGroupComponentService implements SgComponentService {
 
+    private logColor: string = "green";
+    private logPaddingLeft: number = 10;
+
     private groupComponentConfigDefault: SgGroupComponentConfig = {
-        name: 'root',
+        name: 'group',
         show: true,
         className: ''
     };
@@ -51,11 +53,11 @@ export class SgGroupComponentService implements SgComponentService {
     }
 
     unregister(componentService: SgComponentService): void {
-        ArrayUtils.remove(this.componentServices, ComponentServiceUtils.getNamePredicate(componentService));
+        ArrayUtils.remove(this.componentServices, this.getNamePredicate(componentService));
     }
 
     getComponentService(name: string): SgComponentService | undefined {
-        return ComponentServiceUtils.getComponentService(name, this.componentServices);
+        return this.getComponentServiceFromComponentServices(name, this.componentServices);
     }
 
     getComponentServices(): SgComponentService[] {
@@ -94,6 +96,49 @@ export class SgGroupComponentService implements SgComponentService {
             this.groupComponent.groupComponentConfig.show = false;
             this.sendGroupComponent();
         }
+    }
+
+    /**
+     * Convenience method to log the component services structure to the console.
+     * 
+     * @param componentServices
+     * @param level 
+     */
+     log(componentServices: SgComponentService[] = this.componentServices, level: number = 1): void {
+        if (level === 1) {
+            console.log(`%cComponentServices structure`, `color: ${this.logColor};`);
+        }
+        componentServices.forEach(componentService => {
+            console.log(`%cLevel %c${level}: %o`, 
+                `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
+                `color: ${this.logColor};`,
+                 componentService);
+            if (componentService instanceof SgGroupComponentService) {
+                this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
+                level--;
+            }
+        });
+    }
+
+    private getNamePredicate(componentService: SgComponentService): (value: SgComponentService, index: number, obj: SgComponentService[]) => unknown {
+        return (cs: SgComponentService) => cs.getName() === componentService.getName();        
+    }
+
+    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService[]): SgComponentService | undefined {
+        let returnComponentService: SgComponentService | undefined;
+        componentServices.every(componentService => {
+            if (componentService.getName() === name) {
+                returnComponentService = componentService;
+            }
+            if (returnComponentService === undefined && componentService instanceof SgGroupComponentService) {
+                returnComponentService = (componentService as SgGroupComponentService).getComponentService(name);
+            }
+            if (returnComponentService !== undefined) {
+                return false;
+            }
+            return true;
+        });
+        return returnComponentService;
     }
 
     private sendGroupComponent(): void {

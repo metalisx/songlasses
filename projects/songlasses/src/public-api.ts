@@ -25,6 +25,7 @@ export * from './lib/utils/array-utils';
 export * from './lib/utils/assert-utils';
 export * from './lib/utils/copy-utils';
 export * from './lib/utils/function-utils';
+export * from './lib/utils/inject-utils';
 export * from './lib/utils/object-utils';
 export * from './lib/directives/sg-component/group-component.directive';
 export * from './lib/directives/sg-component/group-component-directive.module';

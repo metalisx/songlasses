@@ -119,19 +119,4 @@ export class SelectComponent implements OnInit {
     }
   }
 
-  componentServiceToggleAllSelectComponents(): void {
-    this.componentServicesService.getComponentService('select')?.toggle();
-    this.componentServicesService.getComponentService('selectStyled')?.toggle();
-    this.componentServicesService.getComponentService('selectShowAndHide')?.toggle();
-  }
-
-  componentServiceToggleAllGroupComponents(): void {
-    this.componentServicesService.getComponentService('groupComponentSelectStyled')?.toggle();
-    this.componentServicesService.getComponentService('groupComponentSelectShowHide')?.toggle();
-  }
-  
-  componentServicesServiceLog(): void {
-    this.componentServicesService.log();
-  }
-
 }

@@ -1,32 +1,37 @@
 import { Injectable } from '@angular/core';
 import { SgGroupComponentService } from './sg-group-component.service';
 import { SgComponentService } from './sg-component.service';
-import { ArrayUtils } from '../../utils/array-utils';
-import { SingletonService } from '../singleton-service.service';
-import { ComponentServiceUtils } from '../../utils/component-service-utils';
+import { InjectUtils } from '../../utils/inject-utils';
+import { SgGroupComponent } from '../../models/sg-component/sg-group-component.model';
 
 /**
- * A singleton instance where components can register there component service.
+ * A singleton instance where components register there component service.
  * 
- * This makes it possible to retrieve a component service from anywhere in the application
- * to manipulate the component.
+ * This makes it possible to retrieve a component service and maniplute it's component from 
+ * anywhere in the application.
  * 
- * If the component group is used the component services created in the component group
- * are registered in a component service group. This way a group of component services
- * can be retrieved.
+ * If in the register method the component group is provided the component services is added
+ * to the list of component services of the component group creating a hierachical tree structure
+ * of component services.
  */
 @Injectable({
     providedIn: 'root'
 })
-export class SgComponentServicesService extends SingletonService<SgComponentServicesService> {
+export class SgComponentServicesService extends SgGroupComponentService {
 
-    private componentServices: SgComponentService[] = [];
-
-    private logColor: string = "green";
-    private logPaddingLeft: number = 10;
+    private rootGroupComponent: SgGroupComponent = {
+        name: "root",
+        groupComponentConfig: {
+            name: "root",
+            show: true,
+            className: "root"
+        }
+    }
 
     constructor() {
-        super(SgComponentServicesService);
+        super();
+        InjectUtils.throwErrorIfExists(SgComponentServicesService);
+        this.setGroupComponent(this.rootGroupComponent);        
     }
 
     register(componentService: SgComponentService, groupComponentService?: SgGroupComponentService | null) {
@@ -46,7 +51,7 @@ export class SgComponentServicesService extends SingletonService<SgComponentServ
             //     ;
             // groupComponentService.push(componentService);
         } else {
-            this.componentServices.push(componentService);
+            super.register(componentService);
         }
     }
 
@@ -54,42 +59,8 @@ export class SgComponentServicesService extends SingletonService<SgComponentServ
         if (groupComponentService !== undefined && groupComponentService !== null) {
             groupComponentService.unregister(componentService);
         } else {
-            ArrayUtils.remove(this.componentServices, ComponentServiceUtils.getNamePredicate(componentService));
+            super.unregister(componentService);
         }
-    }
-
-    getComponentService(name: string): SgComponentService | undefined {
-        return ComponentServiceUtils.getComponentService(name, this.componentServices);
-    }
-
-    getComponentServices(): SgComponentService[] {
-        return this.componentServices;
-    }
-
-    toggle(): void {
-        this.componentServices.forEach(componentService => componentService.toggle());
-    }
-
-    /**
-     * Convenience method to log the component services structure to the console.
-     * 
-     * @param componentServices
-     * @param level 
-     */
-    log(componentServices: SgComponentService[] = this.componentServices, level: number = 1): void {
-        if (level === 1) {
-            console.log(`%cComponentServices structure`, `color: ${this.logColor};`);
-        }
-        componentServices.forEach(componentService => {
-            console.log(`%cLevel %c${level}: %o`, 
-                `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
-                `color: ${this.logColor};`,
-                 componentService);
-            if (componentService instanceof SgGroupComponentService) {
-                this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
-                level--;
-            }
-        });
     }
 
 }
