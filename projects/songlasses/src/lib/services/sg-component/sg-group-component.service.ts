@@ -118,7 +118,6 @@ export class SgGroupComponentService implements SgComponentService {
                 componentService);
             if (componentService instanceof SgGroupComponentService) {
                 (componentService as SgGroupComponentService).log(++level);
-                //this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
                 level--;
             }
         });
