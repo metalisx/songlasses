@@ -104,17 +104,21 @@ export class SgGroupComponentService implements SgComponentService {
      * @param componentServices
      * @param level 
      */
-     log(componentServices: SgComponentService[] = this.componentServices, level: number = 1): void {
+     log(level: number = 1): void {
         if (level === 1) {
             console.log(`%cComponentServices structure`, `color: ${this.logColor};`);
         }
-        componentServices.forEach(componentService => {
-            console.log(`%cLevel %c${level}: %o`, 
+        console.log(`%cLevel %c${level}: %o`, 
+            `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
+            `color: ${this.logColor};`,
+            this.getGroupComponent());
+        this.componentServices.forEach((componentService, index) => {
+            console.log(`%cComponent Service: %o`, 
                 `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
-                `color: ${this.logColor};`,
-                 componentService);
+                componentService);
             if (componentService instanceof SgGroupComponentService) {
-                this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
+                (componentService as SgGroupComponentService).log(++level);
+                //this.log((componentService as SgGroupComponentService).getComponentServices(), ++level);
                 level--;
             }
         });

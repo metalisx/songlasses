@@ -3,6 +3,7 @@ import { SgGroupComponentService } from './sg-group-component.service';
 import { SgComponentService } from './sg-component.service';
 import { InjectUtils } from '../../utils/inject-utils';
 import { SgGroupComponent } from '../../models/sg-component/sg-group-component.model';
+import { CopyUtils } from '../../utils/copy-utils';
 
 /**
  * A singleton instance where components register there component service.
@@ -31,6 +32,7 @@ export class SgComponentServicesService extends SgGroupComponentService {
     constructor() {
         super();
         InjectUtils.throwErrorIfExists(SgComponentServicesService);
+        CopyUtils.merge(this.rootGroupComponent, this.getDefaults());
         this.setGroupComponent(this.rootGroupComponent);        
     }
 
