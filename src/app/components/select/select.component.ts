@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
-import { ArrayUtils, CopyUtils, SgComponentServicesService } from 'songlasses';
+import { ArrayUtils, CopyUtils, SgRootComponentService } from 'songlasses';
 import { SgGroupComponentConfig } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
@@ -79,7 +79,7 @@ export class SelectComponent implements OnInit {
   public stylesSafeHtml?: SafeHtml;
   
   constructor(private sanitizer: DomSanitizer, 
-              private componentServicesService: SgComponentServicesService,
+              private rootComponentService: SgRootComponentService,
               private superheroesService: SuperheroesService) { }
 
   ngOnInit(): void {
@@ -93,7 +93,7 @@ export class SelectComponent implements OnInit {
   private getSelectComponentServiceShowAndHide(): SgSelectComponentService | null {
     let selectComponentService: SgSelectComponentService | null = null;
     if (this.sgSelectComponentConfigShowAndHide.name) {
-      return this.componentServicesService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
+      return this.rootComponentService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
     }
     return selectComponentService;
   }

@@ -35,8 +35,8 @@ export class AppComponent {
       subHeader: 'Services'
     },
     {
-      label: 'ComponentServicesService',
-      routerLink: ['services/component-services-service']
+      label: 'SgRootComponentService',
+      routerLink: ['services/root-component-service']
     }
   ];
 

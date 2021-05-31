@@ -1,8 +1,8 @@
 import { Directive, Input, OnInit, Optional, SkipSelf } from '@angular/core';
 import { SgGroupComponentConfig } from '../../models/sg-component/sg-group-component-config.model';
 import { SgGroupComponent } from '../../models/sg-component/sg-group-component.model';
-import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
+import { SgRootComponentService } from '../../services/sg-component/sg-root-component.service';
 import { CopyUtils } from '../../utils/copy-utils';
 
 @Directive({
@@ -15,7 +15,7 @@ export class SgGroupComponentDirective implements OnInit  {
 
     constructor(private groupComponentService: SgGroupComponentService, 
         @Optional() @SkipSelf() private parentGroupComponentService: SgGroupComponentService | null, 
-        private componentServicesService: SgComponentServicesService) {
+        private rootComponentService: SgRootComponentService) {
     }
 
     ngOnInit() {
@@ -25,11 +25,11 @@ export class SgGroupComponentDirective implements OnInit  {
             groupComponentConfig: this.groupComponentConfig
         }
         this.groupComponentService.setGroupComponent(groupComponent);
-        this.componentServicesService.register(this.groupComponentService, this.parentGroupComponentService);
+        this.rootComponentService.register(this.groupComponentService, this.parentGroupComponentService);
     }
 
     ngOnDestroy() {
-        this.componentServicesService.unregister(this.groupComponentService, this.parentGroupComponentService);
+        this.rootComponentService.unregister(this.groupComponentService, this.parentGroupComponentService);
     }
 
 }

@@ -3,8 +3,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
 import { SgSelect } from '../../models/sg-component/sg-select.model';
-import { SgComponentServicesService } from '../../services/sg-component/sg-component-services.service';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
+import { SgRootComponentService } from '../../services/sg-component/sg-root-component.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
 import { CopyUtils } from '../../utils/copy-utils';
 
@@ -52,7 +52,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   constructor(private elementRef: ElementRef, 
     private selectComponentService: SgSelectComponentService, 
     @Optional() private groupComponentService: SgGroupComponentService | null,
-    private componentServicesService: SgComponentServicesService) { 
+    private rootComponentService: SgRootComponentService) { 
   }
 
   ngOnInit(): void {
@@ -63,7 +63,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         selectComponentConfig: this.sgSelectComponentConfig,
         value: this.value
       })
-      this.componentServicesService.register(this.selectComponentService, this.groupComponentService);
+      this.rootComponentService.register(this.selectComponentService, this.groupComponentService);
       this.observerable = this.selectComponentService.getSelectObservable();
       if (this.observerable) {
         this.observerable.subscribe(sgSelect => {
@@ -76,7 +76,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.componentServicesService.unregister(this.selectComponentService, this.groupComponentService);
+    this.rootComponentService.unregister(this.selectComponentService, this.groupComponentService);
   }
 
   validateSelectComponentConfig() {

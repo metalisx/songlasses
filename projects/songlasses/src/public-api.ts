@@ -12,7 +12,7 @@ export * from './lib/components/sg-sidebar/sg-sidebar.component';
 export * from './lib/components/sg-sidebar-hamburger/sg-sidebar-hamburger.component';
 export * from './lib/services/sg-sidebar/sg-sidebar.service';
 export * from './lib/services/sg-component/sg-component.service';
-export * from './lib/services/sg-component/sg-component-services.service';
+export * from './lib/services/sg-component/sg-root-component.service';
 export * from './lib/services/sg-component/sg-select-component.service';
 export * from './lib/models/sg-component/sg-component.model';
 export * from './lib/models/sg-component/sg-group-component-config.model';

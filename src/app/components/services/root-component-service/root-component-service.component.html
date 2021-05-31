@@ -1,7 +1,7 @@
-<h2>ComponentServicesService</h2>
+<h2>SgRootComponentService</h2>
 <p>
-    The ComponentServicesService is a singleton service containing a hierarchical tree structure of ComponentService 
-    implementations. The ComponentServicesService can be injected in every part of the application so you can retrieve 
+    The SgRootComponentService is a singleton service containing a hierarchical tree structure of ComponentService 
+    implementations. The SgRootComponentService can be injected in every part of the application so you can retrieve 
     a ComponentService. Depending on the implementation you could for instance call show and hide methods on the 
     ComponentService to manipulate the appearance of the Component.<br/>
     You can retrieve a single ComponentService or retrieve the hierarchical tree structure of ComponentServices 
@@ -9,7 +9,7 @@
 </p>
 <h3>Hierachical tree structure</h3>
 <p>
-    The ComponentServicesService hierarchical tree structure is componsed out of ComponentService implementations. The 
+    The SgRootComponentService hierarchical tree structure is componsed out of ComponentService implementations. The 
     GroupComponentService implements the ComponentService interface with the ability to register ComponentServices. By 
     nesting GroupComponentServices it is possible to create the hierachical tree structure of ComponentServices.
 </p>
@@ -21,7 +21,7 @@
 <p>
     A GroupComponentService can be created by specifying the GroupComponentDirective on a container. For example on 
     a div or a span element. This will mark the container as a GroupComponent and register the GroupComponentService 
-    at the parent GroupComponentService or at the root in the ComponentServicesService. Created ComponentServices 
+    at the parent GroupComponentService or at the root in the SgRootComponentService. Created ComponentServices 
     in the container are registered with the GroupComponentService making the hierachical tree structure possible.
 </p>
 <h3>CompentServicesService methods</h3>
@@ -55,7 +55,7 @@
     </tr>
 </table>
 
-<h2>SgComponentServicesService hierachical tree structure example</h2>
+<h2>SgRootComponentService hierachical tree structure of component services example</h2>
 <div groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel1">
     <ng-container *ngIf="sgGroupComponentConfigLevel1.show">
         <p>Group 1</p>
@@ -80,10 +80,10 @@
     <button (click)="componentServiceToggleSelectComponent2_1()">Toggle select component group 2.1</button>
 </div>
 
-<h2>SgComponentServicesService log methods</h2>
+<h2>SgRootComponentService log method</h2>
 <p>
-    Log registered component services structure in the SgComponentServicesService to the console.<br/>
+    Log registered hierarchical tree structure of component services to the console.<br/>
 </p>
 <div>
-    <button (click)="componentServicesServiceLog()">Log</button>
+    <button (click)="rootComponentServiceLog()">Log</button>
 </div>

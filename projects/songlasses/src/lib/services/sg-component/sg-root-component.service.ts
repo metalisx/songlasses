@@ -6,7 +6,7 @@ import { SgGroupComponent } from '../../models/sg-component/sg-group-component.m
 import { CopyUtils } from '../../utils/copy-utils';
 
 /**
- * A singleton instance where components register there component service.
+ * The singleton root component service where components register there component service.
  * 
  * This makes it possible to retrieve a component service and maniplute it's component from 
  * anywhere in the application.
@@ -18,7 +18,7 @@ import { CopyUtils } from '../../utils/copy-utils';
 @Injectable({
     providedIn: 'root'
 })
-export class SgComponentServicesService extends SgGroupComponentService {
+export class SgRootComponentService extends SgGroupComponentService {
 
     private rootGroupComponent: SgGroupComponent = {
         name: "root",
@@ -31,7 +31,7 @@ export class SgComponentServicesService extends SgGroupComponentService {
 
     constructor() {
         super();
-        InjectUtils.throwErrorIfExists(SgComponentServicesService);
+        InjectUtils.throwErrorIfExists(SgRootComponentService);
         CopyUtils.merge(this.rootGroupComponent, this.getDefaults());
         this.setGroupComponent(this.rootGroupComponent);        
     }

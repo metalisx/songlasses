@@ -6,9 +6,9 @@ const routes: Routes = [
   {path: 'home', loadChildren: () => import('./components/home/home.module').then(m => m.HomeModule)},
   {path: 'select', loadChildren: () => import('./components/select/select.module').then(m => m.SelectModule)},
   {path: 'sidebar', loadChildren: () => import('./components/sidebar/sidebar.module').then(m => m.SidebarModule)},
-  {path: 'services/component-services-service', 
-    loadChildren: () => import('./components/services/component-services-service/component-services-service.module')
-      .then(m => m.ComponentServicesServiceModule)}
+  {path: 'services/root-component-service', 
+    loadChildren: () => import('./components/services/root-component-service/root-component-service.module')
+      .then(m => m.RootComponentServiceModule)}
 ];
 
 @NgModule({
