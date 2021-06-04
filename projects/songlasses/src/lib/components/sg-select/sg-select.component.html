@@ -1,18 +1,18 @@
-<div *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.show === true" 
-    class="sg-select" [ngClass]="sgSelectComponentConfig.className ? sgSelectComponentConfig.className : ''">
-    <input *ngIf="sgSelectComponentConfig.name" #input #model="ngModel" [(ngModel)]="value" 
-        [name]="sgSelectComponentConfig.name" 
+<div *ngIf="componentConfig && componentConfig.show === true" 
+    class="sg-select" [ngClass]="componentConfig.className ? componentConfig.className : ''">
+    <input *ngIf="componentConfig.name" #input #model="ngModel" [(ngModel)]="value" 
+        [name]="componentConfig.name" 
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
         (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
-    <ul *ngIf="sgSelectComponentConfig && sgSelectComponentConfig.items"
+    <ul *ngIf="componentConfig && componentConfig.items"
         class="sg-select-items"
         [ngClass]="{'sg-select-items-show': showItems===true}">
         <li class="sg-select-item" #item
             [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '']"
-            *ngFor="let itm of sgSelectComponentConfig.items" (click)="select(itm)">
-            <ng-container *ngIf="sgSelectComponentConfig.itemDescriptionField">
-                {{itm[sgSelectComponentConfig.itemDescriptionField]}}
+            *ngFor="let itm of componentConfig.items" (click)="select(itm)">
+            <ng-container *ngIf="componentConfig.itemDescriptionField">
+                {{itm[componentConfig.itemDescriptionField]}}
             </ng-container>
         </li>
     </ul>

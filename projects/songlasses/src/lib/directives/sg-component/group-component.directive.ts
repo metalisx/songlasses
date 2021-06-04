@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, Optional, SkipSelf } from '@angular/core';
-import { SgGroupComponentConfig } from '../../models/sg-component/sg-group-component-config.model';
-import { SgGroupComponent } from '../../models/sg-component/sg-group-component.model';
+import { SgGroupComponentConfigModel } from '../../models/sg-component/sg-group-component-config.model';
+import { SgGroupComponentModel } from '../../models/sg-component/sg-group-component.model';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
 import { SgRootComponentService } from '../../services/sg-component/sg-root-component.service';
 import { CopyUtils } from '../../utils/copy-utils';
@@ -11,7 +11,7 @@ import { CopyUtils } from '../../utils/copy-utils';
 })
 export class SgGroupComponentDirective implements OnInit  {
 
-    @Input('sgGroupComponentConfig') groupComponentConfig: SgGroupComponentConfig = {};
+    @Input() componentConfig: SgGroupComponentConfigModel = {};
 
     constructor(private groupComponentService: SgGroupComponentService, 
         @Optional() @SkipSelf() private parentGroupComponentService: SgGroupComponentService | null, 
@@ -19,12 +19,12 @@ export class SgGroupComponentDirective implements OnInit  {
     }
 
     ngOnInit() {
-        CopyUtils.merge(this.groupComponentConfig, this.groupComponentService.getDefaults());
-        let groupComponent: SgGroupComponent = {
-            name: this.groupComponentConfig.name ?? "",
-            groupComponentConfig: this.groupComponentConfig
+        CopyUtils.merge(this.componentConfig, this.groupComponentService.getDefaults());
+        let groupComponentModel: SgGroupComponentModel = {
+            name: this.componentConfig.name ?? "",
+            componentConfig: this.componentConfig
         }
-        this.groupComponentService.setGroupComponent(groupComponent);
+        this.groupComponentService.setComponentModel(groupComponentModel);
         this.rootComponentService.register(this.groupComponentService, this.parentGroupComponentService);
     }
 

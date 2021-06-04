@@ -1,13 +1,11 @@
-export interface SgSelectComponentConfig {
+import { SgComponentConfigModel } from "./sg-component-config.model";
 
-    name?: string;
-    show?: boolean;
+export interface SgSelectComponentConfigModel extends SgComponentConfigModel {
+
     required?: boolean;
     itemMatchStrategy?: 'startsWith' | 'contains',
     itemValueField?: string;
     itemDescriptionField?: string;
     items?: any[];
-
-    className?: string;
 
 }

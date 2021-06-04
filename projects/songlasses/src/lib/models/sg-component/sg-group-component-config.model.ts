@@ -1,8 +1,5 @@
-export interface SgGroupComponentConfig {
+import { SgComponentConfigModel } from "./sg-component-config.model";
 
-    name?: string;
-    show?: boolean;
-
-    className?: string;
+export interface SgGroupComponentConfigModel extends SgComponentConfigModel {
 
 }

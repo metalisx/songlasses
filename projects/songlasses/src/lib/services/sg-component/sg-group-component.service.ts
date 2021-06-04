@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable, Subject } from "rxjs";
-import { SgGroupComponentConfig } from "../../models/sg-component/sg-group-component-config.model";
-import { SgGroupComponent } from "../../models/sg-component/sg-group-component.model";
+import { SgComponentConfigModel } from "../../models/sg-component/sg-component-config.model";
+import { SgGroupComponentConfigModel } from "../../models/sg-component/sg-group-component-config.model";
+import { SgComponentModel } from "../../models/sg-component/sg-component.model";
+import { SgGroupComponentModel } from "../../models/sg-component/sg-group-component.model";
 import { ArrayUtils } from "../../utils/array-utils";
 import { SgComponentService } from "./sg-component.service";
 
@@ -12,89 +14,89 @@ import { SgComponentService } from "./sg-component.service";
  * to manipulate only the components in the group.
  */
 @Injectable()
-export class SgGroupComponentService implements SgComponentService {
+export class SgGroupComponentService implements SgComponentService<SgGroupComponentModel> {
 
     private logColor: string = "green";
     private logPaddingLeft: number = 10;
 
-    private groupComponentConfigDefault: SgGroupComponentConfig = {
+    private groupComponentConfigDefault: SgGroupComponentConfigModel = {
         name: 'group',
         show: true,
         className: ''
     };
     
-    private componentServices: SgComponentService[] = [];
+    private componentServices: SgComponentService<SgComponentModel<SgComponentConfigModel>>[] = [];
 
-    private groupComponent!: SgGroupComponent;
+    private component!: SgGroupComponentModel;
     
-    private subject = new Subject<SgGroupComponent>();
+    private subject = new Subject<SgGroupComponentModel>();
 
     getName(): string | undefined {
-        if (this.groupComponent && this.groupComponent.groupComponentConfig) {
-            return this.groupComponent.groupComponentConfig.name;
+        if (this.component && this.component.componentConfig) {
+            return this.component.componentConfig.name;
         }
         return undefined;
     }
 
-    getGroupComponentObservable(): Observable<SgGroupComponent> {
+    getComponentModelObservable(): Observable<SgGroupComponentModel> {
         return this.subject;
     }
 
-    getDefaults(): SgGroupComponentConfig {
+    getDefaults(): SgGroupComponentConfigModel {
         return this.groupComponentConfigDefault;
     }
     
-    setDefaults(groupComponentConfigDefault: SgGroupComponentConfig): void {
+    setDefaults(groupComponentConfigDefault: SgGroupComponentConfigModel): void {
         this.groupComponentConfigDefault = groupComponentConfigDefault;
     }
 
-    register(componentService: SgComponentService): void {
+    register(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): void {
         this.componentServices.push(componentService);
     }
 
-    unregister(componentService: SgComponentService): void {
+    unregister(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): void {
         ArrayUtils.remove(this.componentServices, this.getNamePredicate(componentService));
     }
 
-    getComponentService(name: string): SgComponentService | undefined {
+    getComponentService(name: string): SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined {
         return this.getComponentServiceFromComponentServices(name, this.componentServices);
     }
 
-    getComponentServices(): SgComponentService[] {
+    getComponentServices(): SgComponentService<SgComponentModel<SgComponentConfigModel>>[] {
         return this.componentServices;
     }
 
-    getGroupComponent(): SgGroupComponent {
-        return this.groupComponent;
+    getComponentModel(): SgGroupComponentModel {
+        return this.component;
     }
 
-    setGroupComponent(groupComponent: SgGroupComponent): void {
-        this.groupComponent = groupComponent;
-        this.sendGroupComponent();
+    setComponentModel(component: SgGroupComponentModel): void {
+        this.component = component;
+        this.sendComponent();
     }
 
     refresh(): void {
-        this.sendGroupComponent();
+        this.sendComponent();
     }
 
     toggle(): void {
-        if (this.groupComponent && this.groupComponent.groupComponentConfig) {
-            this.groupComponent.groupComponentConfig.show = !this.groupComponent.groupComponentConfig.show;
-            this.sendGroupComponent();
+        if (this.component && this.component.componentConfig) {
+            this.component.componentConfig.show = !this.component.componentConfig.show;
+            this.sendComponent();
         }
     }
 
     show(): void {
-        if (this.groupComponent && this.groupComponent.groupComponentConfig) {
-            this.groupComponent.groupComponentConfig.show = true;
-            this.sendGroupComponent();
+        if (this.component && this.component.componentConfig) {
+            this.component.componentConfig.show = true;
+            this.sendComponent();
         }
     }
 
     hide(): void {
-        if (this.groupComponent && this.groupComponent.groupComponentConfig) {
-            this.groupComponent.groupComponentConfig.show = false;
-            this.sendGroupComponent();
+        if (this.component && this.component.componentConfig) {
+            this.component.componentConfig.show = false;
+            this.sendComponent();
         }
     }
 
@@ -111,7 +113,7 @@ export class SgGroupComponentService implements SgComponentService {
         console.log(`%cLevel %c${level}: %o`, 
             `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
             `color: ${this.logColor};`,
-            this.getGroupComponent());
+            this.getComponentModel());
         this.componentServices.forEach((componentService, index) => {
             console.log(`%cComponent Service: %o`, 
                 `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
@@ -123,12 +125,14 @@ export class SgGroupComponentService implements SgComponentService {
         });
     }
 
-    private getNamePredicate(componentService: SgComponentService): (value: SgComponentService, index: number, obj: SgComponentService[]) => unknown {
-        return (cs: SgComponentService) => cs.getName() === componentService.getName();        
+    private getNamePredicate(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): 
+        (value: SgComponentService<SgComponentModel<SgComponentConfigModel>>, index: number, obj: SgComponentService<SgComponentModel<SgComponentConfigModel>>[]) => unknown {
+        return (cs: SgComponentService<SgComponentModel<SgComponentConfigModel>>) => cs.getName() === componentService.getName();        
     }
 
-    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService[]): SgComponentService | undefined {
-        let returnComponentService: SgComponentService | undefined;
+    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService<SgComponentModel<SgComponentConfigModel>>[]): 
+        SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined {
+        let returnComponentService: SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined;
         componentServices.every(componentService => {
             if (componentService.getName() === name) {
                 returnComponentService = componentService;
@@ -144,8 +148,8 @@ export class SgGroupComponentService implements SgComponentService {
         return returnComponentService;
     }
 
-    private sendGroupComponent(): void {
-        this.subject.next(this.groupComponent);
+    private sendComponent(): void {
+        this.subject.next(this.component);
     }
 
 }

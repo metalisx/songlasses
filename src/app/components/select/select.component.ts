@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
+import { SgSelectComponentConfigModel, SgSelectComponentService  } from 'songlasses';
 import { ArrayUtils, CopyUtils, SgRootComponentService } from 'songlasses';
-import { SgGroupComponentConfig } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
 
@@ -15,7 +14,7 @@ export class SelectComponent implements OnInit {
 
   private items: Superhero[] = [];
 
-  sgSelectComponentConfig: SgSelectComponentConfig = {
+  sgSelectComponentConfigModel: SgSelectComponentConfigModel = {
     name: 'select',
     required: true,
     itemValueField: 'id',
@@ -23,7 +22,7 @@ export class SelectComponent implements OnInit {
     items: this.items
   }
 
-  sgSelectComponentConfigStyled: SgSelectComponentConfig = {
+  sgSelectComponentConfigModelStyled: SgSelectComponentConfigModel = {
     name: 'selectStyled',
     required: true,
     itemMatchStrategy: 'contains',
@@ -33,19 +32,11 @@ export class SelectComponent implements OnInit {
     className: 'selectStyled'
   }
 
-  sgSelectComponentConfigShowAndHide: SgSelectComponentConfig = {
+  sgSelectComponentConfigModelShowAndHide: SgSelectComponentConfigModel = {
     name: 'selectShowAndHide',
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items
-  }
-
-  sgGroupComponentConfigStyled: SgGroupComponentConfig = {
-    name: 'groupComponentSelectStyled'
-  }
-
-  sgGroupComponentConfigShowAndHide: SgGroupComponentConfig = {
-    name: 'groupComponentSelectShowHide'
   }
 
   value: string = 'JD';
@@ -90,31 +81,31 @@ export class SelectComponent implements OnInit {
     });
   }
 
-  private getSelectComponentServiceShowAndHide(): SgSelectComponentService | null {
-    let selectComponentService: SgSelectComponentService | null = null;
-    if (this.sgSelectComponentConfigShowAndHide.name) {
-      return this.rootComponentService.getComponentService(this.sgSelectComponentConfigShowAndHide.name) as SgSelectComponentService;
+  private getSelectComponentServiceShowAndHide(): SgSelectComponentService | undefined {
+    let selectComponentService: SgSelectComponentService | undefined;
+    if (this.sgSelectComponentConfigModelShowAndHide.name) {
+      return this.rootComponentService.getComponentService(this.sgSelectComponentConfigModelShowAndHide.name) as unknown as SgSelectComponentService;
     }
     return selectComponentService;
   }
 
   toggleShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
       selectComponentService.toggle();
     }
   }
 
   showShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
       selectComponentService.show();
     }
   }
 
   hideShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | null = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== null && this.sgSelectComponentConfigShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
+    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
       selectComponentService.hide();
     }
   }

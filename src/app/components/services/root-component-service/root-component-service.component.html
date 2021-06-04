@@ -56,19 +56,19 @@
 </table>
 
 <h2>SgRootComponentService hierachical tree structure of component services example</h2>
-<div groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel1">
-    <ng-container *ngIf="sgGroupComponentConfigLevel1.show">
+<div groupComponent [componentConfig]="sgGroupComponentConfigModelLevel1">
+    <ng-container *ngIf="sgGroupComponentConfigModelLevel1.show">
         <p>Group 1</p>
-        <div style="padding-left: 20px" groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel2_1">
-            <ng-container *ngIf="sgGroupComponentConfigLevel2_1.show">
+        <div style="padding-left: 20px" groupComponent [componentConfig]="sgGroupComponentConfigModelLevel2_1">
+            <ng-container *ngIf="sgGroupComponentConfigModelLevel2_1.show">
                 <p>Group 2.1</p>
-                <sg-select [(ngModel)]="value2_1" [sgSelectComponentConfig]="sgSelectComponentConfig2_1"></sg-select>
+                <sg-select [(ngModel)]="value2_1" [componentConfig]="sgSelectComponentConfig2_1"></sg-select>
             </ng-container>
         </div>
-        <div style="padding-left: 20px" groupComponent [sgGroupComponentConfig]="sgGroupComponentConfigLevel2_2">
-            <ng-container *ngIf="sgGroupComponentConfigLevel2_2.show">
+        <div style="padding-left: 20px" groupComponent [componentConfig]="sgGroupComponentConfigModelLevel2_2">
+            <ng-container *ngIf="sgGroupComponentConfigModelLevel2_2.show">
                 <p>Group 2.2</p>
-                <sg-select [(ngModel)]="value2_2" [sgSelectComponentConfig]="sgSelectComponentConfig2_2"></sg-select>
+                <sg-select [(ngModel)]="value2_2" [componentConfig]="sgSelectComponentConfig2_2"></sg-select>
             </ng-container>
         </div>
     </ng-container>
