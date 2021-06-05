@@ -21,7 +21,6 @@ export class SgGroupComponentDirective implements OnInit  {
     ngOnInit() {
         CopyUtils.merge(this.componentConfig, this.groupComponentService.getDefaults());
         let groupComponentModel: SgGroupComponentModel = {
-            name: this.componentConfig.name ?? "",
             componentConfig: this.componentConfig
         }
         this.groupComponentService.setComponentModel(groupComponentModel);

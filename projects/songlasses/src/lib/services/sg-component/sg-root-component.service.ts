@@ -34,7 +34,6 @@ export class SgRootComponentService extends SgComponentServiceWithChildren<SgRoo
         super();
         InjectUtils.throwErrorIfExists(SgRootComponentService);
         this.setComponentModel({
-            name: "root",
             componentConfig: this.componentConfig
         });
     }

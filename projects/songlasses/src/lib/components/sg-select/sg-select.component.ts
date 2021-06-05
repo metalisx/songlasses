@@ -59,7 +59,6 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     CopyUtils.merge(this.componentConfig, this.selectComponentService.getDefaults());
     if (this.componentConfig && this.componentConfig.name) {
       this.selectComponentService.setComponentModel({
-        name: this.componentConfig.name,
         componentConfig: this.componentConfig,
         value: this.value
       })
