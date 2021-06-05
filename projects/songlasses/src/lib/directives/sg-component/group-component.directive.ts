@@ -25,11 +25,19 @@ export class SgGroupComponentDirective implements OnInit  {
             componentConfig: this.componentConfig
         }
         this.groupComponentService.setComponentModel(groupComponentModel);
-        this.rootComponentService.register(this.groupComponentService, this.parentGroupComponentService);
+        if (this.parentGroupComponentService !== null) {
+            this.parentGroupComponentService.register(this.groupComponentService);
+        } else {
+            this.rootComponentService.register(this.groupComponentService);
+        }
     }
 
     ngOnDestroy() {
-        this.rootComponentService.unregister(this.groupComponentService, this.parentGroupComponentService);
+        if (this.parentGroupComponentService !== null) {
+            this.parentGroupComponentService.unregister(this.groupComponentService);
+        } else {
+            this.rootComponentService.unregister(this.groupComponentService);
+        }
     }
 
 }

@@ -63,7 +63,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         componentConfig: this.componentConfig,
         value: this.value
       })
-      this.rootComponentService.register(this.selectComponentService, this.groupComponentService);
+      if (this.groupComponentService !== null) {
+        this.groupComponentService.register(this.selectComponentService);
+      } else {
+        this.rootComponentService.register(this.selectComponentService);
+      }
       this.observerable = this.selectComponentService.getComponentModelObservable();
       if (this.observerable) {
         this.observerable.subscribe(sgSelectComponentModel => {
@@ -76,7 +80,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnDestroy(): void {
-    this.rootComponentService.unregister(this.selectComponentService, this.groupComponentService);
+    if (this.groupComponentService !== null) {
+      this.groupComponentService.unregister(this.selectComponentService);
+    } else {
+      this.rootComponentService.unregister(this.selectComponentService);
+    }
   }
 
   validateSelectComponentConfig() {
