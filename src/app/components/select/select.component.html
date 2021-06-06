@@ -45,3 +45,19 @@ External value : {{value | json}}
     <button *ngIf="sgSelectComponentConfigModelShowAndHide.show" (click)="hideShowAndHide()">Hide</button> 
     <button (click)="toggleShowAndHide()">Toggle</button>
 </div>
+
+<h2>SgSelectService clear, set, get and hasValue methods</h2>
+<p>
+    clear, set and get the component value by using the SgSelectService clear, get and set methods.<br/>
+    The clear and get buttons are shown by using the SgSelectService hasValue method.
+</p>
+<sg-select [(ngModel)]="valueManipulateValue" [componentConfig]="sgSelectComponentConfigModelManipulateValue"></sg-select>
+<div>
+    External value : {{valueManipulateValue | json}}
+    getValue : {{currentValueManipulateValue | json}}
+</div>
+<div>
+    <button *ngIf="hasValueManipulateValue()" (click)="clearManipulateValue()">Clear value</button> 
+    <button *ngIf="hasValueManipulateValue()" (click)="getManipulateValue()">Get value</button> 
+    <button (click)="setManipulateValue()">Set value</button> 
+</div>

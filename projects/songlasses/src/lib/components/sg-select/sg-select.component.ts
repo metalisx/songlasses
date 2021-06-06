@@ -1,6 +1,7 @@
 import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { SgComponentServiceEventModel } from '../../models/sg-component/sg-component-service-event.model';
 import { SgSelectComponentConfigModel } from '../../models/sg-component/sg-select-component-config.model';
 import { SgSelectComponentModel } from '../../models/sg-component/sg-select-component.model';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
@@ -31,6 +32,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   @ViewChildren('item') liElements!: QueryList<ElementRef>;
 
   private internalValue: any;
+  private externalValue: string | null = null;
 
   item?: any;
   selectedItem?: any;
@@ -40,7 +42,12 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
-  observerable: Observable<SgSelectComponentModel> | undefined;
+  // Hack to only call the service set method in the writeValue method when initializing the component.
+  // The service set method used in the writeValue method should be in a lifecycle but none works.
+  // Setting the property the true will prevent unneccessary calls to the service as it triggered the event.
+  private writeValueIsCalledByOserver: boolean = false;
+
+  private observerable: Observable<SgComponentServiceEventModel<SgSelectComponentModel>> | undefined;
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -58,10 +65,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   ngOnInit(): void {
     CopyUtils.merge(this.componentConfig, this.selectComponentService.getDefaults());
     if (this.componentConfig && this.componentConfig.name) {
-      this.selectComponentService.setComponentModel({
+      let componentModel: SgSelectComponentModel = {
         componentConfig: this.componentConfig,
-        value: this.value
-      })
+        value: this.externalValue
+      }
+      this.selectComponentService.setComponentModel(componentModel);
       if (this.groupComponentService !== null) {
         this.groupComponentService.register(this.selectComponentService);
       } else {
@@ -69,9 +77,14 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       }
       this.observerable = this.selectComponentService.getComponentModelObservable();
       if (this.observerable) {
-        this.observerable.subscribe(sgSelectComponentModel => {
-          this.componentConfig = sgSelectComponentModel.componentConfig as SgSelectComponentConfigModel;
-          this.validateSelectComponentConfig();
+        this.observerable.subscribe(sgComponentServiceEventModel => {
+          // only listen to service events not initiated by this component
+          if (sgComponentServiceEventModel.event !== 'component') {
+            this.componentConfig = sgComponentServiceEventModel.componentModel.componentConfig as SgSelectComponentConfigModel;
+            this.writeValueIsCalledByOserver = true;
+            this.writeValue(sgComponentServiceEventModel.componentModel.value); // will set the externalValue
+            this.validateSelectComponentConfig();
+          }
         });
       }
       this.validateSelectComponentConfig();
@@ -167,7 +180,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   set value(value: any) {
-    if (value !== undefined && value !== "") {
+    if (value !== undefined && value !== null && value !== "") {
       if (this.internalValue !== value) {
         this.internalValue = value;
         this.setItemByDescription(value);
@@ -179,9 +192,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     } else {
       this.item = null;
       this.internalValue = null;
-      let externalValue: any = null;
-      this.onChange(externalValue);
-      this.onTouched(externalValue);
+      this.setExternalValue(null);
     }
   }
 
@@ -190,9 +201,16 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(value: any): void {
+    this.externalValue = value;
+    if (!this.writeValueIsCalledByOserver) {
+      this.selectComponentService.set(this.externalValue, 'component');
+      this.writeValueIsCalledByOserver = false;
+    }
     this.setItemByValue(value);
     if (this.componentConfig && this.componentConfig.itemDescriptionField && this.item) {
        this.value = this.item[this.componentConfig.itemDescriptionField];
+    } else {
+      this.value = null;
     }
   }
 
@@ -218,6 +236,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   private setValueFromSelectedItem() {
     if (this.componentConfig && this.componentConfig.itemDescriptionField && this.selectedItem) {
       this.value = this.selectedItem[this.componentConfig.itemDescriptionField];
+      // externalValue is set by 'set value'
+      // event is set to component so this component can filter its own triggered service events
+      this.selectComponentService.set(this.externalValue, 'component');
     }
   }
 
@@ -313,9 +334,13 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   private setExternalValue(value: any) {
     if (this.componentConfig && this.componentConfig.itemValueField) {
-      let externalValue: any = this.item ? this.item[this.componentConfig.itemValueField] : null;
-      this.onChange(externalValue);
-      this.onTouched(externalValue);
+      if (value === null) {
+        this.externalValue = null;
+      } else { 
+        this.externalValue = this.item ? this.item[this.componentConfig.itemValueField] : null;
+      }
+      this.onChange(this.externalValue);
+      this.onTouched(this.externalValue);
     }
   }
 

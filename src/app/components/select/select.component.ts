@@ -39,9 +39,18 @@ export class SelectComponent implements OnInit {
     items: this.items
   }
 
+  sgSelectComponentConfigModelManipulateValue: SgSelectComponentConfigModel = {
+    name: 'selectManipulateValue',
+    itemValueField: 'id',
+    itemDescriptionField: 'name',
+    items: this.items
+  }
+
   value: string = 'JD';
   valueStyled: string = 'BW';
-  valueShowAndHide: string = 'BW';
+  valueShowAndHide: string = 'LC';
+  valueManipulateValue: string = 'SP';
+  currentValueManipulateValue: String| null = null;
 
   public styles: string = `<style>
   .selectStyled.sg-select {
@@ -81,33 +90,62 @@ export class SelectComponent implements OnInit {
     });
   }
 
-  private getSelectComponentServiceShowAndHide(): SgSelectComponentService | undefined {
+  private getSelectComponentService(name: string | undefined): SgSelectComponentService | undefined {
     let selectComponentService: SgSelectComponentService | undefined;
-    if (this.sgSelectComponentConfigModelShowAndHide.name) {
-      return this.rootComponentService.getComponentService(this.sgSelectComponentConfigModelShowAndHide.name) as unknown as SgSelectComponentService;
+    if (name !== undefined) {
+      return this.rootComponentService.getComponentService(name) as unknown as SgSelectComponentService;
     }
     return selectComponentService;
   }
 
   toggleShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    if (selectComponentService !== undefined) {
       selectComponentService.toggle();
     }
   }
 
   showShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    if (selectComponentService !== undefined) {
       selectComponentService.show();
     }
   }
 
   hideShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentServiceShowAndHide();
-    if (selectComponentService !== undefined && this.sgSelectComponentConfigModelShowAndHide.name) {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    if (selectComponentService !== undefined) {
       selectComponentService.hide();
     }
+  }
+
+  clearManipulateValue(): void {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    if (selectComponentService !== undefined) {
+      selectComponentService.clear();
+    }
+  }
+
+  getManipulateValue(): void {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    if (selectComponentService !== undefined) {
+      this.currentValueManipulateValue = selectComponentService.get();
+    }
+  }
+
+  setManipulateValue(): void {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    if (selectComponentService !== undefined) {
+      selectComponentService.set('OM');
+    }
+  }
+
+  hasValueManipulateValue(): boolean {
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    if (selectComponentService !== undefined) {
+      return selectComponentService.hasValue;
+    }
+    return false;
   }
 
 }

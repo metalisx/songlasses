@@ -1,6 +1,7 @@
 import { SgComponentModel } from "../../models/sg-component/sg-component.model";
 import { SgComponentConfigModel } from "../../models/sg-component/sg-component-config.model";
 import { Observable, Subject } from "rxjs";
+import { SgComponentServiceEventModel } from "../../models/sg-component/sg-component-service-event.model";
 
 /**
  * Class for a component service.
@@ -10,29 +11,29 @@ import { Observable, Subject } from "rxjs";
  */
 export abstract class SgComponentService<T extends SgComponentModel<SgComponentConfigModel>>  {
    
-    private component!: T;
+    private componentModel!: T;
 
     private subject = new Subject<any>(); // Should be T but typescript does not allow it.
 
     constructor() {}
 
     getName(): string | undefined {
-        if (this.component && this.component.componentConfig) {
-            return this.component.componentConfig.name;
+        if (this.componentModel && this.componentModel.componentConfig) {
+            return this.componentModel.componentConfig.name;
         }
         return undefined;
     }
 
-    getComponentModelObservable(): Observable<T> {
+    getComponentModelObservable(): Observable<SgComponentServiceEventModel<T>> {
         return this.subject;
     }
 
     getComponentModel(): T {
-        return this.component;
+        return this.componentModel;
     }
 
-    setComponentModel(component: T): void {
-        this.component = component
+    setComponentModel(componentModel: T): void {
+        this.componentModel = componentModel
         this.sendSelect();
     }
 
@@ -41,28 +42,32 @@ export abstract class SgComponentService<T extends SgComponentModel<SgComponentC
     }
     
     toggle(): void {
-        if (this.component && this.component.componentConfig) {
-            this.component.componentConfig.show = !this.component.componentConfig.show;
+        if (this.componentModel && this.componentModel.componentConfig) {
+            this.componentModel.componentConfig.show = !this.componentModel.componentConfig.show;
             this.sendSelect();
         }
     }
 
     show(): void {
-        if (this.component && this.component.componentConfig) {
-            this.component.componentConfig.show = true;
+        if (this.componentModel && this.componentModel.componentConfig) {
+            this.componentModel.componentConfig.show = true;
             this.sendSelect();
         }
     }
 
     hide(): void {
-        if (this.component && this.component.componentConfig) {
-            this.component.componentConfig.show = false;
+        if (this.componentModel && this.componentModel.componentConfig) {
+            this.componentModel.componentConfig.show = false;
             this.sendSelect();
         }
     }
 
-    protected sendSelect(): void {
-        this.subject.next(this.component);
+    protected sendSelect(event: string = "service"): void {
+        let componentServiceEventModel: SgComponentServiceEventModel<T> = {
+            event: event,
+            componentModel: this.componentModel
+        }
+        this.subject.next(componentServiceEventModel);
     }
 
 }
