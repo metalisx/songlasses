@@ -1,8 +1,7 @@
-import { SgComponentValueModel } from "./sg-component-value.model";
+import { SgComponentServiceEventModel } from "./sg-event.model";
 
-export interface SgComponentValueModelEventModel<V extends any | null> {
+export interface SgComponentValueModelEventModel<V extends any | null> extends SgComponentServiceEventModel {
 
-    event: string;
     value: V
     
 }

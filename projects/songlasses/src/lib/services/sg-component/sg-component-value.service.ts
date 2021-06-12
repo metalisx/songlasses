@@ -1,4 +1,3 @@
-import { SgComponentValueModel } from "../../models/sg-component/sg-component-value.model";
 import { SgComponentConfigModel } from "../../models/sg-component/sg-component-config.model";
 import { SgComponentService } from "./sg-component.service";
 import { Observable, Subject } from "rxjs";
