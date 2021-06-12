@@ -22,9 +22,9 @@ import { Observable } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class SgRootComponentService extends SgComponentServiceWithChildren<SgRootComponentModel> {
+export class SgRootComponentService extends SgComponentServiceWithChildren<SgRootComponentConfigModel> {
 
-    private componentConfig: SgRootComponentConfigModel = {
+    private componentConfigModelDefault: SgRootComponentConfigModel = {
         name: "root",
         show: true,
         className: "root"
@@ -33,9 +33,7 @@ export class SgRootComponentService extends SgComponentServiceWithChildren<SgRoo
     constructor() {
         super();
         InjectUtils.throwErrorIfExists(SgRootComponentService);
-        this.setComponentModel({
-            componentConfig: this.componentConfig
-        });
+        this.setComponentConfigModel(this.componentConfigModelDefault);
     }
 
 }

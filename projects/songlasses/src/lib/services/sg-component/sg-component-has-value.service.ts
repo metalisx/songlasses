@@ -1,9 +1,9 @@
-export interface SgComponentHasValueService<T> {
+export interface SgComponentHasValueService<T extends any | null> {
 
     hasValue: boolean;
 
-    clear(): void;
-    set(value: T | null): void;
-    get(): T | null;
+    clearValue(): void;
+    setValue(value: T | null): void;
+    getValue(): T | null;
 
 }

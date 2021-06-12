@@ -6,31 +6,31 @@ import { ArrayUtils } from "../../utils/array-utils";
 /**
  * Interface for a component service with child component services.
  */
-export abstract class SgComponentServiceWithChildren<T extends SgComponentModel<SgComponentConfigModel>>
+export abstract class SgComponentServiceWithChildren<T extends SgComponentConfigModel>
     extends SgComponentService<T> {
 
     private logColor: string = "green";
     private logPaddingLeft: number = 10;
 
-    private componentServices: SgComponentService<SgComponentModel<SgComponentConfigModel>>[] = [];
+    private componentServices: SgComponentService<SgComponentConfigModel>[] = [];
 
     constructor() {
         super();
     }
 
-    register(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): void {
+    register(componentService: SgComponentService<SgComponentConfigModel>): void {
         this.componentServices.push(componentService);
     }
 
-    unregister(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): void {
+    unregister(componentService: SgComponentService<SgComponentConfigModel>): void {
         ArrayUtils.remove(this.componentServices, this.getNamePredicate(componentService));
     }
 
-    getComponentService(name: string): SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined {
+    getComponentService(name: string): SgComponentService<SgComponentConfigModel> | undefined {
         return this.getComponentServiceFromComponentServices(name, this.componentServices);
     }
 
-    getComponentServices(): SgComponentService<SgComponentModel<SgComponentConfigModel>>[] {
+    getComponentServices(): SgComponentService<SgComponentConfigModel>[] {
         return this.componentServices;
     }
 
@@ -47,32 +47,32 @@ export abstract class SgComponentServiceWithChildren<T extends SgComponentModel<
         console.log(`%cLevel %c${level}: %o`, 
             `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
             `color: ${this.logColor};`,
-            this.getComponentModel());
+            this.getComponentConfigModel());
         this.componentServices.forEach((componentService, index) => {
             console.log(`%cComponent Service: %o`, 
                 `padding-left: ${this.logPaddingLeft * (level - 1)}px;color: ${this.logColor};`, 
                 componentService);
             if (componentService instanceof SgComponentServiceWithChildren) {
-                (componentService as SgComponentServiceWithChildren<SgComponentModel<SgComponentConfigModel>>).log(++level);
+                (componentService as SgComponentServiceWithChildren<SgComponentConfigModel>).log(++level);
                 level--;
             }
         });
     }
 
-    private getNamePredicate(componentService: SgComponentService<SgComponentModel<SgComponentConfigModel>>): 
-        (value: SgComponentService<SgComponentModel<SgComponentConfigModel>>, index: number, obj: SgComponentService<SgComponentModel<SgComponentConfigModel>>[]) => unknown {
-        return (cs: SgComponentService<SgComponentModel<SgComponentConfigModel>>) => cs.getName() === componentService.getName();        
+    private getNamePredicate(componentService: SgComponentService<SgComponentConfigModel>): 
+        (value: SgComponentService<SgComponentConfigModel>, index: number, obj: SgComponentService<SgComponentConfigModel>[]) => unknown {
+        return (cs: SgComponentService<SgComponentConfigModel>) => cs.getName() === componentService.getName();        
     }
 
-    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService<SgComponentModel<SgComponentConfigModel>>[]): 
-        SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined {
-        let returnComponentService: SgComponentService<SgComponentModel<SgComponentConfigModel>> | undefined;
+    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService<SgComponentConfigModel>[]): 
+        SgComponentService<SgComponentConfigModel> | undefined {
+        let returnComponentService: SgComponentService<SgComponentConfigModel> | undefined;
         componentServices.every(componentService => {
             if (componentService.getName() === name) {
                 returnComponentService = componentService;
             }
             if (returnComponentService === undefined && componentService instanceof SgComponentServiceWithChildren) {
-                returnComponentService = (componentService as SgComponentServiceWithChildren<SgComponentModel<SgComponentConfigModel>>).getComponentService(name);
+                returnComponentService = (componentService as SgComponentServiceWithChildren<SgComponentConfigModel>).getComponentService(name);
             }
             if (returnComponentService !== undefined) {
                 return false;

@@ -122,21 +122,21 @@ export class SelectComponent implements OnInit {
   clearManipulateValue(): void {
     let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
     if (selectComponentService !== undefined) {
-      selectComponentService.clear();
+      selectComponentService.clearValue();
     }
   }
 
   getManipulateValue(): void {
     let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
     if (selectComponentService !== undefined) {
-      this.currentValueManipulateValue = selectComponentService.get();
+      this.currentValueManipulateValue = selectComponentService.getValue();
     }
   }
 
   setManipulateValue(): void {
     let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
     if (selectComponentService !== undefined) {
-      selectComponentService.set('OM');
+      selectComponentService.setValue('OM');
     }
   }
 
