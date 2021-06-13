@@ -10,7 +10,7 @@ import { CopyUtils } from '../../utils/copy-utils';
 })
 export class SgGroupComponentDirective implements OnInit  {
 
-    @Input() componentConfig: SgGroupComponentConfigModel = {};
+    @Input() componentConfig: SgGroupComponentConfigModel = this.groupComponentService.getDefaults();
 
     constructor(private groupComponentService: SgGroupComponentService, 
         @Optional() @SkipSelf() private parentGroupComponentService: SgGroupComponentService | null, 
