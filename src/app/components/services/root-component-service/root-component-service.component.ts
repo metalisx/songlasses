@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SgRootComponentService } from 'songlasses';
-import { SgGroupComponentConfigModel, SgSelectComponentConfigModel } from 'songlasses';
+import { SgGroupComponentConfig, SgSelectComponentConfig } from 'songlasses';
 import { ArrayUtils, CopyUtils } from 'songlasses';
 import { Superhero } from 'src/app/models/superhero.model';
 import { SuperheroesService } from 'src/app/services/superheroes.service';
@@ -14,26 +14,26 @@ export class RootComponentServiceComponent implements OnInit {
   
   private items: Superhero[] = [];
   
-  sgGroupComponentConfigModelLevel1: SgGroupComponentConfigModel = {
+  sgGroupComponentConfigLevel1: SgGroupComponentConfig = {
     name: 'groupComponentLevel1'
   }
 
-  sgGroupComponentConfigModelLevel2_1: SgGroupComponentConfigModel = {
+  sgGroupComponentConfigLevel2_1: SgGroupComponentConfig = {
     name: 'groupComponentLevel2_1'
   }
 
-  sgGroupComponentConfigModelLevel2_2: SgGroupComponentConfigModel = {
+  sgGroupComponentConfigLevel2_2: SgGroupComponentConfig = {
     name: 'groupComponentLevel2_2'
   }
 
-  sgSelectComponentConfig2_1: SgSelectComponentConfigModel = {
+  sgSelectComponentConfig2_1: SgSelectComponentConfig = {
     name: 'select2_1',
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items
   }
 
-  sgSelectComponentConfig2_2: SgSelectComponentConfigModel = {
+  sgSelectComponentConfig2_2: SgSelectComponentConfig = {
     name: 'select2_2',
     itemValueField: 'id',
     itemDescriptionField: 'name',

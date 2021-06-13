@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { SgSelectComponentConfigModel, SgSelectComponentService  } from 'songlasses';
+import { SgSelectComponentConfig, SgSelectComponentService  } from 'songlasses';
 import { ArrayUtils, CopyUtils, SgRootComponentService } from 'songlasses';
 import { SuperheroesService } from '../../services/superheroes.service';
 import { Superhero } from '../../models/superhero.model';
@@ -14,7 +14,7 @@ export class SelectComponent implements OnInit {
 
   private items: Superhero[] = [];
 
-  sgSelectComponentConfigModel: SgSelectComponentConfigModel = {
+  sgSelectComponentConfig: SgSelectComponentConfig = {
     name: 'select',
     required: true,
     itemValueField: 'id',
@@ -22,7 +22,7 @@ export class SelectComponent implements OnInit {
     items: this.items
   }
 
-  sgSelectComponentConfigModelStyled: SgSelectComponentConfigModel = {
+  sgSelectComponentConfigStyled: SgSelectComponentConfig = {
     name: 'selectStyled',
     required: true,
     itemMatchStrategy: 'contains',
@@ -32,14 +32,14 @@ export class SelectComponent implements OnInit {
     className: 'selectStyled'
   }
 
-  sgSelectComponentConfigModelShowAndHide: SgSelectComponentConfigModel = {
+  sgSelectComponentConfigShowAndHide: SgSelectComponentConfig = {
     name: 'selectShowAndHide',
     itemValueField: 'id',
     itemDescriptionField: 'name',
     items: this.items
   }
 
-  sgSelectComponentConfigModelManipulateValue: SgSelectComponentConfigModel = {
+  sgSelectComponentConfigManipulateValue: SgSelectComponentConfig = {
     name: 'selectManipulateValue',
     itemValueField: 'id',
     itemDescriptionField: 'name',
@@ -99,49 +99,49 @@ export class SelectComponent implements OnInit {
   }
 
   toggleShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigShowAndHide.name);
     if (selectComponentService !== undefined) {
       selectComponentService.toggle();
     }
   }
 
   showShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigShowAndHide.name);
     if (selectComponentService !== undefined) {
       selectComponentService.show();
     }
   }
 
   hideShowAndHide(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelShowAndHide.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigShowAndHide.name);
     if (selectComponentService !== undefined) {
       selectComponentService.hide();
     }
   }
 
   clearManipulateValue(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigManipulateValue.name);
     if (selectComponentService !== undefined) {
       selectComponentService.clearValue();
     }
   }
 
   getManipulateValue(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigManipulateValue.name);
     if (selectComponentService !== undefined) {
       this.currentValueManipulateValue = selectComponentService.getValue();
     }
   }
 
   setManipulateValue(): void {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigManipulateValue.name);
     if (selectComponentService !== undefined) {
       selectComponentService.setValue('OM');
     }
   }
 
   hasValueManipulateValue(): boolean {
-    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigModelManipulateValue.name);
+    let selectComponentService: SgSelectComponentService | undefined = this.getSelectComponentService(this.sgSelectComponentConfigManipulateValue.name);
     if (selectComponentService !== undefined) {
       return selectComponentService.hasValue;
     }

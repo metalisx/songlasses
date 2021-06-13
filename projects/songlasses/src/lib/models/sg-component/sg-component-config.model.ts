@@ -1,4 +1,4 @@
-export interface SgComponentConfigModel {
+export interface SgComponentConfig {
 
     name?: string;
     show?: boolean;

@@ -1,6 +1,6 @@
-import { SgComponentConfigModel } from "./sg-component-config.model";
+import { SgComponentConfig } from "./sg-component-config.model";
 
-export interface SgSelectComponentConfigModel extends SgComponentConfigModel {
+export interface SgSelectComponentConfig extends SgComponentConfig {
 
     required?: boolean;
     itemMatchStrategy?: 'startsWith' | 'contains',

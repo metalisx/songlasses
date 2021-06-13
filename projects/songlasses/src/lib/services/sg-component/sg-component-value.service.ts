@@ -1,18 +1,18 @@
-import { SgComponentConfigModel } from "../../models/sg-component/sg-component-config.model";
+import { SgComponentConfig } from "../../models/sg-component/sg-component-config.model";
 import { SgComponentService } from "./sg-component.service";
 import { Observable, Subject } from "rxjs";
-import { SgComponentValueModelEventModel } from "../../models/sg-component/sg-component-value-model-event.model";
+import { SgComponentValueEvent } from "../../models/sg-component/sg-component-value-event.model";
 import { SgComponentHasValueService } from "./sg-component-has-value.service";
 
 /**
  * Class for a component service with a value.
  */
-export abstract class SgComponentValueService<T extends SgComponentConfigModel, V> extends SgComponentService<T>
+export abstract class SgComponentValueService<T extends SgComponentConfig, V> extends SgComponentService<T>
     implements SgComponentHasValueService<V> {
     
     private value: V | null = null;
 
-    private valueSubject = new Subject<SgComponentValueModelEventModel<V | null>>(); // Should be SgComponentValueModelEventModel<V> but typescript does not allow it.
+    private valueSubject = new Subject<SgComponentValueEvent<V | null>>();
 
     hasValue: boolean = false;
 
@@ -20,7 +20,7 @@ export abstract class SgComponentValueService<T extends SgComponentConfigModel, 
         super();
     }
 
-    getValueObservable(): Observable<SgComponentValueModelEventModel<V | null>> {
+    getValueObservable(): Observable<SgComponentValueEvent<V | null>> {
         return this.valueSubject;
     }
 
@@ -38,7 +38,7 @@ export abstract class SgComponentValueService<T extends SgComponentConfigModel, 
     setValue(value: V | null, event: string = 'service'): void {
         this.value = value;
         this.setHasValue(this.value);
-        this.sendComponentValueModel(event);
+        this.sendComponentValue(event);
     }
 
     /**
@@ -51,19 +51,19 @@ export abstract class SgComponentValueService<T extends SgComponentConfigModel, 
      clearValue(event: string = 'service'): void {
         this.value = null;
         this.setHasValue(this.value);
-        this.sendComponentValueModel(event);
+        this.sendComponentValue(event);
     }
 
     private setHasValue(value: V | null | undefined): void {
         this.hasValue = value !== undefined && value !== null;
     }
 
-    protected sendComponentValueModel(event: string = "service"): void {
-        let componentServiceEventModel: SgComponentValueModelEventModel<V | null> = {
+    protected sendComponentValue(event: string = "service"): void {
+        let componentServiceEvent: SgComponentValueEvent<V | null> = {
             event: event,
             value: this.value
         }
-        this.valueSubject.next(componentServiceEventModel);
+        this.valueSubject.next(componentServiceEvent);
     }
 
 }

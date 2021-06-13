@@ -1,4 +1,4 @@
-export interface SgComponentServiceEventModel {
+export interface SgComponentServiceEvent {
 
     event: string;
     

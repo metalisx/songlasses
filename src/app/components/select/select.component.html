@@ -1,12 +1,12 @@
 <h2>Select - Default</h2>
 <div>
-    <sg-select [(ngModel)]="value" [componentConfig]="sgSelectComponentConfigModel"></sg-select>
+    <sg-select [(ngModel)]="value" [componentConfig]="sgSelectComponentConfig"></sg-select>
 </div>
 External value : {{value | json}}
 <div class="code-container">
     <div class="code-panel">
         <h6>Config</h6> 
-        <textarea class="code" readonly>{{sgSelectComponentConfigModel | json}}</textarea> 
+        <textarea class="code" readonly>{{sgSelectComponentConfig | json}}</textarea> 
     </div>
 </div>
 
@@ -16,14 +16,14 @@ External value : {{value | json}}
     to select2 and some custom style is added to target the components elements.
 </p>
 <div [innerHTML]="stylesSafeHtml"></div>
-<sg-select [(ngModel)]="valueStyled" [componentConfig]="sgSelectComponentConfigModelStyled"></sg-select>
+<sg-select [(ngModel)]="valueStyled" [componentConfig]="sgSelectComponentConfigStyled"></sg-select>
 <div>
     External value : {{valueStyled | json}}
 </div>
 <div class="code-container">
     <div class="code-panel">
         <h6>Config</h6> 
-        <textarea class="code" readonly>{{sgSelectComponentConfigModelStyled | json}}</textarea> 
+        <textarea class="code" readonly>{{sgSelectComponentConfigStyled | json}}</textarea> 
     </div>
     <div class="code-panel">
         <h6>Custom style</h6> 
@@ -36,13 +36,13 @@ External value : {{value | json}}
     Show and hide the component by using the SgSelectService toggle, show and hide methods.<br/>
     The show and hide buttons are toggled by using the SgSelectService isVisible method.
 </p>
-<sg-select [(ngModel)]="valueShowAndHide" [componentConfig]="sgSelectComponentConfigModelShowAndHide"></sg-select>
+<sg-select [(ngModel)]="valueShowAndHide" [componentConfig]="sgSelectComponentConfigShowAndHide"></sg-select>
 <div>
     External value : {{valueShowAndHide | json}}
 </div>
 <div>
-    <button *ngIf="!sgSelectComponentConfigModelShowAndHide.show" (click)="showShowAndHide()">Show</button> 
-    <button *ngIf="sgSelectComponentConfigModelShowAndHide.show" (click)="hideShowAndHide()">Hide</button> 
+    <button *ngIf="!sgSelectComponentConfigShowAndHide.show" (click)="showShowAndHide()">Show</button> 
+    <button *ngIf="sgSelectComponentConfigShowAndHide.show" (click)="hideShowAndHide()">Hide</button> 
     <button (click)="toggleShowAndHide()">Toggle</button>
 </div>
 
@@ -51,7 +51,7 @@ External value : {{value | json}}
     clear, set and get the component value by using the SgSelectService clear, get and set methods.<br/>
     The clear and get buttons are shown by using the SgSelectService hasValue method.
 </p>
-<sg-select [(ngModel)]="valueManipulateValue" [componentConfig]="sgSelectComponentConfigModelManipulateValue"></sg-select>
+<sg-select [(ngModel)]="valueManipulateValue" [componentConfig]="sgSelectComponentConfigManipulateValue"></sg-select>
 <div>
     External value : {{valueManipulateValue | json}}
     getValue : {{currentValueManipulateValue | json}}

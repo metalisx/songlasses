@@ -1,11 +1,11 @@
 import { Observable } from "rxjs";
-import { SgComponentValueModelEventModel } from "../../models/sg-component/sg-component-value-model-event.model";
+import { SgComponentValueEvent } from "../../models/sg-component/sg-component-value-event.model";
 
-export interface SgComponentHasValueService<T extends any | null> {
+export interface SgComponentHasValueService<T> {
 
     hasValue: boolean;
 
-    getValueObservable(): Observable<SgComponentValueModelEventModel<T | null>>;
+    getValueObservable(): Observable<SgComponentValueEvent<T | null>>;
     setValue(value: T | null): void;
     getValue(): T | null;
     clearValue(): void;

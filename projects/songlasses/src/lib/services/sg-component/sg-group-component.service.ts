@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { SgGroupComponentConfigModel } from "../../models/sg-component/sg-group-component-config.model";
+import { SgGroupComponentConfig } from "../../models/sg-component/sg-group-component-config.model";
 import { SgComponentServiceWithChildren } from "./sg-component-service-with-children.service";
 
 /**
@@ -9,9 +9,9 @@ import { SgComponentServiceWithChildren } from "./sg-component-service-with-chil
  * to manipulate only the components in the group.
  */
 @Injectable()
-export class SgGroupComponentService extends SgComponentServiceWithChildren<SgGroupComponentConfigModel> {
+export class SgGroupComponentService extends SgComponentServiceWithChildren<SgGroupComponentConfig> {
 
-    private componentConfigModelDefault: SgGroupComponentConfigModel = {
+    private componentConfigDefault: SgGroupComponentConfig = {
         name: 'group',
         show: true,
         className: ''
@@ -21,12 +21,12 @@ export class SgGroupComponentService extends SgComponentServiceWithChildren<SgGr
         super();
     }
     
-    getDefaults(): SgGroupComponentConfigModel {
-        return this.componentConfigModelDefault;
+    getDefaults(): SgGroupComponentConfig {
+        return this.componentConfigDefault;
     }
     
-    setDefaults(componentConfigModelDefault: SgGroupComponentConfigModel): void {
-        this.componentConfigModelDefault = componentConfigModelDefault;
+    setDefaults(componentConfigDefault: SgGroupComponentConfig): void {
+        this.componentConfigDefault = componentConfigDefault;
     }
 
 }

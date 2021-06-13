@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { SgComponentServiceWithChildren } from "./sg-component-service-with-children.service";
-import { SgRootComponentConfigModel } from '../../models/sg-component/sg-root-component-config.model';
+import { SgRootComponentConfig } from '../../models/sg-component/sg-root-component-config.model';
 import { InjectUtils } from '../../utils/inject-utils';
 
 /**
@@ -16,9 +16,9 @@ import { InjectUtils } from '../../utils/inject-utils';
 @Injectable({
     providedIn: 'root'
 })
-export class SgRootComponentService extends SgComponentServiceWithChildren<SgRootComponentConfigModel> {
+export class SgRootComponentService extends SgComponentServiceWithChildren<SgRootComponentConfig> {
 
-    private componentConfigModelDefault: SgRootComponentConfigModel = {
+    private componentConfigDefault: SgRootComponentConfig = {
         name: "root",
         show: true,
         className: "root"
@@ -27,7 +27,7 @@ export class SgRootComponentService extends SgComponentServiceWithChildren<SgRoo
     constructor() {
         super();
         InjectUtils.throwErrorIfExists(SgRootComponentService);
-        this.setComponentConfigModel(this.componentConfigModelDefault);
+        this.setComponentConfig(this.componentConfigDefault);
     }
 
 }

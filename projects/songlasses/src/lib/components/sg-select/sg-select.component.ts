@@ -1,9 +1,9 @@
 import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { SgComponentConfigModelEventModel } from '../../models/sg-component/sg-component-config-model-event.model';
-import { SgComponentValueModelEventModel } from '../../models/sg-component/sg-component-value-model-event.model';
-import { SgSelectComponentConfigModel } from '../../models/sg-component/sg-select-component-config.model';
+import { SgComponentConfigEvent } from '../../models/sg-component/sg-component-config-event.model';
+import { SgComponentValueEvent } from '../../models/sg-component/sg-component-value-event.model';
+import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
 import { SgRootComponentService } from '../../services/sg-component/sg-root-component.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
@@ -26,7 +26,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   valid: boolean = true;
   
-  @Input() componentConfig: SgSelectComponentConfigModel = this.selectComponentService.getDefaults();
+  @Input() componentConfig: SgSelectComponentConfig = this.selectComponentService.getDefaults();
 
   @ViewChild('input') inputElement!: ElementRef;
   @ViewChildren('item') liElements!: QueryList<ElementRef>;
@@ -47,8 +47,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   // Setting the property the true will prevent unneccessary calls to the service as it triggered the event.
   private writeValueIsCalledByOserver: boolean = false;
 
-  private componentConfigModelObserverable: Observable<SgComponentConfigModelEventModel<SgSelectComponentConfigModel | null>>;
-  private valueObserverable: Observable<SgComponentValueModelEventModel<string | null>>;
+  private componentConfigObserverable: Observable<SgComponentConfigEvent<SgSelectComponentConfig | null>>;
+  private valueObserverable: Observable<SgComponentValueEvent<string | null>>;
 
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
@@ -61,8 +61,8 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     private selectComponentService: SgSelectComponentService, 
     @Optional() private groupComponentService: SgGroupComponentService | null,
     private rootComponentService: SgRootComponentService) {
-      // Create observable for the ComponentConfigModel in the ComponentService.
-      this.componentConfigModelObserverable = this.selectComponentService.getComponentConfigModelObservable();
+      // Create observable for the ComponentConfig in the ComponentService.
+      this.componentConfigObserverable = this.selectComponentService.getComponentConfigObservable();
       // Create observable for the value in the component service.
       this.valueObserverable = this.selectComponentService.getValueObservable();
       // Register the ComponentService to the RootComponentService so the ComponentService can be accessed from anywhere in the application.
@@ -76,22 +76,22 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   ngOnInit(): void {
     // Copy defaults to missing fields.
     CopyUtils.merge(this.componentConfig, this.selectComponentService.getDefaults());
-    // First set ComponentConfigModel and value then subsribe to observables.
-    this.selectComponentService.setComponentConfigModel(this.componentConfig);
+    // First set ComponentConfig and value then subsribe to observables.
+    this.selectComponentService.setComponentConfig(this.componentConfig);
     this.selectComponentService.setValue(this.externalValue);
-    // Subscribe to ComponentConfigModel changes from the ComponentService.
-    this.componentConfigModelObserverable.subscribe(sgComponentConfigModelEventModel => {
+    // Subscribe to ComponentConfig changes from the ComponentService.
+    this.componentConfigObserverable.subscribe(sgComponentConfigEvent => {
       // only listen to service events not initiated by this component
-      if (sgComponentConfigModelEventModel.event !== 'component') {
-        this.componentConfig = sgComponentConfigModelEventModel.componentConfigModel as SgSelectComponentConfigModel;
+      if (sgComponentConfigEvent.event !== 'component') {
+        this.componentConfig = sgComponentConfigEvent.componentConfig as SgSelectComponentConfig;
       }
     });
     // Subscribe to value changes from the ComponentService.
-    this.valueObserverable.subscribe(sgComponentValueModelEventModel => {
+    this.valueObserverable.subscribe(sgComponentValueEvent => {
       // only listen to service events not initiated by this component
-      if (sgComponentValueModelEventModel.event !== 'component') {
+      if (sgComponentValueEvent.event !== 'component') {
         this.writeValueIsCalledByOserver = true;
-        this.writeValue(sgComponentValueModelEventModel.value); // will set the externalValue
+        this.writeValue(sgComponentValueEvent.value); // will set the externalValue
         this.validateSelectComponentConfig();
       }
     });

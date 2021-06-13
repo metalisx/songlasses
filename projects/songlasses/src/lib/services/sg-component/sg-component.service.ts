@@ -1,6 +1,6 @@
-import { SgComponentConfigModel } from "../../models/sg-component/sg-component-config.model";
+import { SgComponentConfig } from "../../models/sg-component/sg-component-config.model";
 import { Observable, Subject } from "rxjs";
-import { SgComponentConfigModelEventModel } from "../../models/sg-component/sg-component-config-model-event.model";
+import { SgComponentConfigEvent } from "../../models/sg-component/sg-component-config-event.model";
 
 /**
  * Class for a component service.
@@ -8,66 +8,66 @@ import { SgComponentConfigModelEventModel } from "../../models/sg-component/sg-c
  * The component service is used to access and manipulate a component without exposing the component.
  * The component should register the component service with the ComponentServicesService.
  */
-export abstract class SgComponentService<T extends SgComponentConfigModel>  {
+export abstract class SgComponentService<T extends SgComponentConfig>  {
    
-    private componentConfigModel: T | null = null;
+    private componentConfig: T | null = null;
 
-    private componentConfigModelSubject = new Subject<SgComponentConfigModelEventModel<T | null>>(); // Should be SgComponentConfigModelEventModel<T> but typescript does not allow it.
+    private componentConfigSubject = new Subject<SgComponentConfigEvent<T | null>>();
 
     constructor() {}
 
     getName(): string | null {
-        if (this.componentConfigModel !== undefined && this.componentConfigModel !== null &&
-            this.componentConfigModel.name !== undefined && this.componentConfigModel.name !== null) {
-            return this.componentConfigModel.name;
+        if (this.componentConfig !== undefined && this.componentConfig !== null &&
+            this.componentConfig.name !== undefined && this.componentConfig.name !== null) {
+            return this.componentConfig.name;
         }
         return null;
     }
 
-    getComponentConfigModelObservable(): Observable<SgComponentConfigModelEventModel<T | null>> {
-        return this.componentConfigModelSubject;
+    getComponentConfigObservable(): Observable<SgComponentConfigEvent<T | null>> {
+        return this.componentConfigSubject;
     }
 
-    getComponentConfigModel(): T | null {
-        return this.componentConfigModel;
+    getComponentConfig(): T | null {
+        return this.componentConfig;
     }
 
-    setComponentConfigModel(componentConfigModel: T | null): void {
-        this.componentConfigModel = componentConfigModel
-        this.sendComponentConfigModel();
+    setComponentConfig(componentConfig: T | null): void {
+        this.componentConfig = componentConfig
+        this.sendComponentConfig();
     }
 
     refresh(): void {
-        this.sendComponentConfigModel();
+        this.sendComponentConfig();
     }
     
     toggle(): void {
-        if (this.componentConfigModel) {
-            this.componentConfigModel.show = !this.componentConfigModel.show;
-            this.sendComponentConfigModel();
+        if (this.componentConfig) {
+            this.componentConfig.show = !this.componentConfig.show;
+            this.sendComponentConfig();
         }
     }
 
     show(): void {
-        if (this.componentConfigModel) {
-            this.componentConfigModel.show = true;
-            this.sendComponentConfigModel();
+        if (this.componentConfig) {
+            this.componentConfig.show = true;
+            this.sendComponentConfig();
         }
     }
 
     hide(): void {
-        if (this.componentConfigModel) {
-            this.componentConfigModel.show = false;
-            this.sendComponentConfigModel();
+        if (this.componentConfig) {
+            this.componentConfig.show = false;
+            this.sendComponentConfig();
         }
     }
 
-    protected sendComponentConfigModel(event: string = "service"): void {
-        let componentServiceEventModel: SgComponentConfigModelEventModel<T> = {
+    protected sendComponentConfig(event: string = "service"): void {
+        let componentServiceEvent: SgComponentConfigEvent<T> = {
             event: event,
-            componentConfigModel: this.componentConfigModel
+            componentConfig: this.componentConfig
         }
-        this.componentConfigModelSubject.next(componentServiceEventModel);
+        this.componentConfigSubject.next(componentServiceEvent);
     }
 
 }

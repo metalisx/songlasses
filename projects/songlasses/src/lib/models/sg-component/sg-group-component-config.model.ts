@@ -1,5 +1,5 @@
-import { SgComponentConfigModel } from "./sg-component-config.model";
+import { SgComponentConfig } from "./sg-component-config.model";
 
-export interface SgGroupComponentConfigModel extends SgComponentConfigModel {
+export interface SgGroupComponentConfig extends SgComponentConfig {
 
 }
