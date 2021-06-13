@@ -7,12 +7,12 @@ import { SgComponentHasValueService } from "./sg-component-has-value.service";
 /**
  * Class for a component service with a value.
  */
-export abstract class SgComponentValueService<T extends SgComponentConfigModel, V extends any | null> extends SgComponentService<T>
+export abstract class SgComponentValueService<T extends SgComponentConfigModel, V> extends SgComponentService<T>
     implements SgComponentHasValueService<V> {
     
     private value: V | null= null;
 
-    private valueSubject = new Subject<any>(); // Should be SgComponentValueModelEventModel<V> but typescript does not allow it.
+    private valueSubject = new Subject<SgComponentValueModelEventModel<V | null>>(); // Should be SgComponentValueModelEventModel<V> but typescript does not allow it.
 
     hasValue: boolean = false;
 
@@ -20,7 +20,7 @@ export abstract class SgComponentValueService<T extends SgComponentConfigModel, 
         super();
     }
 
-    getValueObservable(): Observable<SgComponentValueModelEventModel<V>> {
+    getValueObservable(): Observable<SgComponentValueModelEventModel<V | null>> {
         return this.valueSubject;
     }
 
@@ -55,7 +55,7 @@ export abstract class SgComponentValueService<T extends SgComponentConfigModel, 
     }
 
     private setHasValue(value: V | null | undefined): void {
-        this.hasValue = value !== undefined && value !== null && value !== "";
+        this.hasValue = value !== undefined && value !== null;
     }
 
     protected sendComponentValueModel(event: string = "service"): void {

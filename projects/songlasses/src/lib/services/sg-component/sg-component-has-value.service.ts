@@ -5,7 +5,7 @@ export interface SgComponentHasValueService<T extends any | null> {
 
     hasValue: boolean;
 
-    getValueObservable(): Observable<SgComponentValueModelEventModel<T>>;
+    getValueObservable(): Observable<SgComponentValueModelEventModel<T | null>>;
     setValue(value: T | null): void;
     getValue(): T | null;
     clearValue(): void;
