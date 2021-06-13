@@ -47,7 +47,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   // Setting the property the true will prevent unneccessary calls to the service as it triggered the event.
   private writeValueIsCalledByOserver: boolean = false;
 
-  private componentConfigModelObserverable: Observable<SgComponentConfigModelEventModel<SgSelectComponentConfigModel>>;
+  private componentConfigModelObserverable: Observable<SgComponentConfigModelEventModel<SgSelectComponentConfigModel | null>>;
   private valueObserverable: Observable<SgComponentValueModelEventModel<string | null>>;
 
   @HostListener('document:click', ['$event'])

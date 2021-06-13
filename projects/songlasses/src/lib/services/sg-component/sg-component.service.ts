@@ -10,28 +10,29 @@ import { SgComponentConfigModelEventModel } from "../../models/sg-component/sg-c
  */
 export abstract class SgComponentService<T extends SgComponentConfigModel>  {
    
-    private componentConfigModel!: T;
+    private componentConfigModel: T | null = null;
 
-    private componentConfigModelSubject = new Subject<any>(); // Should be SgComponentConfigModelEventModel<T> but typescript does not allow it.
+    private componentConfigModelSubject = new Subject<SgComponentConfigModelEventModel<T | null>>(); // Should be SgComponentConfigModelEventModel<T> but typescript does not allow it.
 
     constructor() {}
 
-    getName(): string | undefined {
-        if (this.componentConfigModel) {
+    getName(): string | null {
+        if (this.componentConfigModel !== undefined && this.componentConfigModel !== null &&
+            this.componentConfigModel.name !== undefined && this.componentConfigModel.name !== null) {
             return this.componentConfigModel.name;
         }
-        return undefined;
+        return null;
     }
 
-    getComponentConfigModelObservable(): Observable<SgComponentConfigModelEventModel<T>> {
+    getComponentConfigModelObservable(): Observable<SgComponentConfigModelEventModel<T | null>> {
         return this.componentConfigModelSubject;
     }
 
-    getComponentConfigModel(): T {
+    getComponentConfigModel(): T | null {
         return this.componentConfigModel;
     }
 
-    setComponentConfigModel(componentConfigModel: T): void {
+    setComponentConfigModel(componentConfigModel: T | null): void {
         this.componentConfigModel = componentConfigModel
         this.sendComponentConfigModel();
     }

@@ -10,7 +10,7 @@ import { SgComponentHasValueService } from "./sg-component-has-value.service";
 export abstract class SgComponentValueService<T extends SgComponentConfigModel, V> extends SgComponentService<T>
     implements SgComponentHasValueService<V> {
     
-    private value: V | null= null;
+    private value: V | null = null;
 
     private valueSubject = new Subject<SgComponentValueModelEventModel<V | null>>(); // Should be SgComponentValueModelEventModel<V> but typescript does not allow it.
 
