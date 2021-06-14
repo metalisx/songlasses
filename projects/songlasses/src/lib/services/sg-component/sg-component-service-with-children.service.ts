@@ -3,9 +3,9 @@ import { SgComponentService } from "./sg-component.service";
 import { ArrayUtils } from "../../utils/array-utils";
 
 /**
- * Interface for a component service with child component services.
+ * Class for a component service with child component services.
  */
-export abstract class SgComponentServiceWithChildren<T extends SgComponentConfig>
+export class SgComponentServiceWithChildren<T extends SgComponentConfig>
     extends SgComponentService<T> {
 
     private logColor: string = "green";
@@ -58,12 +58,12 @@ export abstract class SgComponentServiceWithChildren<T extends SgComponentConfig
         });
     }
 
-    private getNamePredicate(componentService: SgComponentService<SgComponentConfig>): 
+    protected getNamePredicate(componentService: SgComponentService<SgComponentConfig>): 
         (value: SgComponentService<SgComponentConfig>, index: number, obj: SgComponentService<SgComponentConfig>[]) => unknown {
         return (cs: SgComponentService<SgComponentConfig>) => cs.getName() === componentService.getName();        
     }
 
-    private getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService<SgComponentConfig>[]): 
+    protected getComponentServiceFromComponentServices(name: string, componentServices: SgComponentService<SgComponentConfig>[]): 
         SgComponentService<SgComponentConfig> | undefined {
         let returnComponentService: SgComponentService<SgComponentConfig> | undefined;
         componentServices.every(componentService => {

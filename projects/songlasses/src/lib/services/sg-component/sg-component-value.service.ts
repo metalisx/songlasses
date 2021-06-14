@@ -7,7 +7,7 @@ import { SgComponentHasValueService } from "./sg-component-has-value.service";
 /**
  * Class for a component service with a value.
  */
-export abstract class SgComponentValueService<T extends SgComponentConfig, V> extends SgComponentService<T>
+export class SgComponentValueService<T extends SgComponentConfig, V> extends SgComponentService<T>
     implements SgComponentHasValueService<V> {
     
     private value: V | null = null;
@@ -54,7 +54,7 @@ export abstract class SgComponentValueService<T extends SgComponentConfig, V> ex
         this.sendComponentValue(event);
     }
 
-    private setHasValue(value: V | null | undefined): void {
+    protected setHasValue(value: V | null | undefined): void {
         this.hasValue = value !== undefined && value !== null;
     }
 

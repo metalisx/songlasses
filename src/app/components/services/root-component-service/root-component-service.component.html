@@ -2,16 +2,18 @@
 <p>
     The SgRootComponentService is a singleton service containing a hierarchical tree structure of ComponentService 
     implementations. The SgRootComponentService can be injected in every part of the application so you can retrieve 
-    a ComponentService. Depending on the implementation you could for instance call show and hide methods on the 
+    a ComponentService. With a ComponentService implementation you are able to access and manipulate the Component it
+    is connected to. Depending on the implementation you could for instance call show and hide methods on the 
     ComponentService to manipulate the appearance of the Component.<br/>
     You can retrieve a single ComponentService or retrieve the hierarchical tree structure of ComponentServices 
     to filter out the ComponentServices you are interested in.
 </p>
 <h3>Hierachical tree structure</h3>
 <p>
-    The SgRootComponentService hierarchical tree structure is componsed out of ComponentService implementations. The 
-    GroupComponentService implements the ComponentService interface with the ability to register ComponentServices. By 
-    nesting GroupComponentServices it is possible to create the hierachical tree structure of ComponentServices.
+    The SgRootComponentService hierarchical tree structure is componsed out of ComponentService implementations. The
+    SgComponentServiceWithChildren extends ComponentService with the ability to register ComponentServices. By nesting 
+    SgComponentServiceWithChildren instances it is possible to create the hierachical tree structure of ComponentServices.
+    A sub class of SgComponentServiceWithChildren is the GroupComponentService.
 </p>
 <h3>Registration of ComponentService</h3>
 <p>

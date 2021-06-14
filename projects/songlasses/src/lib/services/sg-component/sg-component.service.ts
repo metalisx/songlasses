@@ -8,7 +8,7 @@ import { SgComponentConfigEvent } from "../../models/sg-component/sg-component-c
  * The component service is used to access and manipulate a component without exposing the component.
  * The component should register the component service with the ComponentServicesService.
  */
-export abstract class SgComponentService<T extends SgComponentConfig>  {
+export class SgComponentService<T extends SgComponentConfig>  {
    
     private componentConfig: T | null = null;
 
