@@ -37,7 +37,15 @@ export class AppComponent {
     {
       label: 'SgRootComponentService',
       routerLink: ['services/root-component-service']
-    }
+    },
+    {
+      subHeader: 'Github'
+    },
+    {
+      label: 'songlasses',
+      href: 'https://github.com/metalisx/songlasses',
+      hrefTarget: '_blank'
+    }    
   ];
 
   constructor(private sgSidebarService: SgSidebarService) {
