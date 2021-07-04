@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { SgComponentConfigEvent } from '../../models/sg-component/sg-component-config-event.model';
@@ -28,8 +28,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   
   @Input() componentConfig: SgSelectComponentConfig = this.selectComponentService.getDefaults();
 
-  @ViewChild('input') inputElement!: ElementRef;
-  @ViewChildren('item') liElements!: QueryList<ElementRef>;
+  @ViewChild('input') inputElement!: ElementRef<HTMLInputElement>;
+  @ViewChild('listItems') listItemsElement!: ElementRef<HTMLUListElement>;
+  @ViewChildren('item') liElements!: QueryList<ElementRef<HTMLLIElement>>;
 
   private internalValue: any;
   private externalValue: string | null = null;
@@ -50,6 +51,43 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   private componentConfigObserverable: Observable<SgComponentConfigEvent<SgSelectComponentConfig | null>>;
   private valueObserverable: Observable<SgComponentValueEvent<string | null>>;
 
+  /**
+   * The method positions the native element to the parent element depending on the viewport.
+   * 
+   * The default position of the popup is below the parent.
+   * Then if the bottom is not in the viewport then a style is set to move it above the parent.
+   * Then if the top is not in the viewport then a style is set to set to make the popup small
+   * enough to fit in the viewport, the top and bottom are set to 0 and the max-height to 100vh.
+   * 
+   * The document.documentElement.clientHeight is used instead of the window.innerHeight because
+   * it does not include the height of the options rendered scrollbar.
+   * 
+   * Pre-requisits
+   * The element has the css style position with value absolute and the parent has the css style
+   * position with value relative.
+   */
+  moveElementInViewport(element: Element): void {
+    var rect = element.getBoundingClientRect();
+    if (rect.top < 0 && rect.bottom > document.documentElement.clientHeight) {
+      this.renderer.setStyle(element, 'height', 'auto');
+      this.renderer.setStyle(element, 'top', 'auto');
+      this.renderer.setStyle(element, 'bottom', '100%');
+      this.renderer.removeStyle(element, 'border-top');
+      this.renderer.setStyle(element, 'border-bottom', '0');
+    } else if (rect.top < 0) {
+      // this.renderer.setStyle(element, 'height', '100vh');
+      // this.renderer.setStyle(element, 'top', '0');
+      // this.renderer.setStyle(element, 'bottom', '0');
+    } else { 
+      // default
+      // this.renderer.setStyle(element, 'height', 'auto');
+      // this.renderer.setStyle(element, 'top', '100%');
+      // this.renderer.setStyle(element, 'bottom', 'auto');
+      // this.renderer.setStyle(element, 'border-top', '0');
+      // this.renderer.removeStyle(element, 'border-bottom');
+    }
+  }
+
   @HostListener('document:click', ['$event'])
   clickout(event: Event) {
     if(!this.elementRef.nativeElement.contains(event.target) && this.showItems) {
@@ -57,7 +95,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
   
-  constructor(private elementRef: ElementRef, 
+  constructor(private elementRef: ElementRef, private renderer: Renderer2,
     private selectComponentService: SgSelectComponentService, 
     @Optional() private groupComponentService: SgGroupComponentService | null,
     private rootComponentService: SgRootComponentService) {
@@ -262,6 +300,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   doShowItems(): void {
     this.setSelectedItem(this.value);
     this.showItems = true;
+    setTimeout(() => this.moveElementInViewport(this.listItemsElement.nativeElement));
   }
 
   doHideItems(): void {
@@ -269,11 +308,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     this.showItems = false;
   }
 
-  // TODO: make scroll into view work better
+  // TODO: Make scroll into view work better before using it.
   private scrollIntoView(alignToTop: boolean) {
     this.liElements.forEach(el => {
       if (el.nativeElement.classList.contains('sg-select-selected-item-active')) {
-        el.nativeElement.scrollIntoView({ behavior: "nearest"});
+        el.nativeElement.scrollIntoView({ behavior: "smooth"});
         //el.nativeElement.scrollIntoView({ behavior: "smooth", block: alignToTop ? "start" : "end"});
       }
     });
