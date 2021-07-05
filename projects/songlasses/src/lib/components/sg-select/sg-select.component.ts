@@ -76,7 +76,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       this.renderer.setStyle(element, 'height', 'auto');
       this.renderer.setStyle(element, 'top', 'auto');
       this.renderer.setStyle(element, 'bottom', '100%');
-      this.renderer.removeStyle(element, 'border-top');
+      this.renderer.setStyle(element, 'border-top', 'auto');
       this.renderer.setStyle(element, 'border-bottom', '0');
     } else if (rect.top < 0) {
       // this.renderer.setStyle(element, 'height', '100vh');
