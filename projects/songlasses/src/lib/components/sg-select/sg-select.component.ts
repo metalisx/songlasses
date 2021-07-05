@@ -28,6 +28,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   
   @Input() componentConfig: SgSelectComponentConfig = this.selectComponentService.getDefaults();
 
+  @ViewChild('selectContainer') selectContainerElement!: ElementRef<HTMLDivElement>;
   @ViewChild('input') inputElement!: ElementRef<HTMLInputElement>;
   @ViewChild('listItems') listItemsElement!: ElementRef<HTMLUListElement>;
   @ViewChildren('item') liElements!: QueryList<ElementRef<HTMLLIElement>>;
@@ -66,9 +67,12 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
    * The element has the css style position with value absolute and the parent has the css style
    * position with value relative.
    */
-  moveElementInViewport(element: Element): void {
+  moveElementInViewport(element: Element, parentElement: Element): void {
     var rect = element.getBoundingClientRect();
-    if (rect.top < 0 && rect.bottom > document.documentElement.clientHeight) {
+    var parentRect = parentElement.getBoundingClientRect();
+    if (rect.height > parentRect.top) {
+      // default
+    } else if (rect.top > 0 && rect.bottom > document.documentElement.clientHeight) {
       this.renderer.setStyle(element, 'height', 'auto');
       this.renderer.setStyle(element, 'top', 'auto');
       this.renderer.setStyle(element, 'bottom', '100%');
@@ -300,7 +304,7 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   doShowItems(): void {
     this.setSelectedItem(this.value);
     this.showItems = true;
-    setTimeout(() => this.moveElementInViewport(this.listItemsElement.nativeElement));
+    setTimeout(() => this.moveElementInViewport(this.listItemsElement.nativeElement, this.selectContainerElement.nativeElement) );
   }
 
   doHideItems(): void {

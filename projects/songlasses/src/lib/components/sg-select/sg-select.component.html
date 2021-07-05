@@ -1,4 +1,4 @@
-<div *ngIf="componentConfig && componentConfig.show === true" 
+<div *ngIf="componentConfig && componentConfig.show === true" #selectContainer
     class="sg-select" [ngClass]="componentConfig.className ? componentConfig.className : ''">
     <input *ngIf="componentConfig.name" #input #model="ngModel" [(ngModel)]="value" 
         [name]="componentConfig.name" 
