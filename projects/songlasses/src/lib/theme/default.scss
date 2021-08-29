@@ -140,9 +140,9 @@
     --sg-sidebar-menu-item-submenu-close-button-color: var(--sg-primary-color);
 
     /* sidebar hamburger */
-    --sg-sidebar-humburger-padding: 0 0 0 15px;
-    --sg-sidebar-hamburger-background-color: var(--sg-primary-color);
-    --sg-sidebar-hamburger-color: var(--sg-primary-on-color);
+    --sg-sidebar-humburger-padding: 0 15px 0 15px;
+    --sg-sidebar-hamburger-background-color: transparent;
+    --sg-sidebar-hamburger-color: #fff;
     --sg-sidebar-hamburger-svg-icon-width: 3rem;
     --sg-sidebar-hamburger-svg-icon-height: 3rem;
 
