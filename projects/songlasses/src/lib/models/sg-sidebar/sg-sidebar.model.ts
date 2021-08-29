@@ -17,6 +17,4 @@ export interface SgSidebar {
     // Only relevant if the property integrated is true.
     integratedHamburgerButtonShow: boolean;
 
-    menuItemsStack: SgMenuItem[][];
-
 }

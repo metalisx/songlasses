@@ -13,8 +13,7 @@ export class SgSidebarService {
         show: false,
         integrated: true,
         integratedShow: true,
-        integratedHamburgerButtonShow: true,
-        menuItemsStack: [[]]
+        integratedHamburgerButtonShow: true
     };
 
     private subject = new Subject<SgSidebar>();
@@ -57,21 +56,6 @@ export class SgSidebarService {
 
     integratedHide(): void {
         this.sidebar.integratedShow = false;
-        this.sendSidebar();
-    }
-
-    pushMenuItems(menuItems: SgMenuItem[]): void {
-        this.sidebar.menuItemsStack.push(menuItems);
-        this.sendSidebar();
-    }
-
-    popMenuItems(): void {
-        this.sidebar.menuItemsStack.pop();
-        this.sendSidebar();
-    }
-
-    setMenuItems(menuItems: SgMenuItem[]): void {
-        this.sidebar.menuItemsStack[this.sidebar.menuItemsStack.length-1] = menuItems;
         this.sendSidebar();
     }
 

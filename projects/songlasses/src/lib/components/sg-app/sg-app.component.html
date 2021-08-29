@@ -1,20 +1,36 @@
 <div class="sg-app">
-    <div class="sg-app-header">
-        <ng-container *ngIf="headerTemplate">
+    <ng-container *ngIf="headerTemplate">
+        <header class="sg-app-header">
+            <div *ngIf="sidebarTemplate" class="sg-app-header-hamburger">
+                <sg-sidebar-hamburger></sg-sidebar-hamburger>
+            </div>            
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-        </ng-container>
-    </div>
-    <div class="sg-app-content">
-        <ng-container *ngIf="contentTemplate">
+        </header>
+    </ng-container>
+    <ng-container *ngIf="contentTemplate">
+        <div class="sg-app-content">
             <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </ng-container>
-    </div>
-    <div class="sg-app-footer">
-        <ng-container *ngIf="footerTemplate">
+        </div>
+    </ng-container>
+    <ng-container *ngIf="footerTemplate">
+        <footer class="sg-app-footer">
             <ng-container *ngTemplateOutlet="footerTemplate"></ng-container>
-        </ng-container>
-    </div>
+        </footer>
+    </ng-container>
     <ng-container *ngIf="sidebarTemplate">
-        <ng-container *ngTemplateOutlet="sidebarTemplate"></ng-container>
+        <div  class="sg-app-sidebar"
+                [ngClass]="[sidebar.show ? 'sg-app-sidebar-show' : 'sg-app-sidebar-hide'
+                            , sidebar.integrated ? 'sg-app-sidebar-integrated' : ''
+                            , sidebar.integratedShow ? 'sg-app-sidebar-integrated-show' : 'sg-app-sidebar-integrated-hide']">
+            <div class="sg-app-sidebar-header">
+                <sg-sidebar-hamburger></sg-sidebar-hamburger>
+            </div>
+            <ng-container *ngTemplateOutlet="sidebarTemplate"></ng-container>
+        </div>
+        <div class="sg-app-sidebar-overlay" 
+                [ngClass]="[sidebar.show ? 'sg-app-sidebar-overlay-show' : 'sg-app-sidebar-overlay-hide'
+                            , sidebar.integrated ? 'sg-app-sidebar-overlay-integrated' : '']" 
+                (click)="closeSidebar()">
+        </div>
     </ng-container>
 </div>

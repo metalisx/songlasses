@@ -3,19 +3,72 @@
     display: grid;
     grid-template-columns: auto;
     grid-template-rows: auto 1fr auto;
-    grid-template-areas: 
+    grid-template-areas:
         "header"
         "content"
         "footer"
+        "sidebar"
 }
 .sg-app-header {
-    grid-area: header; 
+    grid-area: header;
+    background-color: var(--sg-app-header-background-color);
+    color: var(--sg-app-header-color);
+    display: flex;
+    align-items: center;
+    min-height: var(--sg-app-header-min-height);
 }
 .sg-app-content {
     grid-area: content;
 }
 .sg-app-footer {
     grid-area: footer;
+    background-color: var(--sg-app-footer-background-color);
+    color: var(--sg-app-footer-color);
+    min-height: var(--sg-app-footer-min-height);
+}
+.sg-app-sidebar {
+    grid-area: sidebar;
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: -100%;
+    height: 100%;
+    min-width: 270px;
+    z-index: 1001;
+    background-color: var(--sg-sidebar-background-color);
+    opacity: 0;
+    transition: opacity 0s, left 0.5s;
+}
+.sg-app-sidebar-show {
+    opacity: 1;
+    left: 0;
+}
+.sg-app-sidebar-hide {
+    transition: opacity 0.5s, left 0.5s;
+}
+.sg-app-sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100px;
+    z-index: 1000;
+    padding: 0px;
+    margin: 0px;
+    border: 0px;
+    background-color: var(--sg-sidebar-overlay-background-color);
+}
+.sg-app-sidebar-overlay-show {
+    display: block;
+}
+.sg-app-sidebar-header {
+    display: flex;
+    align-items: center;
+    min-height: var(--sg-sidebar-header-min-height);
+    background-color: var(--sg-sidebar-header-background-color);
 }
 @media (min-width: 601px) {
     .sg-app {
@@ -24,5 +77,29 @@
             "header header"
             "sidebar content"
             "footer footer"
+    }
+    .sg-app-sidebar {
+        height: 100%;
+    }
+    .sg-app-sidebar.sg-app-sidebar-integrated {
+        position: unset;
+        top: unset;
+        left: unset;
+        min-width: unset;
+        opacity: 1;
+        transition: unset;
+    }    
+    .sg-app-sidebar.sg-app-sidebar-integrated.sg-app-sidebar-integrated-show {
+        display: flex;
+        left: unset;
+    }
+    .sg-app-sidebar.sg-app-sidebar-integrated.sg-app-sidebar-integrated-hide {
+        display: none;
+    }
+    .sg-app-sidebar.sg-app-sidebar-integrated .sg-app-sidebar-header {
+        display: none;
+    }
+    .sg-app-sidebar-overlay.sg-app-sidebar-overlay-integrated {
+        display: none;
     }
 }

@@ -1,0 +1,57 @@
+<div class="sg-sidebar-content">
+    <ul class="sg-sidebar-menu-items">
+        <li *ngIf="contextMenuItems && contextMenuItems.length > 1" class="sg-sidebar-menu-item">
+            <a href="javascript:;" (click)="closeSubmenu($event);" class="sg-sidebar-menu-item-submenu-close">
+                <div class="sg-sidebar-menu-item-label">{{contextMenuItems[contextMenuItems.length-1].parentMenuItem?.label}}</div>
+                <div class="sg-sidebar-menu-item-submenu-close-button">
+                    <svg class="sg-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false">
+                        <path d="M12 4L22 20H2L12 4Z" fill="black"/>
+                    </svg>
+                </div>
+            </a>
+        </li>
+        <ng-container *ngFor="let menuItem of contextMenuItems[contextMenuItems.length - 1].menuItems">
+            <li *ngIf="menuItem.subHeader" class="sg-sidebar-menu-item-sub-header">
+                <div>{{menuItem.subHeader}}</div>
+            </li>
+            <li *ngIf="menuItem.label" class="sg-sidebar-menu-item" [ngClass]="menuItem.disabled ? 'sg-sidebar-menu-item-disabled' : ''">
+                <ng-container *ngIf="!menuItem.disabled">
+                    <a *ngIf="menuItem.routerLink" routerLink="{{menuItem.routerLink}}" (click)="closeSidebar()">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                    </a>
+                    <a *ngIf="menuItem.href && !menuItem.hrefTarget" [href]="menuItem.href" (click)="closeSidebar();">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                    </a>
+                    <a *ngIf="menuItem.href && menuItem.hrefTarget" [href]="menuItem.href" [target]="menuItem.hrefTarget" (click)="closeSidebar();">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                    </a>
+                    <a *ngIf="menuItem.action" href="javascript:;" (click)="menuItem.action($event, menuItem) ? closeSidebar() : null">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                    </a>
+                    <a *ngIf="menuItem.menuItems" href="javascript:;" (click)="openSubmenu($event, menuItem);">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                        <div class="sg-sidebar-menu-item-submenu-open-button">
+                            <svg class="sg-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false">
+                                <path d="M20 12L4 2L4 22L20 12Z" fill="black"/>
+                            </svg>
+                        </div>
+                    </a>
+                    <a *ngIf="!menuItem.href && !menuItem.routerLink && !menuItem.action && !menuItem.menuItems" 
+                        href="javascript:;" (click)="closeSidebar();">
+                        <div *ngIf="menuItem.icon" class="sg-sidebar-menu-item-icon"><i class="{{menuItem.icon}}"></i></div>
+                        <div class="sg-sidebar-menu-item-label">{{menuItem.label}}</div>
+                    </a>
+                </ng-container>
+                <div *ngIf="menuItem.disabled">{{menuItem.label}}</div>
+            </li>
+            <li *ngIf="menuItem.divider" class="sg-sidebar-menu-item-divider">
+                <div></div>
+            </li>
+        </ng-container>
+    </ul>
+</div>
