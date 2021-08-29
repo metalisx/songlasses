@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SgMenuItem } from 'songlasses';
-import { SgSidebarService } from 'songlasses';
+import { SgSidebarMenuService } from 'songlasses';
 
 @Component({
   selector: 'app-root',
@@ -25,8 +25,8 @@ export class AppComponent {
       routerLink: ['select']
     },
     {
-      label: 'Sidebar',
-      routerLink: ['sidebar']
+      label: 'Sidebar menu',
+      routerLink: ['sidebar-menu']
     },
     {
       divider: true
@@ -48,11 +48,11 @@ export class AppComponent {
     }    
   ];
 
-  constructor(private sgSidebarService: SgSidebarService) {
+  constructor(private sgSidebarMenuService: SgSidebarMenuService) {
   }
 
   ngOnInit() {
-    this.sgSidebarService.setMenuItems(this.menuItems);
+    this.sgSidebarMenuService.setMenuItems(this.menuItems);
   }
 
 }

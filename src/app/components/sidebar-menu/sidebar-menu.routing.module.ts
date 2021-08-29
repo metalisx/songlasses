@@ -1,15 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router'
-import { SidebarComponent } from './sidebar.component';
+import { SidebarMenuComponent } from './sidebar-menu.component';
 
 @NgModule({
     imports: [
         RouterModule.forChild([
-            { path: '', component: SidebarComponent }
+            { path: '', component: SidebarMenuComponent }
         ])
     ],
     exports: [
         RouterModule
     ]
 })
-export class SidebarRoutingModule { }
+export class SidebarMenuRoutingModule { }

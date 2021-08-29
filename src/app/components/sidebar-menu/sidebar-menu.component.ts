@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { SgMenuItem } from 'songlasses';
-import { SgSidebarService } from 'songlasses';
+import { SgSidebarMenuService } from 'songlasses';
 
 @Component({
-  selector: 'sidebar',
-  templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  selector: 'sidebar-menu',
+  templateUrl: './sidebar-menu.component.html',
+  styleUrls: ['./sidebar-menu.component.scss']
 })
-export class SidebarComponent implements OnInit {
+export class SidebarMenuComponent implements OnInit {
 
-  private popSidebarFn = this.popSidebarAction.bind(this);
+  private popSidebarMenuFn = this.popSidebarMenuAction.bind(this);
   private sidebarMenuItems: SgMenuItem[] = [
     {
       label: 'Label only'
@@ -54,7 +54,7 @@ export class SidebarComponent implements OnInit {
     },
     {
       label: 'Pop sidebar',
-      action: this.popSidebarFn
+      action: this.popSidebarMenuFn
     },
     {
       divider: true
@@ -91,28 +91,28 @@ export class SidebarComponent implements OnInit {
   ];
   private savedSidebarMenuItems?: SgMenuItem[];
 
-  constructor(private sgSidebarService: SgSidebarService) { 
+  constructor(private sgSidebarMenuService: SgSidebarMenuService) { 
   }
 
   ngOnInit(): void {
   }
 
-  pushSidebar(): void {
-    if (this.sgSidebarService.getSidebar().menuItemsStack.length === 0 ||
-        this.sgSidebarService.getSidebar().menuItemsStack[this.sgSidebarService.getSidebar().menuItemsStack.length - 1] !== this.sidebarMenuItems) {
-      this.sgSidebarService.pushMenuItems(this.sidebarMenuItems);
+  pushSidebarMenu(): void {
+    if (this.sgSidebarMenuService.getSidebarMenu().menuItemsStack.length === 0 ||
+        this.sgSidebarMenuService.getSidebarMenu().menuItemsStack[this.sgSidebarMenuService.getSidebarMenu().menuItemsStack.length - 1] !== this.sidebarMenuItems) {
+      this.sgSidebarMenuService.pushMenuItems(this.sidebarMenuItems);
     }
   }
   
-  popSidebar(): void {
-    if (this.sgSidebarService.getSidebar().menuItemsStack.length !== 0 &&
-        this.sgSidebarService.getSidebar().menuItemsStack[this.sgSidebarService.getSidebar().menuItemsStack.length - 1] === this.sidebarMenuItems) {
-      this.sgSidebarService.popMenuItems();
+  popSidebarMenu(): void {
+    if (this.sgSidebarMenuService.getSidebarMenu().menuItemsStack.length !== 0 &&
+        this.sgSidebarMenuService.getSidebarMenu().menuItemsStack[this.sgSidebarMenuService.getSidebarMenu().menuItemsStack.length - 1] === this.sidebarMenuItems) {
+      this.sgSidebarMenuService.popMenuItems();
     }
   }
 
-  private popSidebarAction(event: any, menuItem: any) {
-    this.popSidebar();
+  private popSidebarMenuAction(event: any, menuItem: any) {
+    this.popSidebarMenu();
     return false;
   }
 
