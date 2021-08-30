@@ -16,6 +16,7 @@
     display: flex;
     align-items: center;
     min-height: var(--sg-app-header-min-height);
+    padding: var(--sg-app-header-padding);
 }
 .sg-app-content {
     grid-area: content;
@@ -24,7 +25,10 @@
     grid-area: footer;
     background-color: var(--sg-app-footer-background-color);
     color: var(--sg-app-footer-color);
+    display: flex;
+    align-items: center;
     min-height: var(--sg-app-footer-min-height);
+    padding: var(--sg-app-footer-padding);
 }
 .sg-app-sidebar {
     grid-area: sidebar;
