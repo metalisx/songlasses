@@ -1,7 +1,7 @@
 <div class="sg-app">
     <ng-container *ngIf="headerTemplate">
         <header class="sg-app-header">
-            <div *ngIf="sidebarTemplate" class="sg-app-header-hamburger">
+            <div *ngIf="sidebarTemplate && sidebar.integratedHamburgerButtonShow" class="sg-app-header-hamburger">
                 <sg-sidebar-hamburger></sg-sidebar-hamburger>
             </div>            
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
