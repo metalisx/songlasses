@@ -1,7 +1,8 @@
 <div class="sg-app">
     <ng-container *ngIf="headerTemplate">
         <header class="sg-app-header">
-            <div *ngIf="sidebarTemplate && sidebar.integratedHamburgerButtonShow" class="sg-app-header-hamburger">
+            <div *ngIf="sidebarTemplate" class="sg-app-header-hamburger"
+                    [ngClass]="[sidebar.integrated ? 'sg-app-sidebar-integrated' : '']">
                 <sg-sidebar-hamburger></sg-sidebar-hamburger>
             </div>            
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
@@ -18,10 +19,9 @@
         </footer>
     </ng-container>
     <ng-container *ngIf="sidebarTemplate">
-        <div  class="sg-app-sidebar"
+        <div class="sg-app-sidebar"
                 [ngClass]="[sidebar.show ? 'sg-app-sidebar-show' : 'sg-app-sidebar-hide'
-                            , sidebar.integrated ? 'sg-app-sidebar-integrated' : ''
-                            , sidebar.integratedShow ? 'sg-app-sidebar-integrated-show' : 'sg-app-sidebar-integrated-hide']">
+                            , sidebar.integrated ? 'sg-app-sidebar-integrated' : '']">
             <div class="sg-app-sidebar-header">
                 <sg-sidebar-hamburger></sg-sidebar-hamburger>
             </div>

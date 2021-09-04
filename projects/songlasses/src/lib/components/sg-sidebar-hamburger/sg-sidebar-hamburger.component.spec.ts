@@ -37,10 +37,7 @@ describe('SgSidebarHamburgerComponent', () => {
     sidebarService = TestBed.inject(SgSidebarService);
     let sidebar: SgSidebar = {
       show: false,
-      integrated: false,
-      integratedShow: false,
-      integratedHamburgerButtonShow: false,
-      menuItemsStack: [[]]
+      integrated: false
     }
     component.sidebar = sidebar;
     fixture.detectChanges();
@@ -56,10 +53,7 @@ describe('SgSidebarHamburgerComponent', () => {
   it('#toggleSidebar() should show sidebar', () => {
     let sidebar: SgSidebar = {
       show: false,
-      integrated: false,
-      integratedShow: false,
-      integratedHamburgerButtonShow: false,
-      menuItemsStack: [[]]
+      integrated: false
     }
     component.sidebar = sidebar;
     component.toggleSidebar();
@@ -76,10 +70,7 @@ describe('SgSidebarHamburgerComponent', () => {
   it('#toggleSidebar() should hide sidebar', () => {
     let sidebar: SgSidebar = {
       show: true,
-      integrated: false,
-      integratedShow: false,
-      integratedHamburgerButtonShow: false,
-      menuItemsStack: [[]]
+      integrated: false
     }
     component.sidebar = sidebar;
     component.toggleSidebar();
@@ -91,43 +82,6 @@ describe('SgSidebarHamburgerComponent', () => {
     expect(fixture.debugElement.query(By.css('.sg-sidebar-hamburger-button.sg-sidebar-hamburger-button-hide'))).toBeNull();
     expect(fixture.debugElement.query(By.css('.sg-sidebar-integrated-hamburger-button'))).toBeNull();
     expect(fixture.debugElement.query(By.css('.sg-sidebar-integrated-hamburger-button.sg-sidebar-integrated-hamburger-button-show'))).toBeNull();
-  });
-
-  it('#toggleSidebarIntegrated() should show sidebar integrated', () => {
-    let sidebar: SgSidebar = {
-      show: false,
-      integrated: true,
-      integratedShow: false,
-      integratedHamburgerButtonShow: false,
-      menuItemsStack: [[]]
-    }
-    component.sidebar = sidebar;
-    component.toggleSidebarIntegrated();
-    expect(sidebarService.integratedShow).toHaveBeenCalled();
-    fixture.detectChanges();
-    expect(fixture.debugElement.queryAll(By.css('.sg-sidebar-hamburger-button')).length).toBe(1);
-    expect(fixture.debugElement.queryAll(By.css('.sg-sidebar-integrated-hamburger-button')).length).toBe(1);
-    expect(fixture.debugElement.query(By.css('.sg-sidebar-hamburger-button.sg-sidebar-hamburger-button-hide'))).toBeDefined();
-    expect(fixture.debugElement.query(By.css('.sg-sidebar-integrated-hamburger-button'))).toBeDefined();
-    expect(fixture.debugElement.query(By.css('.sg-sidebar-integrated-hamburger-button.sg-sidebar-integrated-hamburger-button-show'))).toBeNull();
-  });
-
-  it('#toggleSidebarIntegrated() should hide sidebar integrated', () => {
-    let sidebar: SgSidebar = {
-      show: false,
-      integrated: true,
-      integratedShow: true,
-      integratedHamburgerButtonShow: false,
-      menuItemsStack: [[]]
-    }
-    component.sidebar = sidebar;
-    component.toggleSidebarIntegrated();
-    expect(sidebarService.integratedHide).toHaveBeenCalled();
-    fixture.detectChanges();
-    expect(fixture.debugElement.queryAll(By.css('.sg-sidebar-hamburger-button')).length).toBe(1);
-    expect(fixture.debugElement.queryAll(By.css('.sg-sidebar-integrated-hamburger-button')).length).toBe(1);
-    expect(fixture.debugElement.query(By.css('.sg-sidebar-hamburger-button.sg-sidebar-hamburger-button-hide'))).toBeDefined();
-    expect(fixture.debugElement.query(By.css('.sg-sidebar-integrated-hamburger-button.sg-sidebar-integrated-hamburger-button-show'))).toBeDefined();
   });
 
 });

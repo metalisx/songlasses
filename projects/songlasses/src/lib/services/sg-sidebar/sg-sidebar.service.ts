@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
 import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
 import { InjectUtils } from '../../utils/inject-utils';
 
@@ -11,9 +10,7 @@ export class SgSidebarService {
 
     private sidebar: SgSidebar = {
         show: false,
-        integrated: true,
-        integratedShow: true,
-        integratedHamburgerButtonShow: true
+        integrated: false
     };
 
     private subject = new Subject<SgSidebar>();
@@ -46,16 +43,6 @@ export class SgSidebarService {
 
     hide(): void {
         this.sidebar.show = false;
-        this.sendSidebar();
-    }
-
-    integratedShow(): void {
-        this.sidebar.integratedShow = true;
-        this.sendSidebar();
-    }
-
-    integratedHide(): void {
-        this.sidebar.integratedShow = false;
         this.sendSidebar();
     }
 

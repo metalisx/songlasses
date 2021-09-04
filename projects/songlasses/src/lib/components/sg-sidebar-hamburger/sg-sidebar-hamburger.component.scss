@@ -7,19 +7,8 @@
 .sg-sidebar-humburger-button-line {
     fill: var(--sg-sidebar-hamburger-color);
 }
-.sg-sidebar-integrated-hamburger-button { 
-    display: none;
-}
 .sg-sidebar-hamburger svg {
     width: var(--sg-sidebar-hamburger-svg-icon-width);
     height: var(--sg-sidebar-hamburger-svg-icon-height);
     cursor: pointer;
-}
-@media (min-width: 601px) {
-    .sg-sidebar-hamburger-button.sg-sidebar-hamburger-button-hide {
-        display: none;
-    }
-    .sg-sidebar-integrated-hamburger-button.sg-sidebar-integrated-hamburger-button-show {
-        display: block;
-    }
 }

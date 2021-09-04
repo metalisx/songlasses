@@ -29,12 +29,4 @@ export class SgSidebarHamburgerComponent implements OnInit {
     }
   }
 
-  toggleSidebarIntegrated() {
-    if (this.sidebar.integratedShow) {
-      this.sidebarService.integratedHide();
-    } else {
-      this.sidebarService.integratedShow();
-    }
-  }
-
 }

@@ -86,6 +86,9 @@
             "sidebar content"
             "footer footer"
     }
+    .sg-app-header .sg-app-header-hamburger.sg-app-sidebar-integrated {
+        display: none;
+    }
     .sg-app-sidebar {
         height: 100%;
     }
@@ -97,13 +100,6 @@
         opacity: 1;
         transition: unset;
     }    
-    .sg-app-sidebar.sg-app-sidebar-integrated.sg-app-sidebar-integrated-show {
-        display: flex;
-        left: unset;
-    }
-    .sg-app-sidebar.sg-app-sidebar-integrated.sg-app-sidebar-integrated-hide {
-        display: none;
-    }
     .sg-app-sidebar.sg-app-sidebar-integrated .sg-app-sidebar-header {
         display: none;
     }
