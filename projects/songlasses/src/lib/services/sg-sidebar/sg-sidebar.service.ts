@@ -10,7 +10,7 @@ export class SgSidebarService {
 
     private sidebar: SgSidebar = {
         show: false,
-        integrated: false
+        integrated: true
     };
 
     private subject = new Subject<SgSidebar>();
