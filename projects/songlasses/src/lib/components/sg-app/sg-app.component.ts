@@ -32,8 +32,24 @@ export class SgAppComponent implements OnInit {
     this.sidebarService.refresh();
   }
 
-  closeSidebar() {
+  hideSidebar() {
     this.sidebarService.hide();
+  }
+
+  toggleSidebar() {
+    if (this.sidebar.show) {
+      this.sidebarService.hide();
+    } else {
+      this.sidebarService.show();
+    }
+  }
+
+  toggleIntegratedSidebar() {
+    if (this.sidebar.showIntegratedSidebar) {
+      this.sidebarService.hideIntegratedSidebar();
+    } else {
+      this.sidebarService.showIntegratedSidebar();
+    }
   }
 
 }

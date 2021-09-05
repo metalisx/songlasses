@@ -18,6 +18,12 @@
     min-height: var(--sg-app-header-min-height);
     padding: var(--sg-app-header-padding);
 }
+.sg-app-sidebar-integrated .sg-app-header .sg-app-header-hamburger.sg-integrated-mobile {
+    display: block;
+}
+.sg-app-sidebar-integrated .sg-app-header .sg-app-header-hamburger.sg-integrated-desktop {
+    display: none;
+}
 .sg-app-content {
     grid-area: content;
 }
@@ -47,11 +53,11 @@
     opacity: 0;
     transition: opacity 0s, left 0.5s;
 }
-.sg-app-sidebar-show {
+.sg-app-sidebar-show .sg-app-sidebar {
     opacity: 1;
     left: 0;
 }
-.sg-app-sidebar-hide {
+.sg-app-sidebar-hide .sg-app-sidebar {
     transition: opacity 0.5s, left 0.5s;
 }
 .sg-app-sidebar-overlay {
@@ -78,21 +84,48 @@
     padding: var(--sg-app-sidebar-header-padding);
     background-color: var(--sg-app-sidebar-header-background-color);
 }
+.sg-sidebar-hamburger {
+    display: flex;
+    align-items: center;
+	padding: var(--sg-sidebar-humburger-padding);
+    background-color: var(--sg-sidebar-hamburger-background-color);
+}
+.sg-sidebar-humburger-button-line {
+    fill: var(--sg-sidebar-hamburger-color);
+}
+.sg-sidebar-hamburger svg {
+    width: var(--sg-sidebar-hamburger-svg-icon-width);
+    height: var(--sg-sidebar-hamburger-svg-icon-height);
+    cursor: pointer;
+}
 @media (min-width: 601px) {
     .sg-app {
+        grid-template-columns: auto;
+        grid-template-areas: 
+            "header"
+            "content"
+            "footer"
+            "sidebar"
+    }
+    .sg-app.sg-app-sidebar-integrated {
         grid-template-columns: 250px auto;
         grid-template-areas: 
             "header header"
             "sidebar content"
             "footer footer"
     }
-    .sg-app-header .sg-app-header-hamburger.sg-app-sidebar-integrated {
+    .sg-app.sg-app-sidebar-integrated.sg-app-sidebar-hide-integrated-sidebar {
+        grid-template-columns: auto;
+        grid-template-areas: 
+            "header"
+            "content"
+            "footer"
+            "sidebar"
+    }
+    .sg-app.sg-app-sidebar-integrated.sg-app-sidebar-hide-integrated-sidebar .sg-app-sidebar {
         display: none;
     }
-    .sg-app-sidebar {
-        height: 100%;
-    }
-    .sg-app-sidebar.sg-app-sidebar-integrated {
+    .sg-app-sidebar-integrated .sg-app-sidebar {
         position: unset;
         top: unset;
         left: unset;
@@ -100,10 +133,23 @@
         opacity: 1;
         transition: unset;
     }    
-    .sg-app-sidebar.sg-app-sidebar-integrated .sg-app-sidebar-header {
+    .sg-app-sidebar-integrated .sg-app-sidebar .sg-app-sidebar-header {
         display: none;
     }
-    .sg-app-sidebar-overlay.sg-app-sidebar-overlay-integrated {
+    .sg-app-sidebar-integrated.sg-app-sidebar-show-integrated-sidebar .sg-app-sidebar {
+        opacity: unset;
+        left: unset;
+    }
+    .sg-app-sidebar-integrated.sg-app-sidebar-hide-integrated-sidebar .sg-app-sidebar {
+        transition: unset;
+    }
+    .sg-app-sidebar-integrated .sg-app-sidebar-overlay {
         display: none;
+    }
+    .sg-app-sidebar-integrated .sg-app-header .sg-app-header-hamburger.sg-integrated-mobile {
+        display: none;
+    }
+    .sg-app-sidebar-integrated .sg-app-header .sg-app-header-hamburger.sg-integrated-desktop {
+        display: block;
     }
 }

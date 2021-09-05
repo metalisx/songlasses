@@ -1,10 +1,42 @@
-<div class="sg-app">
+<div class="sg-app"
+    [ngClass]="[sidebar.integrated ? 'sg-app-sidebar-integrated' : '',
+                sidebar.show ? 'sg-app-sidebar-show' : 'sg-app-sidebar-hide',
+                sidebar.showIntegratedSidebar ? 'sg-app-sidebar-show-integrated-sidebar' : 'sg-app-sidebar-hide-integrated-sidebar']">
     <ng-container *ngIf="headerTemplate">
         <header class="sg-app-header">
-            <div *ngIf="sidebarTemplate" class="sg-app-header-hamburger"
-                    [ngClass]="[sidebar.integrated ? 'sg-app-sidebar-integrated' : '']">
-                <sg-sidebar-hamburger></sg-sidebar-hamburger>
-            </div>            
+            <ng-container *ngIf="sidebarTemplate">
+                <ng-container *ngIf="!sidebar.integrated">
+                    <div class="sg-app-header-hamburger">
+                        <div class="sg-sidebar-hamburger" (click)="toggleSidebar()">
+                            <svg class="sg-sidebar-hamburger-button" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                            </svg>
+                        </div>                           
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="sidebar.integrated">
+                    <div class="sg-app-header-hamburger sg-integrated-mobile">
+                        <div class="sg-sidebar-hamburger" (click)="toggleSidebar()">
+                            <svg class="sg-sidebar-hamburger-button" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                            </svg>
+                        </div>                           
+                    </div>
+                    <div class="sg-app-header-hamburger sg-integrated-desktop">
+                        <div class="sg-sidebar-hamburger" (click)="toggleIntegratedSidebar()">
+                            <svg class="sg-sidebar-hamburger-button" viewBox="0 0 24 24">
+                                <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                                <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                            </svg>
+                        </div>                           
+                    </div>
+                </ng-container>
+            </ng-container>
             <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
         </header>
     </ng-container>
@@ -19,18 +51,21 @@
         </footer>
     </ng-container>
     <ng-container *ngIf="sidebarTemplate">
-        <div class="sg-app-sidebar"
-                [ngClass]="[sidebar.show ? 'sg-app-sidebar-show' : 'sg-app-sidebar-hide'
-                            , sidebar.integrated ? 'sg-app-sidebar-integrated' : '']">
+        <div class="sg-app-sidebar">
             <div class="sg-app-sidebar-header">
-                <sg-sidebar-hamburger></sg-sidebar-hamburger>
+                <div class="sg-sidebar-hamburger" (click)="hideSidebar()">
+                    <svg class="sg-sidebar-hamburger-button" viewBox="0 0 24 24">
+                        <rect x="2" y="4" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                        <rect x="2" y="10" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                        <rect x="2" y="16" width="20" height="4" rx="2" class="sg-sidebar-humburger-button-line"/>
+                    </svg>
+                </div>                
             </div>
             <ng-container *ngTemplateOutlet="sidebarTemplate"></ng-container>
         </div>
         <div class="sg-app-sidebar-overlay" 
-                [ngClass]="[sidebar.show ? 'sg-app-sidebar-overlay-show' : 'sg-app-sidebar-overlay-hide'
-                            , sidebar.integrated ? 'sg-app-sidebar-overlay-integrated' : '']" 
-                (click)="closeSidebar()">
+                [ngClass]="[sidebar.show ? 'sg-app-sidebar-overlay-show' : 'sg-app-sidebar-overlay-hide']" 
+                (click)="hideSidebar()">
         </div>
     </ng-container>
 </div>

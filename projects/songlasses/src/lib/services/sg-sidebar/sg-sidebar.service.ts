@@ -9,8 +9,9 @@ import { InjectUtils } from '../../utils/inject-utils';
 export class SgSidebarService {
 
     private sidebar: SgSidebar = {
-        show: false,
-        integrated: true
+        show: true,
+        integrated: true,
+        showIntegratedSidebar: true
     };
 
     private subject = new Subject<SgSidebar>();
@@ -43,6 +44,16 @@ export class SgSidebarService {
 
     hide(): void {
         this.sidebar.show = false;
+        this.sendSidebar();
+    }
+
+    showIntegratedSidebar(): void {
+        this.sidebar.showIntegratedSidebar = true;
+        this.sendSidebar();
+    }
+
+    hideIntegratedSidebar(): void {
+        this.sidebar.showIntegratedSidebar = false;
         this.sendSidebar();
     }
 
