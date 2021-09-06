@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SgAppComponent } from './sg-app.component';
 import { SgSidebarMenuComponent } from '../sg-sidebar-menu/sg-sidebar-menu.component';
-import { SgSidebarHamburgerComponent } from '../sg-sidebar-hamburger/sg-sidebar-hamburger.component';
 
 @NgModule({
 	imports: [
@@ -12,13 +11,11 @@ import { SgSidebarHamburgerComponent } from '../sg-sidebar-hamburger/sg-sidebar-
 	],
 	declarations: [
 		SgAppComponent,
-		SgSidebarMenuComponent,
-		SgSidebarHamburgerComponent
+		SgSidebarMenuComponent
 	],
 	exports: [
 		SgAppComponent,
-		SgSidebarMenuComponent,
-		SgSidebarHamburgerComponent
+		SgSidebarMenuComponent
 	],
 })
 export class SgAppModule { }
