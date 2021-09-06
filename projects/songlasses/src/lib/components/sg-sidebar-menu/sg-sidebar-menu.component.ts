@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SgMenuItem } from '../../models/sg-sidebar/sg-menu-item.model';
 import { SgSidebarMenu } from '../../models/sg-sidebar/sg-sidebar-menu.model';
 import { SgSidebarMenuService } from '../../services/sg-sidebar-menu/sg-sidebar-menu.service';
-import { SgSidebarService } from '../../services/sg-sidebar/sg-sidebar.service';
+import { SgAppService } from '../../services/sg-app/sg-app.service';
 
 @Component({
   selector: 'sg-sidebar-menu',
@@ -15,7 +15,7 @@ export class SgSidebarMenuComponent implements OnInit {
 
   contextMenuItems: {parentMenuItem:SgMenuItem|null, menuItems:SgMenuItem[]}[] = [];
 
-  constructor(private sidebarService: SgSidebarService, private sidebarMenuService: SgSidebarMenuService) {
+  constructor(private appService: SgAppService, private sidebarMenuService: SgSidebarMenuService) {
   }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class SgSidebarMenuComponent implements OnInit {
   }
 
   closeSidebar() {
-    this.sidebarService.hide();
+    this.appService.hideSidebar();
   }
 
   openSubmenu(event: any, menuItem: SgMenuItem): void {
