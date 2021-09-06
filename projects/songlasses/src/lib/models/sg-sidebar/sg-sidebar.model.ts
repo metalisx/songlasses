@@ -1,5 +1,3 @@
-import { SgMenuItem } from "./sg-menu-item.model";
-
 export interface SgSidebar {
 
     // Toggle sidebar when display is in small screens mode, this is when the sidebar is out of the normal flow and is moved in from the left.
