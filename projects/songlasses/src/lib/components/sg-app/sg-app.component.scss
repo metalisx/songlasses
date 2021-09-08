@@ -74,7 +74,7 @@
     background-color: var(--sg-app-sidebar-overlay-background-color);
     z-index: var(--sg-app-sidebar-overlay-z-index);
 }
-.sg-app-sidebar-overlay-show {
+.sg-app-sidebar-show .sg-app-sidebar-overlay {
     display: block;
 }
 .sg-app-sidebar-header {

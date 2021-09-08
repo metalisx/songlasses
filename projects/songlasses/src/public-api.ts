@@ -24,7 +24,7 @@ export * from './lib/models/sg-component/sg-group-component-config.model';
 export * from './lib/models/sg-component/sg-root-component-config.model';
 export * from './lib/models/sg-component/sg-select-component-config.model';
 export * from './lib/models/sg-sidebar/sg-menu-item.model';
-export * from './lib/models/sg-sidebar/sg-sidebar.model';
+export * from './lib/models/sg-app/sg-app.model';
 export * from './lib/models/sg-sidebar/sg-sidebar-menu.model';
 export * from './lib/utils/array-utils';
 export * from './lib/utils/assert-utils';

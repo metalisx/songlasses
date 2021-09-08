@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
+import { SgApp } from '../../models/sg-app/sg-app.model';
 import { SgAppService } from './sg-app.service';
 
 describe('SgAppervice', () => {
@@ -16,16 +16,16 @@ describe('SgAppervice', () => {
       
     it('#getSidebar should return sidebar', () => {
         expect(service.getSidebar()).toEqual({
-            show: false,
-            integrated: true,
+            showSidebar: false,
+            integratedSidebar: true,
             showIntegratedSidebar: true
         });
     });
 
     it('#setSidebar should set sidebar and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = {
-            show: false,
-            integrated: false,
+        let sidebar: SgApp = {
+            showSidebar: false,
+            integratedSidebar: false,
             showIntegratedSidebar: true
         };
         service.getSidebarObservable().subscribe(value => {
@@ -37,7 +37,7 @@ describe('SgAppervice', () => {
     });
 
     it('#refreshSidebar should return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = service.getSidebar();
+        let sidebar: SgApp = service.getSidebar();
         service.getSidebarObservable().subscribe(value => {
             expect(value).toEqual(sidebar);
             done();
@@ -46,17 +46,17 @@ describe('SgAppervice', () => {
     });
 
     it('#showSidebar should set sidebar.show to true and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = {
-            show: false,
-            integrated: false,
+        let sidebar: SgApp = {
+            showSidebar: false,
+            integratedSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
             if (times === 1) {
-                expect(value.show).toBe(false);
+                expect(value.showSidebar).toBe(false);
             } else if (times == 2) {
-                expect(value.show).toBe(true);
+                expect(value.showSidebar).toBe(true);
                 done();
             }
             times++;
@@ -66,17 +66,17 @@ describe('SgAppervice', () => {
     });
 
     it('#hideSidebar should set sidebar.show to false and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = {
-            show: true,
-            integrated: false,
+        let sidebar: SgApp = {
+            showSidebar: true,
+            integratedSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;
         service.getSidebarObservable().subscribe(value => {
             if (times === 1) {
-                expect(value.show).toBe(true);
+                expect(value.showSidebar).toBe(true);
             } else if (times == 2) {
-                expect(value.show).toBe(false);
+                expect(value.showSidebar).toBe(false);
                 done();
             }
             times++;
@@ -86,9 +86,9 @@ describe('SgAppervice', () => {
     });
 
     it('#showIntegratedSidebar should set sidebar.showIntegratedSidebar to true and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = {
-            show: false,
-            integrated: false,
+        let sidebar: SgApp = {
+            showSidebar: false,
+            integratedSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;
@@ -106,9 +106,9 @@ describe('SgAppervice', () => {
     });
 
     it('#hideIntegratedSidebar should set sidebar.showIntegratedSidebar to false and return sidebar from observable', (done: DoneFn) => {
-        let sidebar: SgSidebar = {
-            show: true,
-            integrated: false,
+        let sidebar: SgApp = {
+            showSidebar: true,
+            integratedSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;

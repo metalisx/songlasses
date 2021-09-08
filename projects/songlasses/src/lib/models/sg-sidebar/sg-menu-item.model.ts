@@ -15,7 +15,7 @@ export class SgMenuItem {
     href?: string;
     hrefTarget?: string;
     // Action is a function where the event and an item is passed to.
-    // Actin should return true when the menu shoud be closed, otherwise false.
+    // Action should return true when the menu shoud be closed, otherwise false.
     action?: (event?: any, item?: SgMenuItem) => boolean; 
     menuItems?: SgMenuItem[];
     divider?: boolean;

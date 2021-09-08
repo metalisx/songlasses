@@ -1,5 +1,5 @@
 import { Component, ContentChild, OnInit, TemplateRef } from '@angular/core';
-import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
+import { SgApp } from '../../models/sg-app/sg-app.model';
 import { SgAppService } from '../../services/sg-app/sg-app.service';
 
 @Component({
@@ -21,13 +21,13 @@ export class SgAppComponent implements OnInit {
   @ContentChild('sidebar')
   sidebarTemplate!: TemplateRef<any>;
 
-  sidebar!: SgSidebar;
+  app!: SgApp;
 
   constructor(private appService: SgAppService) { }
 
   ngOnInit(): void {
-    this.appService.getSidebarObservable().subscribe(sidebar => {
-      this.sidebar = sidebar;
+    this.appService.getSidebarObservable().subscribe(app => {
+      this.app = app;
     });
     this.appService.refreshSidebar();
   }
@@ -37,7 +37,7 @@ export class SgAppComponent implements OnInit {
   }
 
   toggleSidebar() {
-    if (this.sidebar.show) {
+    if (this.app.showSidebar) {
       this.appService.hideSidebar();
     } else {
       this.appService.showSidebar();
@@ -45,7 +45,7 @@ export class SgAppComponent implements OnInit {
   }
 
   toggleIntegratedSidebar() {
-    if (this.sidebar.showIntegratedSidebar) {
+    if (this.app.showIntegratedSidebar) {
       this.appService.hideIntegratedSidebar();
     } else {
       this.appService.showIntegratedSidebar();

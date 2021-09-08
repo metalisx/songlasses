@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { SgSidebar } from '../../models/sg-sidebar/sg-sidebar.model';
+import { SgApp } from '../../models/sg-app/sg-app.model';
 import { InjectUtils } from '../../utils/inject-utils';
 
 @Injectable({
@@ -8,29 +8,29 @@ import { InjectUtils } from '../../utils/inject-utils';
 })
 export class SgAppService {
 
-    private sidebar: SgSidebar = {
-        show: false,
-        integrated: true,
+    private app: SgApp = {
+        showSidebar: false,
+        integratedSidebar: true,
         showIntegratedSidebar: true
     };
 
-    private subject = new Subject<SgSidebar>();
+    private subject = new Subject<SgApp>();
 
     constructor() {
         InjectUtils.throwErrorIfExists(SgAppService);
     }
 
-    getSidebarObservable(): Observable<SgSidebar> {
+    getSidebarObservable(): Observable<SgApp> {
         return this.subject.asObservable();
     }
 
-    getSidebar(): SgSidebar {
-        return this.sidebar;
+    getSidebar(): SgApp {
+        return this.app;
     }
 
-    setSidebar(sidebar: SgSidebar): void {
-        this.sidebar = sidebar;
-        this.subject.next(this.sidebar);
+    setSidebar(app: SgApp): void {
+        this.app = app;
+        this.subject.next(this.app);
     }
 
     refreshSidebar(): void {
@@ -38,27 +38,27 @@ export class SgAppService {
     }
     
     showSidebar(): void {
-        this.sidebar.show = true;
+        this.app.showSidebar = true;
         this.sendSidebar();
     }
 
     hideSidebar(): void {
-        this.sidebar.show = false;
+        this.app.showSidebar = false;
         this.sendSidebar();
     }
 
     showIntegratedSidebar(): void {
-        this.sidebar.showIntegratedSidebar = true;
+        this.app.showIntegratedSidebar = true;
         this.sendSidebar();
     }
 
     hideIntegratedSidebar(): void {
-        this.sidebar.showIntegratedSidebar = false;
+        this.app.showIntegratedSidebar = false;
         this.sendSidebar();
     }
 
     private sendSidebar(): void {
-        this.subject.next(this.sidebar);
+        this.subject.next(this.app);
     }
 
 }
