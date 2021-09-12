@@ -5,7 +5,7 @@ Angular component library.
 This component library is in flux.
 
 Components
- * sidebar
+ * app
  * select
 
 To see the demo open a browser and navigate to: https://metalisx.github.io/songlasses/.
