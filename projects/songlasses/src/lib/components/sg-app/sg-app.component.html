@@ -1,4 +1,4 @@
-<div class="sg-app"
+<div *ngIf="app" class="sg-app"
     [ngClass]="[app.integratedSidebar ? 'sg-app-sidebar-integrated' : '',
                 app.showSidebar ? 'sg-app-sidebar-show' : 'sg-app-sidebar-hide',
                 app.showIntegratedSidebar ? 'sg-app-sidebar-show-integrated-sidebar' : 'sg-app-sidebar-hide-integrated-sidebar']">
