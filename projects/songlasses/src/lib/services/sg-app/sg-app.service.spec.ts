@@ -16,16 +16,16 @@ describe('SgAppervice', () => {
       
     it('#getSidebar should return sidebar', () => {
         expect(service.getSidebar()).toEqual({
-            showSidebar: false,
             integratedSidebar: true,
+            showSidebar: false,
             showIntegratedSidebar: true
         });
     });
 
     it('#setSidebar should set sidebar and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            showSidebar: false,
             integratedSidebar: false,
+            showSidebar: false,
             showIntegratedSidebar: true
         };
         service.getSidebarObservable().subscribe(value => {
@@ -47,8 +47,8 @@ describe('SgAppervice', () => {
 
     it('#showSidebar should set sidebar.show to true and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            showSidebar: false,
             integratedSidebar: false,
+            showSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;
@@ -67,8 +67,8 @@ describe('SgAppervice', () => {
 
     it('#hideSidebar should set sidebar.show to false and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            showSidebar: true,
             integratedSidebar: false,
+            showSidebar: true,
             showIntegratedSidebar: false
         };
         let times: number = 1;
@@ -87,8 +87,8 @@ describe('SgAppervice', () => {
 
     it('#showIntegratedSidebar should set sidebar.showIntegratedSidebar to true and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            showSidebar: false,
             integratedSidebar: false,
+            showSidebar: false,
             showIntegratedSidebar: false
         };
         let times: number = 1;
@@ -107,8 +107,8 @@ describe('SgAppervice', () => {
 
     it('#hideIntegratedSidebar should set sidebar.showIntegratedSidebar to false and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            showSidebar: true,
             integratedSidebar: false,
+            showSidebar: true,
             showIntegratedSidebar: false
         };
         let times: number = 1;

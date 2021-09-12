@@ -1,4 +1,4 @@
-import { Component, ContentChild, OnInit, TemplateRef } from '@angular/core';
+import { Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 import { SgApp } from '../../models/sg-app/sg-app.model';
 import { SgAppService } from '../../services/sg-app/sg-app.service';
 
@@ -21,6 +21,7 @@ export class SgAppComponent implements OnInit {
   @ContentChild('sidebar')
   sidebarTemplate!: TemplateRef<any>;
 
+  @Input()
   app!: SgApp;
 
   constructor(private appService: SgAppService) { }
@@ -29,7 +30,16 @@ export class SgAppComponent implements OnInit {
     this.appService.getSidebarObservable().subscribe(app => {
       this.app = app;
     });
-    this.appService.refreshSidebar();
+  }
+
+  ngAfterViewInit(): void {
+    if (!this.app) {
+      // If an app object is not provided as component argument then use the default from the SgAppService
+      this.app = this.appService.getSidebar();
+    } else {
+      // If an app object is provided as component argument then set the app object in the SgAppService
+      this.appService.setSidebar(this.app);
+    }
   }
 
   hideSidebar() {

@@ -9,8 +9,8 @@ import { InjectUtils } from '../../utils/inject-utils';
 export class SgAppService {
 
     private app: SgApp = {
-        showSidebar: false,
         integratedSidebar: true,
+        showSidebar: false,
         showIntegratedSidebar: true
     };
 
@@ -30,7 +30,6 @@ export class SgAppService {
 
     setSidebar(app: SgApp): void {
         this.app = app;
-        this.subject.next(this.app);
     }
 
     refreshSidebar(): void {
