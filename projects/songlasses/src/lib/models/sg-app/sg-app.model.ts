@@ -8,9 +8,11 @@ export interface SgApp {
     sidebarType: 'no-sidebar' | 'sliding-sidebar' | 'integrated-sidebar';
 
     // Indicator to switch the display of the sidebar on(true) and off(false).
+    // Only relevant when the sidebarType is sliding-sidebar or integrated-sidebar
     showSidebar: boolean;
 
     // Indicator to switch the display of the integrated sidebar on(true) and off(false).
+    // Only relevant when the sidebarType is integrated-sidebar
     showIntegratedSidebar: boolean;
 
 }
