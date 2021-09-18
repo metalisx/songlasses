@@ -9,7 +9,7 @@ import { InjectUtils } from '../../utils/inject-utils';
 export class SgAppService {
 
     private app: SgApp = {
-        integratedSidebar: true,
+        sidebarType: 'integrated-sidebar',
         showSidebar: false,
         showIntegratedSidebar: true
     };

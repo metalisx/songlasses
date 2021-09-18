@@ -16,7 +16,7 @@ describe('SgAppervice', () => {
       
     it('#getSidebar should return sidebar', () => {
         expect(service.getSidebar()).toEqual({
-            integratedSidebar: true,
+            sidebarType: 'integrated-sidebar',
             showSidebar: false,
             showIntegratedSidebar: true
         });
@@ -24,7 +24,7 @@ describe('SgAppervice', () => {
 
     it('#setSidebar should set sidebar and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            integratedSidebar: false,
+            sidebarType: 'sliding-sidebar',
             showSidebar: false,
             showIntegratedSidebar: true
         };
@@ -47,7 +47,7 @@ describe('SgAppervice', () => {
 
     it('#showSidebar should set sidebar.show to true and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            integratedSidebar: false,
+            sidebarType: 'sliding-sidebar',
             showSidebar: false,
             showIntegratedSidebar: false
         };
@@ -67,7 +67,7 @@ describe('SgAppervice', () => {
 
     it('#hideSidebar should set sidebar.show to false and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            integratedSidebar: false,
+            sidebarType: 'sliding-sidebar',
             showSidebar: true,
             showIntegratedSidebar: false
         };
@@ -87,7 +87,7 @@ describe('SgAppervice', () => {
 
     it('#showIntegratedSidebar should set sidebar.showIntegratedSidebar to true and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            integratedSidebar: false,
+            sidebarType: 'sliding-sidebar',
             showSidebar: false,
             showIntegratedSidebar: false
         };
@@ -107,7 +107,7 @@ describe('SgAppervice', () => {
 
     it('#hideIntegratedSidebar should set sidebar.showIntegratedSidebar to false and return sidebar from observable', (done: DoneFn) => {
         let sidebar: SgApp = {
-            integratedSidebar: false,
+            sidebarType: 'sliding-sidebar',
             showSidebar: true,
             showIntegratedSidebar: false
         };
