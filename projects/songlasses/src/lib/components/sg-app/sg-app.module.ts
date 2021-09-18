@@ -2,20 +2,19 @@ import { NgModule, } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SgAppComponent } from './sg-app.component';
-import { SgSidebarMenuComponent } from '../sg-sidebar-menu/sg-sidebar-menu.component';
+import { SgSidebarMenuModule } from '../sg-sidebar-menu/sg-sidebar-menu.module';
 
 @NgModule({
 	imports: [
 		CommonModule,
-		RouterModule
+		RouterModule,
+		SgSidebarMenuModule
 	],
 	declarations: [
-		SgAppComponent,
-		SgSidebarMenuComponent
+		SgAppComponent
 	],
 	exports: [
-		SgAppComponent,
-		SgSidebarMenuComponent
+		SgAppComponent
 	],
 })
 export class SgAppModule { }
