@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { SgSidebarMenuModule } from 'songlasses';
 import { SgAppModule } from 'songlasses';
 
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import { AppComponent,  } from './app.component';
 
 @NgModule({
   declarations: [
@@ -11,9 +13,11 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    RouterModule,
     AppRoutingModule,
     // songlasses
-    SgAppModule	
+    SgAppModule,
+    SgSidebarMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -7,6 +7,7 @@ export * from './lib/components/sg-app/sg-app.module';
 export * from './lib/components/sg-select/sg-select.component';
 export * from './lib/components/sg-select/sg-select.module';
 export * from './lib/components/sg-sidebar-menu/sg-sidebar-menu.component';
+export * from './lib/components/sg-sidebar-menu/sg-sidebar-menu.module';
 export * from './lib/services/sg-app/sg-app.service';
 export * from './lib/services/sg-sidebar-menu/sg-sidebar-menu.service';
 export * from './lib/services/sg-component/sg-component-has-value.service';

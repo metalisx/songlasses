@@ -35,7 +35,7 @@ export class SgAppComponent implements OnInit {
   ngAfterViewInit(): void {
     if (!this.app) {
       // If an app object is not provided as component argument then use the default from the SgAppService
-      this.app = this.appService.getSidebar();
+      setTimeout(() => this.appService.refreshSidebar());
     } else {
       // If an app object is provided as component argument then set the app object in the SgAppService
       this.appService.setSidebar(this.app);
