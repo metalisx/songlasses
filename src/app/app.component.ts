@@ -45,6 +45,14 @@ export class AppComponent {
       label: 'songlasses',
       href: 'https://github.com/metalisx/songlasses',
       hrefTarget: '_blank'
+    },    
+    {
+      subHeader: 'Storybook'
+    },
+    {
+      label: 'songlasses',
+      href: 'https://metalisx.github.io/songlasses/storybook',
+      hrefTarget: '_blank'
     }    
   ];
 
