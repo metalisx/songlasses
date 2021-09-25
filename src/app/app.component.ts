@@ -43,7 +43,7 @@ export class AppComponent {
     },
     {
       label: 'songlasses',
-      href: 'https://github.com/metalisx/songlasses',
+      href: 'https://github.com/metalisx/songlasses/demo',
       hrefTarget: '_blank'
     },    
     {
