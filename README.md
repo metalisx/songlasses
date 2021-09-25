@@ -10,7 +10,7 @@ Components
 
 To see the demo open a browser and navigate to: https://metalisx.github.io/songlasses/.
 
-Design system, created in Figma and is in flux: https://www.figma.com/file/9uRHvyaD1SerYsTffmld7R/songlasses-design-system
+Design system, created in Figma and is in flux: https://www.figma.com/file/9uRHvyaD1SerYsTffmld7R/songlasses-design-system?node-id=14%3A4
 
 ## 1 Build the component library
 
