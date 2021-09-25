@@ -10,12 +10,14 @@
     "e2e": "ng e2e",
     "build-lib": "ng build songlasses && npm run copy-lib-theme",
     "copy-lib-theme": "cpx \"./projects/songlasses/src/lib/theme/**/*\" \"./dist/songlasses/lib/theme\"",
-    "copy-app-to-docs": "del-cli ./docs/*.js && cpx \"./dist/songlasses-app-docs/**/*\" \"./docs\"",
-    "build-app-in-docs": "ng build --prod --extractLicenses=false --outputPath=./dist/songlasses-app-docs --baseHref=/songlasses/ && npm run copy-app-to-docs",
+    "build-for-docs": "ng build --prod --extractLicenses=false --outputPath=./dist/songlasses-app-docs --baseHref=/songlasses/demo",
+    "copy-app-to-docs": "del-cli ./docs/demo && cpx \"./dist/songlasses-app-docs/**/*\" \"./docs/demo\"",
+    "build-app-in-docs": "npm run build-for-docs && npm run copy-app-to-docs",
     "docs:json": "compodoc -p ./tsconfig.json -e json -d .",
     "storybook": "npm run docs:json && start-storybook -p 6006",
     "build-storybook": "npm run docs:json && build-storybook",
-    "build-storybook-in-docs": "npm run docs:json && build-storybook -o docs/storybook"
+    "copy-storybook-to-docs": "del-cli ./docs/storybook && cpx \"./storybook-static/**/*\" \"./docs/storybook\"",
+    "build-storybook-in-docs": "npm run build-storybook && npm run copy-storybook-to-docs"
   },
   "private": true,
   "dependencies": {
