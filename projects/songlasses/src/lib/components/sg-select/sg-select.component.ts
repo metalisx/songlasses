@@ -101,14 +101,14 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   
   constructor(private elementRef: ElementRef, private renderer: Renderer2,
     private selectComponentService: SgSelectComponentService, 
-    @Optional() private groupComponentService: SgGroupComponentService | null,
+    @Optional() private groupComponentService: SgGroupComponentService,
     private rootComponentService: SgRootComponentService) {
       // Create observable for the ComponentConfig in the ComponentService.
       this.componentConfigObserverable = this.selectComponentService.getComponentConfigObservable();
       // Create observable for the value in the component service.
       this.valueObserverable = this.selectComponentService.getValueObservable();
       // Register the ComponentService to the RootComponentService so the ComponentService can be accessed from anywhere in the application.
-      if (this.groupComponentService !== null) {
+      if (this.groupComponentService) {
         this.groupComponentService.register(this.selectComponentService);
       } else {
         this.rootComponentService.register(this.selectComponentService);
