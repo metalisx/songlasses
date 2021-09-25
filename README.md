@@ -8,7 +8,9 @@ Components
  * app
  * select
 
-To see the demo open a browser and navigate to: https://metalisx.github.io/songlasses/.
+To see the demo open a browser and navigate to: https://metalisx.github.io/songlasses/demo.
+
+To see the Storybook open a browser and navigate to: https://metalisx.github.io/songlasses/storybook.
 
 Design system, created in Figma and is in flux: https://www.figma.com/file/9uRHvyaD1SerYsTffmld7R/songlasses-design-system?node-id=14%3A4
 
