@@ -5,7 +5,8 @@ import { moduleMetadata } from '@storybook/angular';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { SgSelectComponent } from 'projects/songlasses/src/lib/components/sg-select/sg-select.component';
 import { SgSelectModule } from 'projects/songlasses/src/lib/components/sg-select/sg-select.module';
-import { SUPERHEROES } from 'src/app/mocks/mock-superheroes';
+import { MOVIESTARS } from './assets/mocks/mock-movie-stars';
+import { SUPERHEROES } from './assets/mocks/mock-superheroes';
 
 export default {
   title: 'Songlasses/SgSelect',
@@ -24,7 +25,14 @@ const Template: Story<SgSelectComponent> = (args: SgSelectComponent) => ({
 export const Default = Template.bind({});
 Default.args = {
   componentConfig: {
-    name: 'select',
+    items: MOVIESTARS
+  }
+} 
+
+export const AllOptions = Template.bind({});
+AllOptions.args = {
+  componentConfig: {
+    itemMatchStrategy: 'startsWith',
     required: true,
     itemValueField: 'id',
     itemDescriptionField: 'name',
