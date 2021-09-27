@@ -45,7 +45,7 @@ export class CopyUtils {
         let source: object | undefined = sources.shift();
         if (source !== undefined && ObjectUtils.isObject(destination) && ObjectUtils.isObject(source)) {
             ObjectUtils.getKeys(source).forEach(key => {
-                if (source && (override || (!destination[key]))) {
+                if (source && (override || key in destination === false)) {
                     if (ObjectUtils.isObject(source[key])) {
                         Object.assign(destination, { [key]: CopyUtils.internalCopyObject(override, {}, source[key] as object) });
                     } else if (ArrayUtils.isArray(source[key])) {
