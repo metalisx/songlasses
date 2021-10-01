@@ -5,6 +5,7 @@ import { moduleMetadata } from '@storybook/angular';
 import { Story, Meta } from '@storybook/angular/types-6-0';
 import { SgSelectComponent } from 'projects/songlasses/src/lib/components/sg-select/sg-select.component';
 import { SgSelectModule } from 'projects/songlasses/src/lib/components/sg-select/sg-select.module';
+import { SgSelectComponentConfigService } from 'projects/songlasses/src/lib/services/sg-component-config/sg-select-component-config.service';
 import { MOVIESTARS } from './assets/mocks/mock-movie-stars';
 import { SUPERHEROES } from './assets/mocks/mock-superheroes';
 
@@ -13,7 +14,8 @@ export default {
   component: SgSelectComponent,
   decorators: [
     moduleMetadata({
-      imports: [CommonModule, FormsModule, SgSelectModule]
+      imports: [CommonModule, FormsModule, SgSelectModule],
+      providers: [SgSelectComponentConfigService]
     })
   ]
 } as Meta;
@@ -31,7 +33,7 @@ Defaults.args = {
     itemMatchStrategy: 'startsWith',
     itemValueField: 'value',
     itemDescriptionField: 'description',
-    items: [],
+    items: MOVIESTARS,
     className: ''
   }
 } 
@@ -48,7 +50,7 @@ export const ShowIsFalse = Template.bind({});
 ShowIsFalse.args = {
   componentConfig: {
     name: 'showIsFalseSelect',
-    required: false,
+    show: false,
     items: MOVIESTARS
   }
 }
@@ -90,4 +92,11 @@ CustomItemFields.args = {
   }
 }
 
-
+export const CustomStyling = Template.bind({});
+CustomStyling.args = {
+  componentConfig: {
+    name: 'customStyling',
+    items: MOVIESTARS,
+    className: 'selectStyled'
+  }
+}
