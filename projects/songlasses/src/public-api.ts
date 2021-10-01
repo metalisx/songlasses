@@ -17,6 +17,7 @@ export * from './lib/services/sg-component/sg-component.service';
 export * from './lib/services/sg-component/sg-group-component.service';
 export * from './lib/services/sg-component/sg-root-component.service';
 export * from './lib/services/sg-component/sg-select-component.service';
+export * from './lib/services/sg-component-config/sg-select-component-config.service';
 export * from './lib/models/sg-component/sg-component-config-event.model';
 export * from './lib/models/sg-component/sg-component-config.model';
 export * from './lib/models/sg-component/sg-component-value-event.model';

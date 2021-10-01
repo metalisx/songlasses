@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { SgComponentConfigEvent } from '../../models/sg-component/sg-component-config-event.model';
 import { SgComponentValueEvent } from '../../models/sg-component/sg-component-value-event.model';
 import { SgSelectComponentConfig } from '../../models/sg-component/sg-select-component-config.model';
+import { SgSelectComponentConfigService } from '../../services/sg-component-config/sg-select-component-config.service';
 import { SgGroupComponentService } from '../../services/sg-component/sg-group-component.service';
 import { SgRootComponentService } from '../../services/sg-component/sg-root-component.service';
 import { SgSelectComponentService } from '../../services/sg-component/sg-select-component.service';
@@ -26,15 +27,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
 
   valid: boolean = true;
   
-  @Input() componentConfig: SgSelectComponentConfig = this.selectComponentService.getDefaults();
-
   @ViewChild('selectContainer') selectContainerElement!: ElementRef<HTMLDivElement>;
   @ViewChild('input') inputElement!: ElementRef<HTMLInputElement>;
   @ViewChild('listItems') listItemsElement!: ElementRef<HTMLUListElement>;
   @ViewChildren('item') liElements!: QueryList<ElementRef<HTMLLIElement>>;
-
-  private internalValue: any;
-  private externalValue: string | null = null;
 
   item?: any;
   selectedItem?: any;
@@ -44,6 +40,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   disabled = false;
   showItems: boolean = false;
 
+  private COMPONENT_CONFIG_DEFAULTS: SgSelectComponentConfig = this.selectComponentConfigService.getDefaults();
+  private _componentConfig!: SgSelectComponentConfig;
+
   // Hack to only call the service set method in the writeValue method when initializing the component.
   // The service set method used in the writeValue method should be in a lifecycle but none works.
   // Setting the property the true will prevent unneccessary calls to the service as it triggered the event.
@@ -52,44 +51,16 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   private componentConfigObserverable: Observable<SgComponentConfigEvent<SgSelectComponentConfig | null>>;
   private valueObserverable: Observable<SgComponentValueEvent<string | null>>;
 
-  /**
-   * The method positions the native element to the parent element depending on the viewport.
-   * 
-   * The default position of the popup is below the parent.
-   * Then if the bottom is not in the viewport then a style is set to move it above the parent.
-   * Then if the top is not in the viewport then a style is set to set to make the popup small
-   * enough to fit in the viewport, the top and bottom are set to 0 and the max-height to 100vh.
-   * 
-   * The document.documentElement.clientHeight is used instead of the window.innerHeight because
-   * it does not include the height of the options rendered scrollbar.
-   * 
-   * Pre-requisits
-   * The element has the css style position with value absolute and the parent has the css style
-   * position with value relative.
-   */
-  moveElementInViewport(element: Element, parentElement: Element): void {
-    var rect = element.getBoundingClientRect();
-    var parentRect = parentElement.getBoundingClientRect();
-    if (rect.height > parentRect.top) {
-      // default
-    } else if (rect.top > 0 && rect.bottom > document.documentElement.clientHeight) {
-      this.renderer.setStyle(element, 'height', 'auto');
-      this.renderer.setStyle(element, 'top', 'auto');
-      this.renderer.setStyle(element, 'bottom', '100%');
-      this.renderer.setStyle(element, 'border-top', 'auto');
-      this.renderer.setStyle(element, 'border-bottom', '0');
-    } else if (rect.top < 0) {
-      // this.renderer.setStyle(element, 'height', '100vh');
-      // this.renderer.setStyle(element, 'top', '0');
-      // this.renderer.setStyle(element, 'bottom', '0');
-    } else { 
-      // default
-      // this.renderer.setStyle(element, 'height', 'auto');
-      // this.renderer.setStyle(element, 'top', '100%');
-      // this.renderer.setStyle(element, 'bottom', 'auto');
-      // this.renderer.setStyle(element, 'border-top', '0');
-      // this.renderer.removeStyle(element, 'border-bottom');
-    }
+  private internalValue: any;
+  private externalValue: string | null = null;
+
+  @Input()
+  get componentConfig(): SgSelectComponentConfig {
+    return this._componentConfig; 
+  }
+  set componentConfig(componentConfig: SgSelectComponentConfig) {
+    this._componentConfig = componentConfig;
+    CopyUtils.merge(this._componentConfig, this.COMPONENT_CONFIG_DEFAULTS);
   }
 
   @HostListener('document:click', ['$event'])
@@ -99,8 +70,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
   
+  // TODO pass in an OPTIONAL default config with an injection token.
   constructor(private elementRef: ElementRef, private renderer: Renderer2,
     private selectComponentService: SgSelectComponentService, 
+    private selectComponentConfigService: SgSelectComponentConfigService, 
     @Optional() private groupComponentService: SgGroupComponentService,
     private rootComponentService: SgRootComponentService) {
       // Create observable for the ComponentConfig in the ComponentService.
@@ -115,11 +88,10 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       }
   }
 
+  // TODO clean up and refactor the selectComponentService
   ngOnInit(): void {
-    // Copy defaults to missing fields.
-    CopyUtils.merge(this.componentConfig, this.selectComponentService.getDefaults());
     // First set ComponentConfig and value then subsribe to observables.
-    this.selectComponentService.setComponentConfig(this.componentConfig);
+    //this.selectComponentService.setComponentConfig(this.componentConfig);
     this.selectComponentService.setValue(this.externalValue);
     // Subscribe to ComponentConfig changes from the ComponentService.
     this.componentConfigObserverable.subscribe(sgComponentConfigEvent => {
@@ -145,6 +117,46 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       this.groupComponentService.unregister(this.selectComponentService);
     } else {
       this.rootComponentService.unregister(this.selectComponentService);
+    }
+  }
+
+  /**
+   * The method positions the native element to the parent element depending on the viewport.
+   * 
+   * The default position of the popup is below the parent.
+   * Then if the bottom is not in the viewport then a style is set to move it above the parent.
+   * Then if the top is not in the viewport then a style is set to set to make the popup small
+   * enough to fit in the viewport, the top and bottom are set to 0 and the max-height to 100vh.
+   * 
+   * The document.documentElement.clientHeight is used instead of the window.innerHeight because
+   * it does not include the height of the options rendered scrollbar.
+   * 
+   * Pre-requisits
+   * The element has the css style position with value absolute and the parent has the css style
+   * position with value relative.
+   */
+   moveElementInViewport(element: Element, parentElement: Element): void {
+    var rect = element.getBoundingClientRect();
+    var parentRect = parentElement.getBoundingClientRect();
+    if (rect.height > parentRect.top) {
+      // default
+    } else if (rect.top > 0 && rect.bottom > document.documentElement.clientHeight) {
+      this.renderer.setStyle(element, 'height', 'auto');
+      this.renderer.setStyle(element, 'top', 'auto');
+      this.renderer.setStyle(element, 'bottom', '100%');
+      this.renderer.setStyle(element, 'border-top', 'auto');
+      this.renderer.setStyle(element, 'border-bottom', '0');
+    } else if (rect.top < 0) {
+      // this.renderer.setStyle(element, 'height', '100vh');
+      // this.renderer.setStyle(element, 'top', '0');
+      // this.renderer.setStyle(element, 'bottom', '0');
+    } else { 
+      // default
+      // this.renderer.setStyle(element, 'height', 'auto');
+      // this.renderer.setStyle(element, 'top', '100%');
+      // this.renderer.setStyle(element, 'bottom', 'auto');
+      // this.renderer.setStyle(element, 'border-top', '0');
+      // this.renderer.removeStyle(element, 'border-bottom');
     }
   }
 
@@ -186,6 +198,9 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keydown(event: KeyboardEvent) {
+    if (!this.showItems) {
+      this.doShowItems();
+    }
     switch(event.key) {
       case 'ArrowDown': {
         this.keydownArrowdown();
