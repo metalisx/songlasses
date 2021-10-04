@@ -198,13 +198,14 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keydown(event: KeyboardEvent) {
-    if (!this.showItems) {
+    if (!this.showItems && event.key !== 'Enter' && event.key !== 'Tab' && event.key !== 'Home' && event.key !== 'End' && 
+          event.altKey === false && event.ctrlKey === false) {
       this.doShowItems();
     }
     switch(event.key) {
       case 'ArrowDown': {
-        this.keydownArrowdown();
         event.preventDefault();
+        this.keydownArrowdown();
         break;
       }
       case 'ArrowUp': {
@@ -213,7 +214,40 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
         break;
       }
       case 'Tab': {
-        this.doHideItems();
+        if (this.showItems) {
+          this.doHideItems();
+        }
+        break;
+      }
+      case 'Home': {
+        if (this.showItems) {
+          event.preventDefault();
+          this.selectFirst();
+        }
+        break;
+      }
+      case 'End': {
+        if (this.showItems) {
+          event.preventDefault();
+          this.selectLast();
+        }
+        break;
+      }
+      case 'Enter': {
+        if (this.showItems) {
+          event.preventDefault();
+          this.setValueFromSelectedItem();
+          this.doHideItems();
+        } else {
+          this.doShowItems();
+        }
+        break;
+      }
+      case 'Escape': {
+        if (this.showItems) {
+          event.preventDefault();
+          this.doHideItems();
+        }
         break;
       }
       default: {
@@ -223,24 +257,11 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
   }
 
   keyup(event: KeyboardEvent) {
-    switch(event.key) {
-      case 'Enter': {
-        if (this.showItems) {
-          event.preventDefault();
-          this.setValueFromSelectedItem();
-          this.doHideItems();
-        }
-        break;
-      }
-      case 'Escape': {
-        event.preventDefault();
-        this.doHideItems();
-        break;
-      }
-      default: {
-        break;
-      }
-    }
+    // switch(event.key) {
+    //   default: {
+    //     break;
+    //   }
+    // }
   }
 
   set value(value: any) {
@@ -427,6 +448,18 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       }
     }
     return index;
+  }
+
+  private selectFirst(): void {
+    if (this.componentConfig && this.componentConfig.items && this.componentConfig.items.length > 0) {
+      this.selectedItem = this.componentConfig.items[0];
+    }
+  }
+
+  private selectLast(): void {
+    if (this.componentConfig && this.componentConfig.items && this.componentConfig.items.length > 0) {
+      this.selectedItem = this.componentConfig.items[this.componentConfig.items.length - 1];
+    }
   }
 
   private selectPrevious(): void {
