@@ -13,7 +13,24 @@ export const parameters = {
   docs: { inlineStories: true },
 }
 
-const css = `.selectStyled.sg-select {
+const css = `
+.code-container {
+  display: flex;
+  gap: 10px;
+}
+.code-container .code-panel {
+  flex: 1;
+}
+.code-container .code-panel .code {
+  border: 1px solid var(--sg-divider-color);
+  outline: none;
+  width: 100%;
+  min-height: 340px;
+  max-height: 600px;
+  resize: none;
+}
+
+.selectStyled.sg-select {
   width: 50%;
 }
 .selectStyled.sg-select sg-select-input {
@@ -21,9 +38,9 @@ const css = `.selectStyled.sg-select {
 }
 .selectStyled.sg-select .sg-select-items {
   border: 1px solid #a06060;
+  background-color: #a06060;
 }
 .selectStyled.sg-select .sg-select-items .sg-select-item {
-  background-color: #a06060;
   color: #fff;
 }
 .selectStyled.sg-select .sg-select-items .sg-select-item:hover {

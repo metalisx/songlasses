@@ -74,10 +74,6 @@ export const MOVIESTARS: MovieStar[] = [
       description: 'Will Smith'
     },
     {
-      value: 'Dwayne Johnson',
-      description: 'Dwayne Johnson'
-    },
-    {
       value: 'Zoe Saldana',
       description: 'Zoe Saldana'
     }

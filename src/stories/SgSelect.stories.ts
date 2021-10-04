@@ -17,11 +17,15 @@ export default {
       imports: [CommonModule, FormsModule, SgSelectModule],
       providers: [SgSelectComponentConfigService]
     })
-  ]
+  ],
+  parameters: {
+    abc: 'abc'
+  }
 } as Meta;
 
 const Template: Story<SgSelectComponent> = (args: SgSelectComponent) => ({
-  props: args
+  props: args,
+  template: `<div style='min-height: 200px'><sg-select [componentConfig]="componentConfig"></sg-select></div>`
 });
 
 export const Defaults = Template.bind({});
@@ -33,7 +37,7 @@ Defaults.args = {
     itemMatchStrategy: 'startsWith',
     itemValueField: 'value',
     itemDescriptionField: 'description',
-    items: MOVIESTARS,
+    items: [],
     className: ''
   }
 } 
@@ -92,7 +96,43 @@ CustomItemFields.args = {
   }
 }
 
-export const CustomStyling = Template.bind({});
+const customStylingCss: String = `
+.selectStyled.sg-select {
+  width: 50%;
+}
+.selectStyled.sg-select sg-select-input {
+  border: 1px solid #b07070;
+}
+.selectStyled.sg-select .sg-select-items {
+  border: 1px solid #a06060;
+  background-color: #a06060;
+}
+.selectStyled.sg-select .sg-select-items .sg-select-item {
+  color: #fff;
+}
+.selectStyled.sg-select .sg-select-items .sg-select-item:hover {
+  background-color: #904040;
+  color: #fff;
+}
+.selectStyled.sg-select .sg-select-items .sg-select-selected-item-active {
+  background-color: #702020;
+  color: #fff;
+}
+`
+const TemplateCustomStyling: Story<SgSelectComponent> = (args: SgSelectComponent) => ({
+  props: {...args, 'customStylingCss': customStylingCss},
+  template: `
+  <div style="min-height: 200px">
+    <sg-select [componentConfig]="componentConfig"></sg-select>
+    <div class="code-container">
+      <div class="code-panel">
+        <h6>Custom styles</h6>
+        <textarea class="code" readonly>{{customStylingCss}}</textarea> 
+      </div>  
+    </div>
+  </div>`
+});
+export const CustomStyling = TemplateCustomStyling.bind({});
 CustomStyling.args = {
   componentConfig: {
     name: 'customStyling',
