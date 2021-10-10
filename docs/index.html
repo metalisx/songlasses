@@ -1,0 +1,57 @@
+<html>
+<head>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@700&display=swap" rel="stylesheet">
+
+<style>
+	body {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box: 
+		outline: 0;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-family: 'Roboto', sans-serif;
+	}
+	.cards {
+		display: grid;
+		grid-column-gap: 2em;
+		grid-template-columns: repeat(2, 400px);
+		grid-template-rows: 400px;
+	}
+	.card {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		background-color: #0289ee;
+		border-radius: 16px;
+		transition: background-color 100ms ease-in;
+	}
+	.card:hover {
+		background-color: #3a6cdb;
+		transition: background-color 100ms ease-in;
+	}
+	.card a {
+		text-align: center;
+		font-size: 2.5rem;
+		text-decoration: none;
+		background-color: inherit;
+	}
+	.card a:link, .card a:active, .card a:hover, .card a:focus, .card a:visited {
+		color: #fff;
+	}
+</style>
+</head>
+<body>
+<div class="cards">
+	<div class="card">
+		<a href="/storybook/songlasses">Songlasses</br>Storybook</a>
+	</div>
+	<div class="card">
+		<a class="card" href="/storybook/demo">Songlasses</br>Demo application</a>
+	</div>
+</div>
+</body>
+</html>
