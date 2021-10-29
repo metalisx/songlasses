@@ -32,3 +32,13 @@
     background-color: var(--sg-primary-color);
     color: var(--sg-primary-on-color);
 }
+.sg-select-paging {
+    display: flex;
+    justify-content: space-between;
+}
+.sg-select-paging-button {
+    padding: 0.5em 1em;
+}
+.sg-select-paging-button-disabled {
+    opacity: var(--sg-select-paging-button-disabled-opacity); 
+}

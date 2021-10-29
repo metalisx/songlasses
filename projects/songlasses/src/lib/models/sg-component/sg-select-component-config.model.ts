@@ -9,6 +9,8 @@ export interface SgSelectComponentConfig extends SgComponentConfig {
     itemValueField?: string;
     itemDescriptionField?: string;
     items?: any[];
+    listPageNumber?: number;
+    listItemCount?: number;
     className?: string;
    
 }

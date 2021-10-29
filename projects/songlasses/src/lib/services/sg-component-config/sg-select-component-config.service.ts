@@ -14,6 +14,8 @@ export class SgSelectComponentConfigService {
         itemValueField: 'value',
         itemDescriptionField: 'description',
         items: [],
+        listPageNumber: 1,
+        listItemCount: 10,
         className: ''
     };
 

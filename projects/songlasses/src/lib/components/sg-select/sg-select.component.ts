@@ -1,3 +1,4 @@
+import { ThrowStmt } from '@angular/compiler';
 import { Component, ElementRef, forwardRef, HostListener, Input, OnInit, Optional, QueryList, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -481,6 +482,53 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
       } else if (index !== this.componentConfig.items.length - 1) {
         this.selectedItem = this.componentConfig.items[index + 1];
       }
+    }
+  }
+
+  // Paging
+  hasPaging(): boolean {
+    if (!this.componentConfig || this.componentConfig.items === undefined || !Array.isArray(this.componentConfig.items)) return false;
+    return this.componentConfig.listPageNumber !== undefined && this.componentConfig.listItemCount !== undefined && 
+        this.componentConfig.items.length > this.componentConfig.listItemCount;
+  }
+
+  hasPreviousPage(): boolean {
+    if (!this.componentConfig || this.componentConfig.items === undefined || !Array.isArray(this.componentConfig.items)) return false;
+    return this.componentConfig.listPageNumber !== undefined && this.componentConfig.listItemCount !== undefined &&
+        this.componentConfig.listPageNumber !== 1;
+  }
+
+  previousPage(): void {
+    if (this.componentConfig && this.componentConfig.listPageNumber && this.hasPreviousPage()) {
+      this.componentConfig.listPageNumber = this.componentConfig.listPageNumber - 1;
+    }
+  }
+
+  hasNextPage(): boolean {
+    if (!this.componentConfig || this.componentConfig.items === undefined || !Array.isArray(this.componentConfig.items)) return false;
+    return this.componentConfig.listPageNumber !== undefined &&  this.componentConfig.listItemCount !== undefined &&
+        this.componentConfig.items.length > (this.componentConfig.listPageNumber * this.componentConfig.listItemCount);
+  }
+
+  nextPage(): void {
+    if (this.componentConfig && this.componentConfig.listPageNumber !== undefined && this.hasNextPage()) {
+      this.componentConfig.listPageNumber = this.componentConfig.listPageNumber + 1;
+    }
+  }
+
+  getListItems():  any[] {
+    if (!this.componentConfig || this.componentConfig.items === undefined || !Array.isArray(this.componentConfig.items)) return [];
+    if (this.componentConfig.items.length > 0 && 
+        this.componentConfig.listPageNumber !== undefined && this.componentConfig.listItemCount !== undefined) {
+      let listItems: any[] = [];
+      const pageNumber = this.componentConfig.listPageNumber;
+      const itemCount = this.componentConfig.listItemCount;
+      for (var i: number = (pageNumber - 1) * itemCount; i < (pageNumber * itemCount) && i < this.componentConfig.items.length; i++) {
+        listItems.push(this.componentConfig.items[i]);
+      }
+      return listItems;
+    } else {
+      return this.componentConfig.items;
     }
   }
 
