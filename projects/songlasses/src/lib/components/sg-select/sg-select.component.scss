@@ -42,13 +42,13 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    align-items: center;
     width: 2em;
-    padding: 0.25em;
     background-color: var(--sg-select-dropdown-paging-background-color);
 }
 .sg-select-dropdown-paging-button {
-    padding: 0.5em 1em;
+    width: 100%;
+    text-align: center;
+    padding: 0.25em 0;
 }
 .sg-select-dropdown-paging-button-disabled {
     opacity: var(--sg-select-dropdown-paging-button-disabled-opacity); 

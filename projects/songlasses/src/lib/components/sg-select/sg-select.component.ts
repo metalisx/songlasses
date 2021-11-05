@@ -485,6 +485,20 @@ export class SgSelectComponent implements ControlValueAccessor, OnInit {
     }
   }
 
+  // attach-to-body
+  /**
+   * In some cases an popup element like a listbox needs to be attached to the body to be completely visible.
+   * This is the case when the parent of an element containing the popup element has the style overflow set to the value auto.
+   * In this case the popup wil not overflow and the listbox will be cut down at the top or bottom if the height of the
+   * parent is not enough.
+   * To prevent this the popup element is moved from it's location in the DOM to be a direct child of the body.
+   * And when the popup is closed it will be moved to it's original location in the DOM.
+   */
+  // TODO
+  attachToBody(el: HTMLElement): HTMLElement {
+    return el;
+  }
+
   // Paging
   hasPaging(): boolean {
     if (!this.componentConfig || this.componentConfig.items === undefined || !Array.isArray(this.componentConfig.items)) return false;
