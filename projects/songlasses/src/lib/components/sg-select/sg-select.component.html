@@ -5,30 +5,31 @@
         class="sg-select-input" [ngClass]="{'sg-input-error': model.invalid && (model.dirty || model.touched)}"
         [disabled]="disabled" [required]="isRequired()"
         (click)="click($event)" (keyup)="keyup($event)" (keydown)="keydown($event)"/>
-    <div *ngIf="showItems && componentConfig && componentConfig.items">
-    <ul #listItems
-        class="sg-select-items"
-        [ngClass]="{'sg-select-items-show': showItems===true}">
-        <li class="sg-select-item" #item
-            [ngClass]="[isSelectedItem(itm) ? 'sg-select-selected-item-active' : '']"
-            *ngFor="let itm of getListItems()" (click)="select(itm)">
-            <ng-container *ngIf="componentConfig.itemDescriptionField">
-                {{itm[componentConfig.itemDescriptionField]}}
-            </ng-container>
-        </li>
-        <li *ngIf="hasPaging()" class="sg-select-paging">
-            <a class="sg-select-paging-button" [ngClass]="{'sg-select-paging-button-disabled': !hasPreviousPage()}"
+    <div *ngIf="showItems && componentConfig && componentConfig.items" class="sg-select-dropdown">
+        <ul #listItems
+            class="sg-select-dropdown-items"
+            [ngClass]="{'sg-select-dropdown-items-show': showItems===true}">
+            <li class="sg-select-dropdown-item" #item
+                [ngClass]="[isSelectedItem(itm) ? 'sg-select-dropdown-selected-item-active' : '']"
+                *ngFor="let itm of getListItems()" (click)="select(itm)">
+                <ng-container *ngIf="componentConfig.itemDescriptionField">
+                    {{itm[componentConfig.itemDescriptionField]}}
+                </ng-container>
+            </li>
+        </ul>
+        <div *ngIf="hasPaging()" class="sg-select-dropdown-paging">
+            <a class="sg-select-dropdown-paging-button" [ngClass]="{'sg-select-dropdown-paging-button-disabled': !hasPreviousPage()}"
                 href="javascript:;" (click)="previousPage()">
                 <svg class="sg-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false">
-                    <path d="M4.00003 12L20 22L20 2L4.00003 12Z" fill="black"/>
+                    <path d="M12 4L22 20H2L12 4Z" fill="black"/>
                 </svg>
             </a>
-            <a class="sg-select-paging-button" [ngClass]="{'sg-select-paging-button-disabled': !hasNextPage()}"
+            <a class="sg-select-dropdown-paging-button" [ngClass]="{'sg-select-dropdown-paging-button-disabled': !hasNextPage()}"
                 href="javascript:;" (click)="nextPage()">
                 <svg class="sg-svg-icon" width="24" height="24" viewBox="0 0 24 24" fill="none" focusable="false">
-                    <path d="M20 12L4 2L4 22L20 12Z" fill="black"/>
+                    <path d="M12 20L22 4H2L12 20Z" fill="black"/>
                 </svg>
             </a>
-        </li>
-    </ul>
+        </div>
+    </div>
 </div>

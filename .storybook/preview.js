@@ -36,21 +36,27 @@ const css = `
 .selectStyled.sg-select sg-select-input {
   border: 1px solid #b07070;
 }
-.selectStyled.sg-select .sg-select-items {
+.selectStyled.sg-select .sg-select-dropwdown {
   border: 1px solid #a06060;
   background-color: #a06060;
 }
-.selectStyled.sg-select .sg-select-items .sg-select-item {
+.selectStyled.sg-select .sg-select-dropdown-items {
+  background-color: #a06060;
+}
+.selectStyled.sg-select .sg-select-dropdown-items .sg-select-dropdown-item {
   color: #fff;
 }
-.selectStyled.sg-select .sg-select-items .sg-select-item:hover {
+.selectStyled.sg-select .sg-select-dropdown-items .sg-select-dropdown-item:hover {
   background-color: #904040;
   color: #fff;
 }
-.selectStyled.sg-select .sg-select-items .sg-select-selected-item-active {
+.selectStyled.sg-select .sg-select-dropdown-items .sg-select-dropdown-selected-item-active {
   background-color: #702020;
   color: #fff;
-} 
+}
+.selectStyled.sg-select .sg-select-dropdown-paging {
+  background-color: #a06060;
+}
 `;
 const style = document.createElement('style');
 style.appendChild(document.createTextNode(css));

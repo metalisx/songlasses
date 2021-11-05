@@ -157,10 +157,12 @@
     --sg-sidebar-hamburger-svg-icon-height: 3rem;
 
     /* select */
-    --sg-select-items-height: auto;
-    --sg-select-items-background-color: var(--sg-body-color);
-    --sg-select-items-z-index: 10;
-    --sg-select-paging-button-disabled-opacity: var(--sg-paging-button-disabled-opacity);
+    --sg-select-dropdown-z-index: 10;
+    --sg-select-dropdown-height: auto;
+    --sg-select-dropdown-background-color: var(--sg-body-color);
+    --sg-select-dropdown-items-background-color: var(--sg-body-color);
+    --sg-select-dropdown-paging-background-color: var(--sg-body-color);
+    --sg-select-dropdown-paging-button-disabled-opacity: var(--sg-paging-button-disabled-opacity);
 
     /* svg */
     --sg-svg-icon-width: 1rem;
